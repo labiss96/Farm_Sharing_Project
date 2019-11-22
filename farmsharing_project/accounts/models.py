@@ -22,6 +22,6 @@ class Comment(models.Model):
     rating = models.IntegerField(null=True) #별점
 
 class Land(models.Model): #땅
-    region=models.CharField(max_length=200,null=True) #지역
-    land_area=models.CharField(max_length=100,null=True) #면적
-    land_condition=models.CharField(max_length=200,null=True) #땅상태
+    region = models.CharField(max_length=200,null=True) #지역
+    land_area = models.CharField(max_length=100,null=True) #면적
+    land_condition = models.CharField(max_length=200,null=True) #땅상태
