@@ -1,0 +1,12 @@
+
+<h1>성공 사례 게시판 </h1>
+<a href="{% url 'review_new' request.user.id%}"> 제보하기</a>
+
+{% for review in reviews %}
+<a href="{% url 'review_detail' review.id %}">
+<div class="container">
+       <h2>{{review.title}}</h2>
+       <p>작성자:{{review.writer}}</p>
+</div>
+</a>
+{% endfor %}
