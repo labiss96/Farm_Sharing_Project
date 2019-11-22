@@ -79,3 +79,14 @@ def land_delete(request, land_id):
     land_info = Land.objects.get(id = land_id)
     land_info.delete()
     return redirect('../mypage/'+str(request.user.username))
+
+def Profile_update(request):
+    profile=Profile.objects.get(username=request.user.username)
+    profile.email=request.POST['email']
+    profile.sns_id=request.POST['sns_id']
+    profile.introduce=request.POST['self_introduction']
+    profile.save()
+    return redirect('mypage',profile.username)
+
+def Profile_update_detail(request):
+    return render(request,'Profile_update_detail.html')
