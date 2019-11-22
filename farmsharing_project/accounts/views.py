@@ -61,3 +61,21 @@ def land_create(request):
     land.owner_user = request.user
     land.save()
     return redirect('../mypage/'+str(profile.username))
+
+def land_edit(request, land_id):
+    land_info = Land.objects.get(id = land_id)
+    return render(request, 'land_edit.html', {'land_info':land_info})
+
+def land_update(request, land_id):
+    land_info = Land.objects.get(id = land_id)
+    land_info.region = request.POST.get('region')
+    land_info.land_area = request.POST.get('land_area')
+    land_info.land_condition = request.POST.get('land_condition')
+    land_info.owner_user = request.user
+    land_info.save()
+    return redirect('../mypage/'+str(request.user.username))
+
+def land_delete(request, land_id):
+    land_info = Land.objects.get(id = land_id)
+    land_info.delete()
+    return redirect('../mypage/'+str(request.user.username))

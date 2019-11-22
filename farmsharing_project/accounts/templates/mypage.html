@@ -11,12 +11,14 @@
     <p>자기소개</p>
     <p>{{mypage_info.introduce}}</p>
     <hr>
-    <a href="../newLand">땅 등록</a>
-    <br><br>
+    <a href="{% url 'land_new' %}">땅 등록</a>
+    <br><hr>
     {% for land in my_lands %}
         <p>지역 : {{land.region}}</p>
         <p>면적 : {{land.land_area}}</p>
         <p>땅 상태 : {{land.land_condition}}</p>
+        <a href="{% url 'land_edit' land.id %}">수정</a> /
+        <a href="{% url 'land_delete' land.id %}">삭제</a>
         <hr>
     {% endfor %}
 </div>

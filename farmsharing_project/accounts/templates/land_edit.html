@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <br>
+    <h2>Edit Land</h2>
+    <form method="POST" action="{% url 'land_update' land_info.id %}" method="POST">
+        {% csrf_token %}
+        <br>
+        지역 : <input name="region" type="text" value="{{land_info.region}}">
+        <br>
+        땅 면적 : <input name="land_area" type="text" value="{{land_info.land_area}}">
+        <br>
+        땅 상태 : <input name="land_condition" type="text" value="{{land_info.land_condition}}">
+        <br><br>
+        <input type="submit" value="정보 수정">
+        <br>
+    </form>
+</div>
+
+{% endblock %}
