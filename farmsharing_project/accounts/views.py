@@ -43,6 +43,10 @@ def signup(request):
 def logout(request):
     auth.logout(request)
     return render(request,'login.html')
+  
 def mypage(request):
     mypage_info=Profile.objects.get(username=request.user.username)
     return render(request,'mypage.html',{'mypage_info':mypage_info})
+  
+def land_new(request):
+    return render(request, 'land_new.html')
