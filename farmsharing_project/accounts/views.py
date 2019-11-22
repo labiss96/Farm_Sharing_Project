@@ -61,3 +61,15 @@ def land_create(request):
     land.owner_user = request.user
     land.save()
     return redirect('../mypage/'+str(profile.username))
+
+def Profile_update(request):
+    profile=Profile.objects.get(username=request.user.username)
+    profile.email=request.POST['email']
+    profile.sns_id=request.POST['sns_id']
+    profile.introduce=request.POST['self_introduction']
+    profile.save()
+    return redirect('mypage',profile.username)
+
+def Profile_update_detail(request):
+    return render(request,'Profile_update_detail.html')
+

@@ -8,5 +8,7 @@ urlpatterns = [
     path('mypage/<str:profile_name>', views.mypage, name='mypage'),
     path('newLand/', views.land_new, name="land_new"),
     path('createLand/', views.land_create, name="land_create"),
+    path('Profile_update/',views.Profile_update,name="Profile_update"),
+    path('Profile_update_detail/',views.Profile_update_detail,name='Profile_update_detail'),
 ]
 
