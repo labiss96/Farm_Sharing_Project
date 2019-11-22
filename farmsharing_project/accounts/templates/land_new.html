@@ -5,7 +5,7 @@
 <div class="container">
     <br>
     <h2>Register Land</h2>
-    <form method="POST" action="">
+    <form method="POST" action="{% url 'land_create' %}" method="POST">
         {% csrf_token %}
         <br>
         지역 : <input name="region" type="text" value="">

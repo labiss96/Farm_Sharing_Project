@@ -1,19 +1,29 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+<div class ="container">
 {% if error %}
-{{error}}
+    {{error}}
 {% endif %}
-<form method="POST" action="{% url 'signup' %}">
-        {% csrf_token %}
+    <br>
+    <h2>Sign up</h2>
+    <br>
+    <form method="POST" action="{% url 'signup' %}">
+    {% csrf_token %}
+        Username : <input type="text" name="username" required="required" placeholder="Your id"><br>
+        Password : <input type="password" name="password1" required="required" placeholder="Your password"><br>
+        Confirm Passward :<input type="password" name="password2" required="required" placeholder="Your password"><br>
+        E-mail : <input type="email" name="email" required="required" placeholder="Your email"><br>
+        SNS ID : <input type="text" name="sns_id" required="required" placeholder="Your sns_id"><br>
+        Introduce : <textarea class="form-control" name="self_introduction" placeholder="자기소개"></textarea><br>
+        <input  type="submit" value="Sign Up!">
+    </form>
+</div>
 
-           id: <input type="text" name="username" required="required" placeholder="Your id"><br>
-            ps:<input type="password" name="password1" required="required" placeholder="Your password"><br>
-            confirm ps:<input type="password" name="password2" required="required" placeholder="Your password"><br>
-            email: <input type="email" name="email" required="required" placeholder="Your email"><br>
-            sns_id: <input type="text" name="sns_id" required="required" placeholder="Your sns_id"><br>
-            자기소개:<textarea class="form-control" name="self_introduction" placeholder="자기소개"
-                    ></textarea><br>
-            <label for="password">Your password</label>
-            
-                 <input  type="submit" value="Sign Up!">
+{% endblock %}
 
-           
-        </form>
+
+
+
+
