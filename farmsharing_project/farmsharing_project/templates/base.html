@@ -35,9 +35,9 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{% url 'mypage' request.user.username %}">Mypage</a>
-                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                <a class="dropdown-item" href="#">뭔가 기능 하나 넣으셈</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
               </div>
             </li>
             {% endif %}
