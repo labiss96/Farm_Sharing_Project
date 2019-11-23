@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+
 <h1>제목 : {{sb.title}}</h1></a>
 <h5>{{sb.recruitment_status}}</h5>
 <h5>작성자 : {{sb.writer}}</h5>
@@ -10,3 +13,5 @@
 <br><br>
 <a href="{% url 'sb_edit' sb.id%}">수정하기</a>
 <a href="{% url 'sb_delete' sb.id%}">삭제하기</a>
+
+{% endblock %}

@@ -122,6 +122,7 @@ def review_update(request, update_review_id):
     update_review.body = request.POST['body']
     update_review.save()
     return redirect('/otherBoard/review/'+str(update_review.id))
+    
 def review_like(request,like_review_id):
     like_review=get_object_or_404(Review,pk=like_review_id)
     if like_review.like.filter(username=request.user.username).exists():
