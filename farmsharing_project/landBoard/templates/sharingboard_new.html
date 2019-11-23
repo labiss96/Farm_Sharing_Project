@@ -1,0 +1,49 @@
+<h1>새 글 작성</h1>
+<form action="{%url 'sb_create' %}" method="POST">
+    {% csrf_token %}
+    제목 : <input type="text" name = 'title'><br>
+    지역 : <select name='region'>
+                <option value='' selected>-- 선택 --</option>
+                {%for i in regionM%}
+                <option value='{{i}}'>{{i}}</option>
+                {%endfor%}
+            </select><br>       
+    면적 : <input type="text" name = 'land_area'><br>
+    기간 : <select name = 'sharing_term'>
+                <option value='' selected>-- 선택 --</option>
+                <option value='1일'>1일</option>
+                <option value='일주일이내'>일주일이내</option>
+                <option value='3년'>3년</option>
+            </select><br>
+    금전지불의사 : <select name="is_free">
+                        <option value='' selected>-- 선택 --</option>
+                        <option value='지불의사있음'>지불의사있음</option>
+                        <option value='지불의사없음'>지불의사없음</option>
+                    </select><br>
+    비용 : <input type="text" name = 'amount'><br>
+    본문 : <textarea name="content" cols="30" rows="10" placeholder="글을 작성해주세요"></textarea><br>
+    진행상태 : <select name="recruitment_status">선택
+                    <option value='' selected>-- 선택 --</option>
+                    <option value='신청중'>신청중</option>
+                    <option value='신청완료'>신청완료</option>
+                </select><br>
+    이미지 : <input type="text" name="land_img">
+    <button type="submit">작성하기</button>
+</form>
+
+<!-- <form method="POST">
+    {% csrf_token %}
+    <table>
+        제목 : {{sb_form.title}}<br>
+        지역 : {{sb_form.region}}<br>
+        넓이 : {{sb_form.land_area}}<br>
+        기간 : {{sb_form.sharing_term}}<br>
+        비용을 지불하실 의향이있습니까? : {{sb_form.is_free}}<br>
+        금액 : {{sb_form.amount}}<br>
+        내용 : {{sb_form.content}}<br>
+        모집상태 : {{sb_form.recruitment_status}}<br>
+        이미지 : {{sb_form.land_img}}<br>
+    </table>
+    <br>
+    <input type="submit" value="제출하기">
+</form> -->

@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{% load staticfiles %}
+
 <div class ="container">
     <br>
     <h2> My Page </h2>
-
+    <p><img style="width: 13.5rem; height: 18rem;" src="{{ mypage_info.profile_img.url }}"></p>    
     <p>Username : {{mypage_info.username}}</p> 
     <p>E-mail : {{mypage_info.email}}</p>
     <p>SNS ID : {{mypage_info.sns_id}}</p>
@@ -16,14 +18,22 @@
     <a href="{% url 'land_new' %}">땅 등록</a>
     <br><hr>
     {% for land in my_lands %}
-        <p>지역 : {{land.region}}</p>
-        <p>면적 : {{land.land_area}}</p>
-        <p>땅 상태 : {{land.land_condition}}</p>
-        <a href="{% url 'land_edit' land.id %}">수정</a> /
-        <a href="{% url 'land_delete' land.id %}">삭제</a>
+        <div class="card border-success mb-3" style="max-width: 18rem;">
+            <div class="card-header">Place</div>
+            <div class="card-body text-success">
+                <h5 class="card-title">{{land.region}}</h5>
+                <p class="card-text">
+                    <p>면적 : {{land.land_area}}</p>
+                    <p>땅 상태 : {{land.land_condition}}</p>
+                    <a href="{% url 'land_edit' land.id %}">수정</a> /
+                    <a href="{% url 'land_delete' land.id %}">삭제</a>    
+                </p>
+            </div>
+        </div>
+        
         <hr>
     {% endfor %}
-     
+
 </div>
 
 

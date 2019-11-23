@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django_fields import DefaultStaticImageField
 
 # Create your models here.
 
@@ -7,8 +8,8 @@ class Profile(AbstractUser):
     nickname = models.CharField(max_length = 200, null=True)#  - nickname
     sns_id = models.CharField(max_length = 200, null =True)#   - SNS_ID
     introduce = models.TextField(null=True)#   - 자기소개란
-    #   - 땅(Foreignkey)
     score = models.IntegerField(null = True)#   - score
+    profile_img = DefaultStaticImageField(upload_to='profile_img/', blank=True, default_image_path='images/default_profile_img.png')
 
     def __str__(self):
          return self.username
