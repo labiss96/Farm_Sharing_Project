@@ -26,7 +26,8 @@ def join_new(request, user_id):
 def join_create(request, user_id):
     join = Join()
     join.title = request.POST['title']
-    join.writer = request.user.username
+    user = request.user
+    join.writer = get_object_or_404(Profile, username = user)
     join.region = request.POST['region']
     join.joined_people = request.POST['joined_people']
     join.active_period = request.POST['active_period']
@@ -109,8 +110,8 @@ def review_new(request, user_id):
 def review_create(request, user_id):
     review = Review()
     review.title = request.POST['title']
-    writer_name = Profile.objects.get(id = user_id)
-    review.writer = writer_name
+    user = request.user
+    review.writer = get_object_or_404(Profile, username = user)
     review.body = request.POST['body']
     review.save()
     return redirect('/otherBoard/review/'+str(review.id))

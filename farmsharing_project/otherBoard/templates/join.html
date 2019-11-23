@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
 
 <h1>팀 모집 게시판</h1>
 <a href="{% url 'join_new' request.user.id%}"> 팀원 모으기</a>
@@ -15,3 +17,5 @@
 </div>
 </a>
 {% endfor %}
+
+{% endblock %}
