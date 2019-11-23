@@ -9,3 +9,6 @@
 <a href="{% url 'review_edit' review.id %}"> 수정하기 </a>
 <br>
 <a href="{% url 'review_delete' review.id %}"> 삭제하기 </a>
+<br>
+<a href="{% url 'review_like' review.id %}"> 좋아요 </a>
+{{like_count}}

@@ -19,3 +19,9 @@
        <a href="{% url 'join_edit' join.id %}"> 수정하기 </a>
        <br>
        <a href="{% url 'join_delete' join.id %}"> 삭제하기 </a>
+       <br>
+       {% if scrapped == False%}
+       <a href="{% url 'join_scrap' join.id %}"> 스크랩하기 </a>
+       {% else %}
+       <a href="{% url 'join_scrap' join.id %}"> 스크랩 취소 </a>
+       {% endif %}
