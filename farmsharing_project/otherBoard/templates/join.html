@@ -1,6 +1,8 @@
-
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
 <h1>팀 모집 게시판</h1>
-<a href="{% url 'join_new' request.user.id%}"> 팀원 모으기</a>
+<a href="{% url 'join_new' request.user.id%}" class="action-button shadow animate yellow"> 팀원 모으기</a>
 
 {% for join in joins %}
 <a href="{% url 'join_detail' join.id %}">
@@ -15,3 +17,4 @@
 </div>
 </a>
 {% endfor %}
+{% endblock %}

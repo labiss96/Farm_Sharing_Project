@@ -1,12 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
 
-<h1>성공 사례 게시판 </h1>
-<a href="{% url 'review_new' request.user.id%}"> 제보하기</a>
+<style>
+p{
+       text-align: right;
+       font-size:20px;
+       color:black;
+}
 
-{% for review in reviews %}
-<a href="{% url 'review_detail' review.id %}">
-<div class="container">
-       <h2>{{review.title}}</h2>
-       <p>작성자:{{review.writer}}</p>
+h2{
+       color:#0B614B;
+       font-size:35px;
+}
+
+a{
+       color:black;
+}
+
+button{
+       border-radius: 8px;
+       font-size: 16px;
+       background-color: #f44336;
+
+
+}
+
+</style>
+
+<h1>성공사례게시판</h1><hr>
+<div style="float: right;">
+       <a href="{% url 'review_new' request.user.id%}" class="action-button shadow animate red">제보하기</a>
 </div>
-</a>
+
+
+<div class="container">
+{% for review in reviews %}
+
+<div class="card" style="width: 60rem; margin-bottom: 10px;">
+              <div class="card-body">
+                     <h5 class="card-title " style="font-size: 35px;"><a href="{% url 'review_new' request.user.id %}">{{review.title}}</a></h5>
+                     <div style="float: right;">
+                            <h6 class="card-subtitle mb-2 text-muted" style="font-size: 20px;" >작성자: {{review.writer}}</h6>
+                     </div>
+                     
+                     
+                     
+              </div>
+     
+</div>
 {% endfor %}
+
+</div>
+
+
+{% endblock %}

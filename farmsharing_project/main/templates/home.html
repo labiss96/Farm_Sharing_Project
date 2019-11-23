@@ -1,19 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<div class="btn-group container">
-    <a class="btn green dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        땅 게시판
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="{% url 'sharingboard' %}">땅 등록 게시판</a>
-        <a class="dropdown-item" href="{% url 'requestboard' %}">원하는 땅 등록 게시판</a>
+<div class="container">
+    <div class="btn-group container">
+        <a class="btn green dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            땅 게시판
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'sharingboard' %}">땅 등록 게시판</a>
+            <a class="dropdown-item" href="{% url 'requestboard' %}">원하는 땅 등록 게시판</a>
+        </div>
+        
+        <a href="{% url 'review' %}" class="btn green">성공사례</a>
+        <a href="{% url 'join' %}" class="btn green">팀원모집</a>
+        
     </div>
-    
-    <a href="{% url 'review' %}" class="btn green">성공사례</a>
-    <a href="{% url 'join' %}" class="btn green">팀원모집</a>
-    
+
 </div>
+
 <hr>
 <div class="container">
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
