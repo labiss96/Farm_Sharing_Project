@@ -4,6 +4,7 @@ from .import views
 
 urlpatterns = [
     path('sharingboard', views.SharingBoardRead, name="sharingboard"),
+    path('sharingboard/filter', views.sharing_filter , name='sharing_filter'),
     path('sharing/detail/<int:sb_id>', views.SharingBoardDetail, name="sb_detail"),
     path('sharing/new', views.SharingBoardNew, name= "sb_new"),
     path('sharing/create', views.SharingBoardCreate,name="sb_create"),
@@ -16,6 +17,7 @@ urlpatterns = [
 
 
     path('requestboard', views.RequestBoardRead, name="requestboard"),
+    path('requestboard/filter', views.request_filter , name='request_filter'),
     path('request/detail/<int:rb_id>', views.RequestBoardDetail, name="rb_detail"),
     path('request/new', views.RequestBoardNew, name= "rb_new"),
     path('request/create', views.RequestBoardCreate,name="rb_create"),

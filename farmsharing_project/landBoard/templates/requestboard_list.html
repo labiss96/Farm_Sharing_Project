@@ -1,8 +1,37 @@
-{% for rb in requestboards %}
-<hr>
-    <a href="{% url 'rb_detail' rb.id %}"><h1>제목 : {{rb.title}}</h1></a>
-    <h5>{{rb.recruitment_status}}</h5>
-    <h5>지역 : {{rb.region}}</h5>
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <br>
+    <p>Filter</p>
+    <form action="{% url 'request_filter' %}" method="POST">
+        {% csrf_token %}
+        <select name="region">
+            <option value="All">지역선택</option>
+            {% for rg in region_list %}
+                <option value="{{rg.region}}">{{rg.region}}</option>
+            {% endfor %}
+        </select>
+        <select name="is_free">
+            <option value="All">비용여부</option>
+            <option value="True">무료</option>
+            <option value="False">유료</option>
+        </select>
+        <button type="submit">필터링</button>
+    </form>
+
     <hr>
-{% endfor %}
-<a href="{% url 'rb_new' %}"><h1>원하는 땅 등록하기</h1></a>
+    <h4>땅 공유 요청게시판</h4>
+    <a href="{% url 'rb_new' %}">원하는 땅 등록하기</a>
+    <hr>
+
+    {% for rb in requestboards %}
+    <a href="{% url 'rb_detail' rb.id %}">{{rb.title}}</a> /
+    {{rb.recruitment_status}} /
+    {{rb.region}}
+    <hr>
+    {% endfor %}
+    
+</div>
+
+{% endblock %}

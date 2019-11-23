@@ -1,7 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
 
 <h1>팀 모집 게시판</h1>
-<a href="{% url 'join_new' request.user.id%}"> 팀원 모으기</a>
 
+<!-- 팀원 모으기 예외 처리 -->
+{% if user.is_authenticated %}
+<a href="{% url 'join_new' request.user.id%}"> 팀원 모으기</a>
+{% endif %}
+
+
+<!-- 게시물들 -->
 {% for join in joins %}
 <a href="{% url 'join_detail' join.id %}">
 <div class="container">
@@ -15,3 +23,5 @@
 </div>
 </a>
 {% endfor %}
+
+{% endblock %}

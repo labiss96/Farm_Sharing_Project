@@ -8,7 +8,32 @@ from .models import SB_comment,RB_comment
 
 def SharingBoardRead(request):
     sharingboards = SharingBoard.objects.all()
-    return render(request, 'sharingboard_list.html', {'sharingboards': sharingboards})
+    region_list = Region.objects.all()
+    return render(request, 'sharingboard_list.html', {'sharingboards': sharingboards, 'region_list':region_list})
+
+# filter
+def sharing_filter(request):
+    region_list = Region.objects.all()
+    filter_region = request.POST.get('region')
+    filter_is_free = request.POST.get('is_free')
+
+    if(filter_region == "All" and filter_is_free == "All"):
+        sharingboards = SharingBoard.objects.all()
+    elif(filter_region == "All" and filter_is_free != "All"):
+        sharingboards = SharingBoard.objects.filter(
+            is_free = filter_is_free
+        )
+    elif(filter_region != "All" and filter_is_free == "All"):
+        sharingboards = SharingBoard.objects.filter(
+            region = filter_region
+        )
+    elif(filter_region != "All" and filter_is_free != "All"):
+        sharingboards = SharingBoard.objects.filter(
+            region = filter_region,
+            is_free = filter_is_free
+        )
+
+    return render(request, 'sharingboard_list.html', {'sharingboards': sharingboards, 'region_list':region_list})
 
 
 def SharingBoardNew(request):
@@ -56,7 +81,33 @@ def SharingBoardDelete(request, sb_id):
 
 def RequestBoardRead(request):
     requestboards = RequestBoard.objects.all()
-    return render(request, 'requestboard_list.html', {'requestboards': requestboards})
+    region_list = Region.objects.all()
+    return render(request, 'requestboard_list.html', {'requestboards': requestboards, 'region_list':region_list})
+
+    # filter
+def request_filter(request):
+    region_list = Region.objects.all()
+    filter_region = request.POST.get('region')
+    filter_is_free = request.POST.get('is_free')
+
+    if(filter_region == "All" and filter_is_free == "All"):
+        requestboards = RequestBoard.objects.all()
+    elif(filter_region == "All" and filter_is_free != "All"):
+        requestboards = RequestBoard.objects.filter(
+            is_free = filter_is_free
+        )
+    elif(filter_region != "All" and filter_is_free == "All"):
+        requestboards = RequestBoard.objects.filter(
+            region = filter_region
+        )
+    elif(filter_region != "All" and filter_is_free != "All"):
+        requestboards = RequestBoard.objects.filter(
+            region = filter_region,
+            is_free = filter_is_free
+        )
+
+    return render(request, 'requestboard_list.html', {'requestboards': requestboards, 'region_list':region_list})
+
 
 def SharingBoardDetail(request,sb_id):
     sb_detail = get_object_or_404(SharingBoard,pk= sb_id)

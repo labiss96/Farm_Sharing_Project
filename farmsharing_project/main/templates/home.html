@@ -1,6 +1,58 @@
 {% extends 'base.html' %}
 {% block content %}
 
-hello
+<div class="btn-group container">
+    <a class="btn green dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        땅 게시판
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="{% url 'sharingboard' %}">땅 등록 게시판</a>
+        <a class="dropdown-item" href="{% url 'requestboard' %}">원하는 땅 등록 게시판</a>
+    </div>
+    
+    <a href="{% url 'review' %}" class="btn green">성공사례</a>
+    <a href="{% url 'join' %}" class="btn green">팀원모집</a>
+    
+</div>
+<hr>
+<div class="container">
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <h1>농사직설 1</h1>
+           
+        </div>
+        <div class="carousel-item">
+            <h1>농사직설 2</h1>
+        </div>
+        <div class="carousel-item">
+            <h1>농사직설 3</h1>
+            
+    </div>
+    </div>
+</div>
+</div>
+
+
+
+      
+
+
+
+
+
+ <!-- Masthead
+ <header class="masthead text-white text-center">
+    <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 mx-auto">
+                    <h1 class="mb-5">농사직설!</h1>
+                </div>
+            </div>
+        </div>
+    </div>    
+</header>     -->
+    
 
 {% endblock %}

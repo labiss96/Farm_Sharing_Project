@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+
 <h1>제목 : {{rb.title}}</h1></a>
 <h5>{{rb.recruitment_status}}</h5>
 <h5>작성자 : {{rb.writer}}</h5>
@@ -39,3 +42,4 @@
    
    </form>
    {% endif %}
+{% endblock %}

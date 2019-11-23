@@ -7,8 +7,9 @@ from accounts.models import Profile
 def join(request):
     join_home = Join.objects.all()
     return render(request, 'join.html',{'joins':join_home})
+       
 
-def join_detail(request, join_id):
+def join_detail(request, join_id):        
     join_detail = get_object_or_404(Join, pk = join_id)
     scrapped=False #스크랩 여부
     if join_detail.scrap.filter(username=request.user.username).exists():
@@ -16,8 +17,15 @@ def join_detail(request, join_id):
     else:
         scrapped=False
     comments = Join_comments.objects.filter(join = join_id)
-    me = request.user.username
-    return render(request, 'join_detail.html', {'join':join_detail,'scrapped':scrapped, 'me':me, 'comments':comments})
+    right = False
+    me = request.user
+    if me.is_authenticated:
+        if me.id != join_detail.writer.id:
+            rigtht = True
+        else:
+            pass
+    return render(request, 'join_detail.html', {'join':join_detail,'scrapped':scrapped, 'me':me, 'comments':comments,'right':right})
+
 
 def join_new(request, user_id):
     myname =  Profile.objects.get(id = user_id)
@@ -26,8 +34,9 @@ def join_new(request, user_id):
 def join_create(request, user_id):
     join = Join()
     join.title = request.POST['title']
-    join.writer = request.user.username
-    join.region = request.POST['region']
+    user = request.user
+    join.writer = get_object_or_404(Profile, username = user)
+    join.region = request.POST['region1']+request.POST['region2']
     join.joined_people = request.POST['joined_people']
     join.active_period = request.POST['active_period']
     join.purpose = request.POST['purpose']
@@ -92,7 +101,22 @@ def review(request):
 
 def review_detail(request, review_id):
     review_detail = get_object_or_404(Review, pk = review_id)
-    return render(request, 'review_detail.html', {'review':review_detail})
+    comments = Review_comments.objects.filter(review = review_id)
+    me = request.user.username
+    liked=False #좋아요 여부
+    if review_detail.like.filter(username=request.user.username).exists():
+        liked=True
+    else:
+        liked=False
+    like_count=review_detail.total_likes()
+    right = False
+    me = request.user
+    if me.is_authenticated:
+        if me.id != review_detail.writer.id:
+            rigtht = True
+        else:
+            pass
+    return render(request, 'review_detail.html', {'review':review_detail,'like_count':like_count,'liked':liked,'me':me,'comments': comments,'right':right})
 
 def review_new(request, user_id):
     myname =  Profile.objects.get(id = user_id)
@@ -101,8 +125,8 @@ def review_new(request, user_id):
 def review_create(request, user_id):
     review = Review()
     review.title = request.POST['title']
-    writer_name = Profile.objects.get(id = user_id)
-    review.writer = writer_name
+    user = request.user
+    review.writer = get_object_or_404(Profile, username = user)
     review.body = request.POST['body']
     review.save()
     return redirect('/otherBoard/review/'+str(review.id))
@@ -122,6 +146,7 @@ def review_update(request, update_review_id):
     update_review.body = request.POST['body']
     update_review.save()
     return redirect('/otherBoard/review/'+str(update_review.id))
+    
 def review_like(request,like_review_id):
     like_review=get_object_or_404(Review,pk=like_review_id)
     if like_review.like.filter(username=request.user.username).exists():
@@ -131,4 +156,18 @@ def review_like(request,like_review_id):
     return redirect('review_detail',like_review_id)   
 
 
+def review_new_comment(request, review_id):
+    comment = Review_comments()
+    user = request.user
+    comment.writer = get_object_or_404(Profile, username = user)
+    comment.content = request.POST['content']
+    comment.review= get_object_or_404( Review, pk= review_id)
+    comment.save()
+    return redirect('review_detail',review_id)
 
+def review_delete_comment(request, comment_id):
+    d_comment = Review_comments.objects.get(id=comment_id) 
+    if d_comment.writer == request.user:
+        d_comment.delete()
+
+    return redirect('review_detail',d_comment.review.pk)
