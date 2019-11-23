@@ -12,6 +12,7 @@ urlpatterns = [
     path('sharing/update/<int:sb_id>', views.SharingBoardUpdate, name="sb_update"),
     path('sharing/delete/<int:sb_id>', views.SharingBoardDelete, name="sb_delete"),
     path('requestboard', views.RequestBoardRead, name="requestboard"),
+    path('requestboard/filter', views.request_filter , name='request_filter'),
     path('request/detail/<int:rb_id>', views.RequestBoardDetail, name="rb_detail"),
     path('request/new', views.RequestBoardNew, name= "rb_new"),
     path('request/create', views.RequestBoardCreate,name="rb_create"),

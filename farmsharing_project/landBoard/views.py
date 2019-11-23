@@ -82,7 +82,33 @@ def SharingBoardDelete(request, sb_id):
 
 def RequestBoardRead(request):
     requestboards = RequestBoard.objects.all()
-    return render(request, 'requestboard_list.html', {'requestboards': requestboards})
+    region_list = Region.objects.all()
+    return render(request, 'requestboard_list.html', {'requestboards': requestboards, 'region_list':region_list})
+
+    # filter
+def request_filter(request):
+    region_list = Region.objects.all()
+    filter_region = request.POST.get('region')
+    filter_is_free = request.POST.get('is_free')
+
+    if(filter_region == "All" and filter_is_free == "All"):
+        requestboards = RequestBoard.objects.all()
+    elif(filter_region == "All" and filter_is_free != "All"):
+        requestboards = RequestBoard.objects.filter(
+            is_free = filter_is_free
+        )
+    elif(filter_region != "All" and filter_is_free == "All"):
+        requestboards = RequestBoard.objects.filter(
+            region = filter_region
+        )
+    elif(filter_region != "All" and filter_is_free != "All"):
+        requestboards = RequestBoard.objects.filter(
+            region = filter_region,
+            is_free = filter_is_free
+        )
+
+    return render(request, 'requestboard_list.html', {'requestboards': requestboards, 'region_list':region_list})
+
 
 def RequestBoardDetail(request,rb_id):
     rb_detail = get_object_or_404(RequestBoard,pk= rb_id)
