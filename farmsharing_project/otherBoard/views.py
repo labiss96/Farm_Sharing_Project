@@ -92,7 +92,13 @@ def review(request):
 
 def review_detail(request, review_id):
     review_detail = get_object_or_404(Review, pk = review_id)
-    return render(request, 'review_detail.html', {'review':review_detail})
+    liked=False #좋아요 여부
+    if review_detail.like.filter(username=request.user.username).exists():
+        liked=True
+    else:
+        liked=False
+    like_count=review_detail.total_likes()
+    return render(request, 'review_detail.html', {'review':review_detail,'like_count':like_count,'liked':liked})
 
 def review_new(request, user_id):
     myname =  Profile.objects.get(id = user_id)

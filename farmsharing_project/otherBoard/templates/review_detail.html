@@ -10,5 +10,9 @@
 <br>
 <a href="{% url 'review_delete' review.id %}"> 삭제하기 </a>
 <br>
+{% if liked == False %}
 <a href="{% url 'review_like' review.id %}"> 좋아요 </a>
+{% else %}
+<a href="{% url 'review_like' review.id %}"> 종아요 취소 </a>
+{% endif %}
 {{like_count}}
