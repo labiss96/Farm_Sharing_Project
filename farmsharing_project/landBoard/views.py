@@ -27,6 +27,7 @@ def SharingBoardCreate(request):
     new_sb.content = request.POST['content']
     new_sb.recruitment_status = request.POST['recruitment_status']
     new_sb.land_img = request.POST['land_img']
+    new_sb.writer = request.user
     new_sb.save()
     return redirect('sharingboard')
 
@@ -77,6 +78,7 @@ def RequestBoardCreate(request):
     new_rb.content = request.POST['content']
     new_rb.recruitment_status = request.POST['recruitment_status']
     new_rb.purpose = request.POST['purpose']
+    new_rb.writer = request.user
     new_rb.save()
     return redirect('requestboard')
 
