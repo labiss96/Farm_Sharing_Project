@@ -36,7 +36,7 @@ def join_create(request, user_id):
     join.title = request.POST['title']
     user = request.user
     join.writer = get_object_or_404(Profile, username = user)
-    join.region = request.POST['region']
+    join.region = request.POST['region1']+request.POST['region2']
     join.joined_people = request.POST['joined_people']
     join.active_period = request.POST['active_period']
     join.purpose = request.POST['purpose']
