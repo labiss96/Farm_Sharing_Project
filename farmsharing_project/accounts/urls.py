@@ -13,5 +13,6 @@ urlpatterns = [
     path('editLand/<int:land_id>', views.land_edit, name="land_edit"),
     path('updateLand/<int:land_id>', views.land_update, name="land_update"),
     path('deleteLand/<int:land_id>', views.land_delete, name="land_delete"),
+    path('Profile_scrap/',views.Profile_scrap,name="Profile_scrap"),
 ]
 

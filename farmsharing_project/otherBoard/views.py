@@ -128,6 +128,17 @@ def review_like(request,like_review_id):
         like_review.like.add(request.user)
     return redirect('review_detail',like_review_id)   
 
+<<<<<<< HEAD
+def join_scrap(request,scrap_join_id):
+    scrap_join=get_object_or_404(Join,pk=scrap_join_id)
+    
+    if scrap_join.scrap.filter(username=request.user.username).exists():
+        scrap_join.scrap.remove(request.user)
+    else:
+        scrap_join.scrap.add(request.user)
+    scrap_join.save()
+    return redirect('join_detail',scrap_join_id) 
+=======
 
 # def review_new_comment(request, review_id):
 #     comment = Review_comments()
@@ -144,3 +155,4 @@ def review_like(request,like_review_id):
 #         d_comment.delete()
 
 #     return redirect('review_detail',d_comment.review.pk)
+>>>>>>> d37bb2d62e8e9a86671a3730644e27a01a3098c9

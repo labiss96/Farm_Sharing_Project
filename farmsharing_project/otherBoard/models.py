@@ -30,6 +30,8 @@ class Join(models.Model): #팀 모집 게시판
         return self.title
     
 
+<<<<<<< HEAD
+=======
 
 
 class Join_comments(models.Model):
@@ -43,3 +45,4 @@ class Review_comments(models.Model):
     content = models.TextField()
     review = models.ForeignKey(Review, on_delete = models.CASCADE)
   
+>>>>>>> d37bb2d62e8e9a86671a3730644e27a01a3098c9
