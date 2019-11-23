@@ -29,3 +29,4 @@ class Join(models.Model): #팀 모집 게시판
     def __str__(self):
         return self.title
     
+

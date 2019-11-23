@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib import auth
 from .models import Profile, Land
-
+from otherBoard.models import *
 def home(request):
     return render(request, 'home.html')
 
@@ -90,3 +90,9 @@ def Profile_update(request):
 
 def Profile_update_detail(request):
     return render(request,'Profile_update_detail.html')
+
+def Profile_scrap(request):
+    profile=Profile.objects.get(username=request.user.username)
+    scrapped_profiles=profile.Profile_scrap.all()
+    return render(request,'profile_scraps.html',{'scraps':scrapped_profiles})
+

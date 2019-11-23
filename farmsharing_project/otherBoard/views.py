@@ -110,4 +110,5 @@ def join_scrap(request,scrap_join_id):
         scrap_join.scrap.remove(request.user)
     else:
         scrap_join.scrap.add(request.user)
+    scrap_join.save()
     return redirect('join_detail',scrap_join_id) 
