@@ -94,7 +94,13 @@ def review_detail(request, review_id):
     review_detail = get_object_or_404(Review, pk = review_id)
     comments = Review_comments.objects.filter(review = review_id)
     me = request.user.username
-    return render(request, 'review_detail.html', {'review':review_detail,'me':me 'comments': comments})
+    liked=False #좋아요 여부
+    if review_detail.like.filter(username=request.user.username).exists():
+        liked=True
+    else:
+        liked=False
+    like_count=review_detail.total_likes()
+    return render(request, 'review_detail.html', {'review':review_detail,'like_count':like_count,'liked':liked,'me':me,'comments': comments})
 
 def review_new(request, user_id):
     myname =  Profile.objects.get(id = user_id)
@@ -133,15 +139,12 @@ def review_like(request,like_review_id):
     return redirect('review_detail',like_review_id)   
 
 
-<<<<<<< Updated upstream
-
-=======
 def review_new_comment(request, review_id):
     comment = Review_comments()
     user = request.user
     comment.writer = get_object_or_404(Profile, username = user)
     comment.content = request.POST['content']
-    comment.join= get_object_or_404( Review, pk= review_id)
+    comment.review= get_object_or_404( Review, pk= review_id)
     comment.save()
     return redirect('review_detail',review_id)
 
@@ -151,4 +154,3 @@ def review_delete_comment(request, comment_id):
         d_comment.delete()
 
     return redirect('review_detail',d_comment.review.pk)
->>>>>>> Stashed changes
