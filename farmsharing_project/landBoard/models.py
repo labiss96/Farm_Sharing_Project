@@ -15,7 +15,7 @@ class LandBoard(PolymorphicModel):
     region = models.CharField(max_length=100) #지역
     land_area = models.FloatField() #면적
     sharing_term = models.CharField(max_length=100) #공유기간
-    is_free = models.CharField(max_length=100) #무료여부
+    is_free = models.BooleanField()  #무료여부
     amount = models.IntegerField() #금액
     content = models.TextField() #글 내용
     recruitment_status = models.CharField(max_length=30) #모집현황

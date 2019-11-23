@@ -4,6 +4,7 @@ from .import views
 
 urlpatterns = [
     path('sharingboard', views.SharingBoardRead, name="sharingboard"),
+    path('sharingboard/filter', views.sharing_filter , name='sharing_filter'),
     path('sharing/detail/<int:sb_id>', views.SharingBoardDetail, name="sb_detail"),
     path('sharing/new', views.SharingBoardNew, name= "sb_new"),
     path('sharing/create', views.SharingBoardCreate,name="sb_create"),
