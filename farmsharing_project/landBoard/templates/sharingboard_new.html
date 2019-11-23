@@ -2,6 +2,12 @@
 <form action="{%url 'sb_create' %}" method="POST">
     {% csrf_token %}
     제목 : <input type="text" name = 'title'><br>
+    공유할 땅 : <select name='user_land'>
+                    <option value="" selected>-- 선택 --</option>
+                    {%for land in user_lands%}
+                    <option value="{{land.id}}">{{land.region}} / {{i.land_area}} / {{i.land_condition}}</option>
+                    {% endfor %}
+                </select><br>
     지역 : <select name='region'>
                 <option value='' selected>-- 선택 --</option>
                 {%for i in regionM%}

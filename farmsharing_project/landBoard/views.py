@@ -38,9 +38,15 @@ def sharing_filter(request):
 
 def SharingBoardNew(request):
     regionM = Region.objects.all()
-    return render(request, 'sharingboard_new.html', {'regionM': regionM})
+    user = request.user
+    user_lands = user.user_land.all()
+    return render(request, 'sharingboard_new.html', {'regionM': regionM, 'user_lands':user_lands})
 
 def SharingBoardCreate(request):
+
+    land_id = request.POST['user_land']
+    land = Land.objects.get(id = land_id)
+
     new_sb = SharingBoard() 
     new_sb.title = request.POST['title']
     new_sb.region = request.POST['region']
@@ -52,6 +58,8 @@ def SharingBoardCreate(request):
     new_sb.recruitment_status = request.POST['recruitment_status']
     new_sb.land_img = request.POST['land_img']
     new_sb.writer = request.user
+    new_sb.choice_land = land
+
     new_sb.save()
     return redirect('sharingboard')
 
