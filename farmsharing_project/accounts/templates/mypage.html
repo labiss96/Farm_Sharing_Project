@@ -15,6 +15,16 @@
     <br>
     <a href="{% url 'Profile_update_detail' %}" >유저정보 수정</a>
     <hr>
+    나의 땅 공유 게시물 :
+    {%for sp in sharing_posts %}
+    <p> {{sp.title}} / {{sp.region}} </p>
+    {%endfor%}
+    <hr>
+    나의 땅 요구 게시물 :
+    {%for rp in request_posts %}
+    <p> {{rp.title}} / {{rp.region}}</p>
+    {%endfor%}
+    <hr>
     <a href="{% url 'land_new' %}">땅 등록</a>
     <br><hr>
     {% for land in my_lands %}

@@ -51,7 +51,9 @@ def logout(request):
 def mypage(request, profile_name):
     mypage_info = Profile.objects.get(username=profile_name)
     my_lands = Land.objects.filter(owner_user=mypage_info.id)
-    return render(request,'mypage.html',{'mypage_info':mypage_info, 'my_lands':my_lands})
+    request_posts = mypage_info.profile_rb.all()
+    sharing_posts = mypage_info.profile_sb.all()
+    return render(request,'mypage.html',{'mypage_info':mypage_info, 'my_lands':my_lands, 'sharing_posts':sharing_posts, 'request_posts':request_posts})
   
 def land_new(request):
     return render(request, 'land_new.html')
