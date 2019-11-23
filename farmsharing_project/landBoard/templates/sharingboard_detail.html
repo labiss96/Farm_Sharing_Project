@@ -10,3 +10,24 @@
 <br><br>
 <a href="{% url 'sb_edit' sb.id%}">수정하기</a>
 <a href="{% url 'sb_delete' sb.id%}">삭제하기</a>
+
+{%for comment in comments.all%}
+   <div class ='container'>
+                 <p>작성자:{{comment.comment_writer}}</p>
+                <p>내용:{{comment.comment_content}}</p>
+    </div>
+   {% endfor %}
+{% if user.is_authenticated %}   <!-- 로그인 상태가 아니면 댓글 못씀-->
+   <form action="{% url 'SharingBoardCommentNew' sb.id%}" method = "POST">
+           {% csrf_token %}
+           <div >
+                   작성자:{{me}}
+                   <br>
+                   내용:<textarea name="content" class="form-control" id="" cols="30" rows="5"></textarea>
+                   <br>
+                   <button type="submit">작성</button>
+       
+               </div>
+   
+   </form>
+   {% endif %}

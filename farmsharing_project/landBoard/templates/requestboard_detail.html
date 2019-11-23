@@ -10,3 +10,32 @@
 <br><br>
 <a href="{% url 'rb_edit' rb.id%}">수정하기</a>
 <a href="{% url 'rb_delete' rb.id%}">삭제하기</a>
+
+{%for comment in comments.all%}
+   <div class ='container'>
+                 <p>작성자:{{comment.comment_writer}}</p>
+                 <p>땅정보:{{comment.land_writer.region}}</p>
+                 <p>땅 크기 : {{comment.land_writer.land_area}}</p>
+                 <p>내용:{{comment.comment_content}}</p>
+    </div>
+   {% endfor %}
+{% if user.is_authenticated %}   <!-- 로그인 상태가 아니면 댓글 못씀-->
+   <form action="{% url 'RequestBoardCommentNew' rb.id%}" method = "POST">
+           {% csrf_token %}
+           <div >
+                   작성자:{{me}}
+                   <br>
+                   땅정보: <select name="l">
+                        <option value='' selected>-- 땅선택 --</option>
+                        {% for i in land %}
+                                <option value="{{i.id}}">{{i.region}} , {{i.land_area}} , {{i.land_condition}}</option>
+                        {%endfor%}
+                    </select>
+                   내용:<textarea name="content" class="form-control" id="" cols="30" rows="5"></textarea>
+                   <br>
+                   <button type="submit">작성</button>
+       
+               </div>
+   
+   </form>
+   {% endif %}
