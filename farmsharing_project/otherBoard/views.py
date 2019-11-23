@@ -10,7 +10,12 @@ def join(request):
 
 def join_detail(request, join_id):
     join_detail = get_object_or_404(Join, pk = join_id)
-    return render(request, 'join_detail.html', {'join':join_detail})
+    scrapped=False #스크랩 여부
+    if join_detail.scrap.filter(username=request.user.username).exists():
+        scrapped=True
+    else:
+        scrapped=False
+    return render(request, 'join_detail.html', {'join':join_detail,'scrapped':scrapped})
 
 def join_new(request, user_id):
     myname =  Profile.objects.get(id = user_id)
@@ -58,7 +63,9 @@ def review(request):
 
 def review_detail(request, review_id):
     review_detail = get_object_or_404(Review, pk = review_id)
-    return render(request, 'review_detail.html', {'review':review_detail})
+    like_count=review_detail.total_likes() #좋아요 개수 세기 
+
+    return render(request, 'review_detail.html', {'review':review_detail,'like_count':like_count})
 
 def review_new(request, user_id):
     myname =  Profile.objects.get(id = user_id)
@@ -88,3 +95,19 @@ def review_update(request, update_review_id):
     update_review.body = request.POST['body']
     update_review.save()
     return redirect('/otherBoard/review/'+str(update_review.id))
+def review_like(request,like_review_id):
+    like_review=get_object_or_404(Review,pk=like_review_id)
+    if like_review.like.filter(username=request.user.username).exists():
+        like_review.like.remove(request.user)
+    else:
+        like_review.like.add(request.user)
+    return redirect('review_detail',like_review_id)   
+
+def join_scrap(request,scrap_join_id):
+    scrap_join=get_object_or_404(Join,pk=scrap_join_id)
+    
+    if scrap_join.scrap.filter(username=request.user.username).exists():
+        scrap_join.scrap.remove(request.user)
+    else:
+        scrap_join.scrap.add(request.user)
+    return redirect('join_detail',scrap_join_id) 
