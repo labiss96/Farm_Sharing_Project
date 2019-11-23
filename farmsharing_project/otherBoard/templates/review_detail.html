@@ -9,17 +9,21 @@
 <br>
 <p>context:{{review.body}}</p>
 <br>
+{% if right %} <!--게시물 작성자가 아니면 수정 삭제 못함-->
 <a href="{% url 'review_edit' review.id %}"> 수정하기 </a>
 <br>
 <a href="{% url 'review_delete' review.id %}"> 삭제하기 </a>
 <br>
-<!-- 좋아요 -->
-{% if liked == False %}
-<a href="{% url 'review_like' review.id %}"> 좋아요 </a>
-{% else %}
-<a href="{% url 'review_like' review.id %}"> 좋아요 취소 </a>
 {% endif %}
-{{like_count}}
+<!-- 좋아요 -->
+{% if user.is_authenticated %}   <!-- 로그인 상태가 아니면 좋아요 못누름-->
+   {% if liked == False %}
+   <a href="{% url 'review_like' review.id %}"> 좋아요 </a>
+   {% else %}
+   <a href="{% url 'review_like' review.id %}"> 좋아요 취소 </a>
+   {% endif %}
+{% endif %}
+  <p>{{like_count}}명이 좋아하는 리뷰입니다.</p>
 <!-- 좋아요 끝 -->
 <!-- 댓글 시작 -->
 <br>
