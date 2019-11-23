@@ -62,6 +62,8 @@ def join_scrap(request,scrap_join_id):
         scrap_join.scrap.remove(request.user)
     else:
         scrap_join.scrap.add(request.user)
+    scrap_join.save()
+
     return redirect('join_detail',scrap_join_id) 
 
 
@@ -128,31 +130,5 @@ def review_like(request,like_review_id):
         like_review.like.add(request.user)
     return redirect('review_detail',like_review_id)   
 
-<<<<<<< HEAD
-def join_scrap(request,scrap_join_id):
-    scrap_join=get_object_or_404(Join,pk=scrap_join_id)
-    
-    if scrap_join.scrap.filter(username=request.user.username).exists():
-        scrap_join.scrap.remove(request.user)
-    else:
-        scrap_join.scrap.add(request.user)
-    scrap_join.save()
-    return redirect('join_detail',scrap_join_id) 
-=======
 
-# def review_new_comment(request, review_id):
-#     comment = Review_comments()
-#     user = request.user
-#     comment.writer = get_object_or_404(Profile, username = user)
-#     comment.content = request.POST['content']
-#     comment.join= get_object_or_404( Review, pk= review_id)
-#     comment.save()
-#     return redirect('review_detail',review_id)
 
-# def review_delete_comment(request, comment_id):
-#     d_comment = Join_comments.objects.get(id=comment_id) 
-#     if d_comment.writer == request.user:
-#         d_comment.delete()
-
-#     return redirect('review_detail',d_comment.review.pk)
->>>>>>> d37bb2d62e8e9a86671a3730644e27a01a3098c9

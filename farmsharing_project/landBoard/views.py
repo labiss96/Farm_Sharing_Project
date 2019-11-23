@@ -105,8 +105,3 @@ def RequestBoardDelete(request, rb_id):
     delete_post = RequestBoard.objects.get(pk= rb_id)
     delete_post.delete()
     return redirect('requestboard')
-    
-
-
-
-    
