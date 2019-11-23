@@ -19,17 +19,21 @@
        <br>
        <p>{{join.body}}</p>
        <br>
+       {% if right%}<!-- 게시물 작성자가 아니면 수정 삭제 못함!-->
        <a href="{% url 'join_edit' join.id %}"> 수정하기 </a>
        <br>
        <a href="{% url 'join_delete' join.id %}"> 삭제하기 </a>
        <br>
+       {% endif %}
 
        <!-- 스크랩 -->
-       {% if scrapped == False%}
-       <a href="{% url 'join_scrap' join.id %}"> 스크랩하기 </a>
-       {% else %}
-       <a href="{% url 'join_scrap' join.id %}"> 스크랩 취소 </a>
-       {% endif %}
+       {% if user.is_authenticated %}   <!-- 로그인 상태가 아니면 스크랩 못누름-->
+          {% if scrapped == False%}
+          <a href="{% url 'join_scrap' join.id %}"> 스크랩하기 </a>
+          {% else %}
+          <a href="{% url 'join_scrap' join.id %}"> 스크랩 취소 </a>
+          {% endif %}
+       {% endif%}
        <!-- 스크랩 끝 -->
 
 <!-- 댓글 시작 -->
