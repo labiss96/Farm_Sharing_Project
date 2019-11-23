@@ -164,7 +164,7 @@ header.masthead {
   .container .info span .fa {
     color: #EF3B3A;
   }
-  body {
+  .lobody {
     background: #76b852; /* fallback for old browsers */
     background: -webkit-linear-gradient(right, #76b852, #8DC26F);
     background: -moz-linear-gradient(right, #76b852, #8DC26F);
@@ -174,4 +174,64 @@ header.masthead {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;      
   }
+
+ .su {
+    color: #0B4C5F;
+    text-align: center;
+    font-size: large;
+}
+
+.subtn{
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 5%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    align:"right"
+
+}
+
+.animate
+{
+ transition: all 0.1s;
+ -webkit-transition: all 0.1s;
+}
+.action-button
+{
+    
+    position: relative;
+    padding: 10px 40px;
+            margin: 0px 10px 10px 0px;
+    border-radius: 3px;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    color: #FFF;
+    text-decoration: none; 
+}
+.red
+{
+
+ background-color: #e74c3c;
+ border-bottom: 5px solid #c0392b;
+ text-shadow: 0px -2px #c0392b;
+}
+.action-button:active
+{
+ transform: translate(0px,5px);
+  -webkit-transform: translate(0px,5px);
+ border-bottom: 1px solid;
+}
+
+.yellow
+{
+    background-color: #f1c40f;
+    border-bottom: 5px solid #f39c12;
+    text-shadow: 0px -2px #f39c12;
+    }
+
+/* 노란색버튼 */
 
