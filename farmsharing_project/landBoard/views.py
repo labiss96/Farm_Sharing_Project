@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect,get_object_or_404
 from .models import SharingBoard
 from .models import Region
 from .models import RequestBoard
+from accounts.models import Profile, Land
+from .models import SB_comment,RB_comment
 # from .forms import SharingBoardForm
 
 def SharingBoardRead(request):
@@ -33,9 +35,6 @@ def sharing_filter(request):
 
     return render(request, 'sharingboard_list.html', {'sharingboards': sharingboards, 'region_list':region_list})
 
-def SharingBoardDetail(request,sb_id):
-    sb_detail = get_object_or_404(SharingBoard,pk= sb_id)
-    return render(request, 'sharingboard_detail.html', {'sb':sb_detail})
 
 def SharingBoardNew(request):
     regionM = Region.objects.all()
@@ -110,9 +109,18 @@ def request_filter(request):
     return render(request, 'requestboard_list.html', {'requestboards': requestboards, 'region_list':region_list})
 
 
+def SharingBoardDetail(request,sb_id):
+    sb_detail = get_object_or_404(SharingBoard,pk= sb_id)
+    comments = SB_comment.objects.filter(sbcomment = sb_id)
+    me = request.user.username
+    return render(request, 'sharingboard_detail.html', {'sb':sb_detail, 'me':me, 'comments':comments})
+
 def RequestBoardDetail(request,rb_id):
     rb_detail = get_object_or_404(RequestBoard,pk= rb_id)
-    return render(request, 'requestboard_detail.html', {'rb':rb_detail})
+    comments = RB_comment.objects.filter(rbcomment = rb_id)
+    me = request.user.username
+    land = request.user.user_land.all()
+    return render(request, 'requestboard_detail.html', {'rb':rb_detail, 'land':land, 'me':me,'comments':comments})
 
 def RequestBoardNew(request):
     regionM = Region.objects.all()
@@ -156,3 +164,28 @@ def RequestBoardDelete(request, rb_id):
     delete_post = RequestBoard.objects.get(pk= rb_id)
     delete_post.delete()
     return redirect('requestboard')
+
+
+def SharingBoardCommentNew(request,sb_id):
+    comment = SB_comment()
+    user = request.user
+    comment.comment_writer = get_object_or_404(Profile , username= user)
+    comment.comment_content = request.POST['content']
+    comment.sbcomment = get_object_or_404(SharingBoard, pk = sb_id)
+    comment.save()
+    return redirect('sb_detail',sb_id)
+
+def RequestBoardCommentNew(request,rb_id):
+    comment = RB_comment()
+    user = request.user
+    comment.comment_writer = get_object_or_404(Profile, username=user)
+    land_id = request.POST['l']
+    land = Land.objects.get(id = land_id)
+    comment.land_writer = land
+    comment.comment_content = request.POST['content']
+    comment.rbcomment = get_object_or_404(RequestBoard, pk=rb_id)
+    comment.save()
+    return redirect('rb_detail',rb_id)
+
+
+
