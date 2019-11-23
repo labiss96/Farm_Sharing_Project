@@ -1,0 +1,13 @@
+{% for sb in sharingboards %}
+<hr>
+    <a href="{% url 'sb_detail' sb.id %}"><h1>제목 : {{sb.title}}</h1></a>
+    <h5>{{sb.recruitment_status}}</h5>
+    <h5>지역 : {{sb.region}}</h5>
+    <hr>
+    <!-- <h5>면적 : {{sb.land_area}}</h5>
+    <h5>기간 : {{sb.sharing_term}}</h5>
+    <h5>금액 : {{sb.amount}}</h5>
+    <h5>내용 : {{sb.content}}</h5>
+    <h5>이미지 : {{sb.land_img}}</h5> -->
+{% endfor %}
+<a href="{% url 'sb_new' %}"><h1>땅 등록하기</h1></a>

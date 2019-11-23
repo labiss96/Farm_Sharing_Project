@@ -1,0 +1,11 @@
+<h1>제목 : {{rb.title}}</h1></a>
+<h5>{{rb.recruitment_status}}</h5>
+<h5>지역 : {{rb.region}}</h5>
+<h5>면적 : {{rb.land_area}}</h5>
+<h5>기간 : {{rb.sharing_term}}</h5>
+<h5>금액 : {{rb.amount}}</h5>
+<h5>내용 : {{rb.content}}</h5>
+<h5>사용목적 : {{rb.purpose}}</h5>
+<br><br>
+<a href="{% url 'rb_edit' rb.id%}">수정하기</a>
+<a href="{% url 'rb_delete' rb.id%}">삭제하기</a>
