@@ -1,10 +1,17 @@
+
+<h1>팀 모집 게시판</h1>
+<a href="{% url 'join_new' request.user.id%}"> 팀원 모으기</a>
+
+{% for join in joins %}
+<a href="{% url 'join_detail' join.id %}">
 <div class="container">
-    {% for join in joins %}
-       {{join.title}}
-       {{join.region}}
-       {{join.}}
-       {{join.title}}
-       {{join.title}}
-    {% endfor %}
+       <h2>{{join.title}}</h2>
+       <p>지역:{{join.region}}</p>
+       <p>모집인원:{{join.joined_people}}</p>
+       <p>모집현황:{{join.current_joined}}</p>
+       <p>모집기간:{{join.active_period}}</p>
+       <p>목적:{{join.purpose}}</p>
 
 </div>
+</a>
+{% endfor %}

@@ -1,0 +1,11 @@
+
+<h2>{{review.title}}</h2>
+<br>
+<p>작성자:{{review.writer}}</p>
+<br>
+<br>
+<p>context:{{review.body}}</p>
+<br>
+<a href="{% url 'review_edit' review.id %}"> 수정하기 </a>
+<br>
+<a href="{% url 'review_delete' review.id %}"> 삭제하기 </a>

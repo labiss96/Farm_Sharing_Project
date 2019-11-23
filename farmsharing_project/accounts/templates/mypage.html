@@ -1,6 +1,30 @@
-<h1>mypage</h1>
+{% extends 'base.html' %}
+{% block content %}
 
-id:{{mypage_info.username}}<br>
-email:{{mypage_info.email}}<br>
-sns_id:{{mypage_info.sns_id}}<br>
-자기소개:{{mypage_info.introduce}}
+<div class ="container">
+    <br>
+    <h2> My Page </h2>
+
+    <p>Username : {{mypage_info.username}}</p> 
+    <p>E-mail : {{mypage_info.email}}</p>
+    <p>SNS ID : {{mypage_info.sns_id}}</p>
+    <p>자기소개</p>
+    <p>{{mypage_info.introduce}}</p>
+    <br>
+    <a href="{% url 'Profile_update_detail' %}" >유저정보 수정</a>
+    <hr>
+    <a href="{% url 'land_new' %}">땅 등록</a>
+    <br><hr>
+    {% for land in my_lands %}
+        <p>지역 : {{land.region}}</p>
+        <p>면적 : {{land.land_area}}</p>
+        <p>땅 상태 : {{land.land_condition}}</p>
+        <a href="{% url 'land_edit' land.id %}">수정</a> /
+        <a href="{% url 'land_delete' land.id %}">삭제</a>
+        <hr>
+    {% endfor %}
+     
+</div>
+
+
+{% endblock %}

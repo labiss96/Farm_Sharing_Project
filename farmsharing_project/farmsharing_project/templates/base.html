@@ -13,14 +13,14 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="/">농사직설</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-              {% if not user.is_authenticated %}>
+              {% if not user.is_authenticated %}
             <li class="nav-item active">
               <a class="nav-link" href="{% url 'signup' %}">signup <span class="sr-only">(current)</span></a>
             </li>
@@ -29,28 +29,33 @@
               <a class="nav-link" href="{% url 'login' %}">login <span class="sr-only">(current)</span></a>
             </li>
             {% else %}
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'logout' %}">logout <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'mypage' %}">mypage <span class="sr-only">(current)</span></a>
-              </li>
-            {% endif %}
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown active">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                땅 게시판
+                {{request.user.username}}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{% url 'sharingboard' %}">땅 등록 게시판</a>
-                <a class="dropdown-item" href="{% url 'requestboard' %}">원하는 땅 등록 게시판</a>
+                <a class="dropdown-item" href="{% url 'mypage' request.user.username %}">Mypage</a>
+                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
               </div>
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
+            {% endif %}
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'review' %}">성공 사례 게시판 <span class="sr-only">(current)</span></a>
+             </li>
+             <li class="nav-item active">
+                 <a class="nav-link" href="{% url 'join' %}">팀원 모집 게시판 <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  땅 게시판
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'sharingboard' %}">땅 등록 게시판</a>
+                  <a class="dropdown-item" href="{% url 'requestboard' %}">원하는 땅 등록 게시판</a>
+                </div>
+              </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
