@@ -15,7 +15,9 @@ def join_detail(request, join_id):
         scrapped=True
     else:
         scrapped=False
-    return render(request, 'join_detail.html', {'join':join_detail,'scrapped':scrapped})
+    comments = Join_comments.objects.filter(join = join_id)
+    me = request.user.username
+    return render(request, 'join_detail.html', {'join':join_detail,'scrapped':scrapped, 'me':me, 'comments':comments})
 
 def join_new(request, user_id):
     myname =  Profile.objects.get(id = user_id)
@@ -24,8 +26,7 @@ def join_new(request, user_id):
 def join_create(request, user_id):
     join = Join()
     join.title = request.POST['title']
-    writer_name = Profile.objects.get(id = user_id)
-    join.writer = writer_name
+    join.writer = request.user.username
     join.region = request.POST['region']
     join.joined_people = request.POST['joined_people']
     join.active_period = request.POST['active_period']
@@ -54,6 +55,32 @@ def join_update(request, update_join_id):
     update_join.save()
     return redirect('join')
 
+def join_scrap(request,scrap_join_id):
+    scrap_join=get_object_or_404(Join,pk=scrap_join_id)
+    
+    if scrap_join.scrap.filter(username=request.user.username).exists():
+        scrap_join.scrap.remove(request.user)
+    else:
+        scrap_join.scrap.add(request.user)
+    return redirect('join_detail',scrap_join_id) 
+
+
+def join_new_comment(request, join_id):
+    comment = Join_comments()
+    user = request.user
+    comment.writer = get_object_or_404(Profile, username = user)
+    comment.content = request.POST['content']
+    comment.join= get_object_or_404( Join, pk= join_id)
+    comment.save()
+    return redirect('join_detail',join_id)
+
+def join_delete_comment(request, comment_id):
+    d_comment = Join_comments.objects.get(id=comment_id) 
+    if d_comment.writer == request.user:
+        d_comment.delete()
+
+    return redirect('join_detail',d_comment.join.pk)
+
 
 
 # 성공 사례 계시판 함수들
@@ -63,9 +90,7 @@ def review(request):
 
 def review_detail(request, review_id):
     review_detail = get_object_or_404(Review, pk = review_id)
-    like_count=review_detail.total_likes() #좋아요 개수 세기 
-
-    return render(request, 'review_detail.html', {'review':review_detail,'like_count':like_count})
+    return render(request, 'review_detail.html', {'review':review_detail})
 
 def review_new(request, user_id):
     myname =  Profile.objects.get(id = user_id)
@@ -103,11 +128,19 @@ def review_like(request,like_review_id):
         like_review.like.add(request.user)
     return redirect('review_detail',like_review_id)   
 
-def join_scrap(request,scrap_join_id):
-    scrap_join=get_object_or_404(Join,pk=scrap_join_id)
-    
-    if scrap_join.scrap.filter(username=request.user.username).exists():
-        scrap_join.scrap.remove(request.user)
-    else:
-        scrap_join.scrap.add(request.user)
-    return redirect('join_detail',scrap_join_id) 
+
+# def review_new_comment(request, review_id):
+#     comment = Review_comments()
+#     user = request.user
+#     comment.writer = get_object_or_404(Profile, username = user)
+#     comment.content = request.POST['content']
+#     comment.join= get_object_or_404( Review, pk= review_id)
+#     comment.save()
+#     return redirect('review_detail',review_id)
+
+# def review_delete_comment(request, comment_id):
+#     d_comment = Join_comments.objects.get(id=comment_id) 
+#     if d_comment.writer == request.user:
+#         d_comment.delete()
+
+#     return redirect('review_detail',d_comment.review.pk)
