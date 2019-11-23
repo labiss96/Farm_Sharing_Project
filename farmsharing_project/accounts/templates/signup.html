@@ -9,7 +9,7 @@
     <br>
     <h2>Sign up</h2>
     <br>
-    <form method="POST" action="{% url 'signup' %}">
+    <form method="POST" action="{% url 'signup' %}" enctype="multipart/form-data">
     {% csrf_token %}
         Username : <input type="text" name="username" required="required" placeholder="Your id"><br>
         Password : <input type="password" name="password1" required="required" placeholder="Your password"><br>
@@ -17,6 +17,7 @@
         E-mail : <input type="email" name="email" required="required" placeholder="Your email"><br>
         SNS ID : <input type="text" name="sns_id" required="required" placeholder="Your sns_id"><br>
         Introduce : <textarea class="form-control" name="self_introduction" placeholder="자기소개"></textarea><br>
+        Profile Image : <input type="file" name="pofile_img" accept=".jpg,.jpeg,.png,.gif">
         <input  type="submit" value="Sign Up!">
     </form>
 </div>

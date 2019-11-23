@@ -1,0 +1,32 @@
+<h1>글 수정</h1>
+<form action="{%url 'rb_update' rb.id %}" method="POST">
+    {% csrf_token %}
+    제목 : <input type="text" name = 'title' value="{{rb.title}}"><br>
+    지역 : <select name='region'>
+                <option value='{{rb.region}}' selected>{{rb.region}}</option>
+                {%for i in regionM%}
+                <option value='{{i}}'>{{i}}</option>
+                {%endfor%}
+            </select><br>       
+    면적 : <input type="text" name = 'land_area' value="{{rb.land_area}}"><br>
+    기간 : <select name = 'sharing_term'>
+                <option value='{{rb.sharing_term}}' selected>{{rb.sharing_term}}</option>
+                <option value='1일'>1일</option>
+                <option value='일주일이내'>일주일이내</option>
+                <option value='3년'>3년</option>
+            </select><br>
+    금전지불의사 : <select name="is_free">
+                        <option value='{{rb.is_free}}' selected>--선택--</option>
+                        <option value='지불의사있음'>지불의사있음</option>
+                        <option value='지불의사없음'>지불의사없음</option>
+                    </select><br>
+    비용 : <input type="text" name = 'amount' value="{{rb.amount}}"><br>
+    본문 : <textarea name="content" cols="30" rows="10" placeholder="글을 작성해주세요">{{rb.content}}</textarea><br>
+    진행상태 : <select name="recruitment_status">선택
+                    <option value='{{sb.recruitment_status}}' selected>{{rb.recruitment_status}}</option>
+                    <option value='신청중'>신청중</option>
+                    <option value='신청완료'>신청완료</option>
+                </select><br>
+    사용목적 : <input type="text" name="purpose" value="{{rb.purpose}}"><br>
+    <button type="submit">수정하기</button>
+</form>
