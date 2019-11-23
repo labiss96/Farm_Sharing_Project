@@ -1,8 +1,19 @@
-{% for rb in requestboards %}
-<hr>
-    <a href="{% url 'rb_detail' rb.id %}"><h1>제목 : {{rb.title}}</h1></a>
-    <h5>{{rb.recruitment_status}}</h5>
-    <h5>지역 : {{rb.region}}</h5>
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <br>
+    <h4>땅 공유 요청게시판</h4>
+    <a href="{% url 'rb_new' %}">원하는 땅 등록하기</a>
     <hr>
-{% endfor %}
-<a href="{% url 'rb_new' %}"><h1>원하는 땅 등록하기</h1></a>
+
+    {% for rb in requestboards %}
+    <a href="{% url 'rb_detail' rb.id %}">{{rb.title}}</a> /
+    {{rb.recruitment_status}} /
+    {{rb.region}}
+    <hr>
+    {% endfor %}
+    
+</div>
+
+{% endblock %}
