@@ -4,6 +4,8 @@ import main.views
 import accounts.views
 import landBoard.views
 import otherBoard.views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -11,4 +13,4 @@ urlpatterns = [
     path('landBoard/', include('landBoard.urls')),
     path('otherBoard/', include('otherBoard.urls')),
     path('', include('main.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

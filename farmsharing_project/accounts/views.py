@@ -27,12 +27,16 @@ def signup(request):
                 return render(request, 'signup.html', {'error': 'Username has already been taken'})
             except Profile.DoesNotExist:
                 user = Profile.objects.create_user(
-                    request.POST['username'], password=request.POST['password1'],email=request.POST['email'],sns_id=request.POST['sns_id'],
-                    introduce=request.POST['self_introduction'])
+                    username = request.POST['username'], 
+                    password = request.POST['password1'],
+                    email = request.POST['email'],
+                    sns_id = request.POST['sns_id'],
+                    introduce = request.POST['self_introduction'],
+                    profile_img = request.FILES.get('pofile_img')
+                    )
                 auth.login(request, user)
-               
 
-                return redirect('login')
+                return redirect('/')
         else:
             return render(request, 'signup.html', {'error': 'Passwords must match'})
     else:
