@@ -1,4 +1,8 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6bf76891f5a63ad96cb034d578ba6cd590561d7b
 <div class="container">
         <h2>{{review.title}}</h2>
     <br>
@@ -7,17 +11,21 @@
     <br>
     <p>context:{{review.body}}</p>
     <br>
+{% if right %}
     <a href="{% url 'review_edit' review.id %}"> 수정하기 </a>
     <br>
     <a href="{% url 'review_delete' review.id %}"> 삭제하기 </a>
-    <br>
+{% endif %}    
+<br>
     <!-- 좋아요 -->
+{% if user.is_authenticated %}   <!-- 로그인 상태가 아니면 좋아요 못누름-->
     {% if liked == False %}
     <a href="{% url 'review_like' review.id %}"> 좋아요 </a>
     {% else %}
     <a href="{% url 'review_like' review.id %}"> 좋아요 취소 </a>
     {% endif %}
-    {{like_count}}
+ {% endif %}
+  <p>{{like_count}}명이 좋아하는 리뷰입니다.</p>
     <!-- 좋아요 끝 -->
     <!-- 댓글 시작 -->
     <br>
@@ -45,6 +53,7 @@
             내용:<textarea name="content" class="form-control" id="" cols="30" rows="5"></textarea>
             <br>
             <button type="submit">작성</button>
+<<<<<<< HEAD
 =======
 {% extends 'base.html' %}
 {% block content %}
@@ -87,6 +96,9 @@
 {% endif %}
 </div>
 >>>>>>> cdb69bc0d1bcc911d2f9ffeab090ddba2ae64c5a
+=======
+
+>>>>>>> 6bf76891f5a63ad96cb034d578ba6cd590561d7b
 
         </div>
 
@@ -95,6 +107,7 @@
     <br>
     <!-- 댓글 끝 -->
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 </div>
 =======
@@ -105,3 +118,8 @@
 
 {% endblock %}
 >>>>>>> cdb69bc0d1bcc911d2f9ffeab090ddba2ae64c5a
+=======
+
+{% endblock %}
+
+>>>>>>> 6bf76891f5a63ad96cb034d578ba6cd590561d7b
