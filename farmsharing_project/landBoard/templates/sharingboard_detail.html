@@ -3,24 +3,16 @@
 {% block content %}
 <div class ='container'>
    <h1>제목 : {{sb.title}}</h1></a>
-   <h5>{{sb.recruitment_status}}</h5>
    <h5>작성자 : {{sb.writer}}</h5>
    <h5>지역 : {{sb.region}}</h5>
    <h5>면적 : {{sb.land_area}}</h5>
    <h5>기간 : {{sb.sharing_term}}</h5>
    <h5>금액 : {{sb.amount}}</h5>
    <h5>내용 : {{sb.content}}</h5>
-   <h5>이미지 : {{sb.land_img}}</h5>
-   <br>
+   <img style="width: 18rem; height: 13rem;" src="{{ sb.land_img.url }}">
+   <br><hr>
    <a href="{% url 'sb_edit' sb.id%}">수정하기</a>
    <a href="{% url 'sb_delete' sb.id%}">삭제하기</a>
-   {% if user.username != sb.writer.username %}
-   {% if requested == False %}
-   <a href="{% url 'request_land' sb.id%}">신청하기</a>
-   {% else %}
-   <p>신청되었습니다.</p>
-   {% endif %}
-   {% endif %}
    <hr>
    {%for comment in comments.all%}
       
@@ -44,5 +36,3 @@
 </div>
 
 {% endblock %}
-
-
