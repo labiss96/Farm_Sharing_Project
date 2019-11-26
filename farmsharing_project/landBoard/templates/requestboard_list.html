@@ -1,25 +1,45 @@
 {% extends 'base.html' %}
 {% block content %}
+<style>
+        .btf {
+            font-family: 'RIDIBatang';
+            border-radius: 5px;
+            padding: 5px 5px;
+            font-size: 15px;
+            text-decoration: none;
+            margin: 20px;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+            background-color: #4B8A08;
+            border-color:#4B8A08;
+           
+        }
+        
+</style>
+<div class="container" style="text-align: left;">
+        <h4>땅 요구 게시판</h4><br>
 
-<div class="container">
-    <br>
-    <p>Filter</p>
-    <form action="{% url 'request_filter' %}" method="POST">
-        {% csrf_token %}
-        <select name="region">
-            <option value="All">지역선택</option>
-            {% for rg in region_list %}
-                <option value="{{rg.region}}">{{rg.region}}</option>
-            {% endfor %}
-        </select>
-        <select name="is_free">
-            <option value="All">비용여부</option>
-            <option value="True">무료</option>
-            <option value="False">유료</option>
-        </select>
-        <button type="submit">필터링</button>
-    </form>
 
+    <div class="container" style="text-align:center;">
+        <div style="border:3px solid white; padding:10px; border-radius: 10px; background-color:#D0F5A9;"><br>
+            <form action="{% url 'request_filter' %}" method="POST">
+                {% csrf_token %}
+                <select name="region" style="width:100px;height:40px; border-radius: 5px;">
+                    <option value="All">지역선택</option>
+                    {% for rg in region_list %}
+                        <option value="{{rg.region}}">{{rg.region}}</option>
+                    {% endfor %}
+                </select>
+                <select name="is_free" style="width:100px;height:40px; border-radius: 5px;">
+                    <option value="All">비용여부</option>
+                    <option value="True">무료</option>
+                    <option value="False">유료</option>
+                </select>
+        <button type="submit" class="btf">필터링</button>
+        </form>
+    </div>
+</div>
     <hr>
     <h4>땅 공유 요청게시판</h4>
     {% if user.is_authenticated %}
