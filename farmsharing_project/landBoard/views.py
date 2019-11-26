@@ -5,11 +5,16 @@ from .models import RequestBoard
 from accounts.models import Profile, Land
 from .models import SB_comment,RB_comment
 # from .forms import SharingBoardForm
+from django.core.paginator import Paginator
 
 def SharingBoardRead(request):
     sharingboards = SharingBoard.objects.all()
+    paginator = Paginator(sharingboards,2)
+
+    page = request.GET.get('page')
+    sharingboards2 = paginator.get_page(page)
     region_list = Region.objects.all()
-    return render(request, 'sharingboard_list.html', {'sharingboards': sharingboards, 'region_list':region_list})
+    return render(request, 'sharingboard_list.html', {'sharingboards': sharingboards, 'region_list':region_list, 'sharingboards2':sharingboards2})
 
 # filter
 def sharing_filter(request):

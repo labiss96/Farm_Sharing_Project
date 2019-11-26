@@ -10,7 +10,7 @@ class Profile(AbstractUser):
     introduce = models.TextField(null=True)#   - 자기소개란
     score = models.IntegerField(null = True)#   - score
     profile_img = DefaultStaticImageField(upload_to='profile_img/', blank=True, default_image_path='images/default_profile_img.png')
-
+    
     def __str__(self):
          return self.username
 
