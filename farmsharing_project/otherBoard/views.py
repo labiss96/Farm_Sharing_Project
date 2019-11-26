@@ -1,12 +1,16 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from .models import *
 from accounts.models import Profile
+from django.core.paginator import Paginator
 # Create your views here.
 
 #팀 모집 게시판 함수들
 def join(request):
     join_home = Join.objects.all()
-    return render(request, 'join.html',{'joins':join_home})
+    paginator = Paginator(join_home,3)
+    page = request.GET.get('page')
+    joins = paginator.get_page(page)
+    return render(request, 'join.html',{'joins':joins})
        
 
 def join_detail(request, join_id):        
@@ -95,9 +99,29 @@ def join_delete_comment(request, comment_id):
 
 
 # 성공 사례 계시판 함수들
-def review(request):
+def review(request,arrange):
     review_home = Review.objects.all()
-    return render(request, 'review.html',{'reviews':review_home})
+    page = request.GET.get('page')
+    review_list = []
+     
+    if arrange == "recent":
+        for review in review_home:
+            review_list.append(review)
+        review_list.reverse()
+
+    elif arrange == "popular": 
+        for review in review_home:
+            review_list.append(review)
+        review_list.reverse()
+        for i in range(0,len(review_list)-1):
+            for j in range(i,len(review_list)):
+                if review_list[i].total_likes() < review_list[j].total_likes():
+                    review_list[i],review_list[j] = review_list[j],review_list[i]
+                    
+    paginator = Paginator(review_list, 3)
+    reviews = paginator.get_page(page)
+    return render(request, 'review.html',{'reviews':reviews})
+
 
 def review_detail(request, review_id):
     review_detail = get_object_or_404(Review, pk = review_id)
@@ -129,7 +153,7 @@ def review_create(request, user_id):
     review.writer = get_object_or_404(Profile, username = user)
     review.body = request.POST['body']
     review.save()
-    return redirect('/otherBoard/review/'+str(review.id))
+    return redirect('/otherBoard/review_detail/'+str(review.id))
 
 def review_delete(request, delete_review_id):
     delete_review = get_object_or_404(Review, pk= delete_review_id)
@@ -145,7 +169,7 @@ def review_update(request, update_review_id):
     update_review.title = request.POST['title']
     update_review.body = request.POST['body']
     update_review.save()
-    return redirect('/otherBoard/review/'+str(update_review.id))
+    return redirect('/otherBoard/review_detail/'+str(update_review.id))
     
 def review_like(request,like_review_id):
     like_review=get_object_or_404(Review,pk=like_review_id)

@@ -18,8 +18,8 @@ urlpatterns = [
     path('join/delete_comment/<int:comment_id>',views.join_delete_comment, name = 'join_delete_comment'),
 
 #사례 게시판
-    path('review/',views.review, name = 'review'),
-    path('review/<int:review_id>',views.review_detail, name = 'review_detail'),
+    path('review/<str:arrange>',views.review, name = 'review'),
+    path('review_detail/<int:review_id>',views.review_detail, name = 'review_detail'),
     path('review/new/<int:user_id>',views.review_new, name = 'review_new'),
     path('review/create/<int:user_id>',views.review_create, name = 'review_create'),
     path('review/edit/<int:edit_review_id>',views.review_edit, name = 'review_edit'),
