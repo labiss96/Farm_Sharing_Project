@@ -3,10 +3,35 @@
 <div class ='container'>
     <h1>제목 : {{qb.title}}</h1><br>
     <h5>작성자 : {{qb.writer}}</h5><br>
-    <h5>내용 : {{qb.body}}</h5>
+    <h5>내용 : {{qb.body}}</h5><br>
 
-    <a href="{% url 'qb_edit' qb.id%}">수정하기</a>
-    <a href="{% url 'qb_delete' qb.id%}">삭제하기</a>
+    {% if user.is_authenticated %}   <!-- 로그인 상태가 아니면 댓글 못씀-->
+    <h2>댓글달기</h2>
+    <form action="{% url 'qb_commentnew' qb.id%}" method = "POST">
+            {% csrf_token %}
+            <div >
+                작성자:{{me}}
+                <br>
+                내용:<textarea name="content" class="form-control" id="" cols="30" rows="5"></textarea>
+                <br>
+                <button type="submit">작성</button>
+            </div>
+    </form>
+    {% endif %}
+
+    {%for comment in comments.all%}
+    <hr>
+        <p>작성자:{{comment.comment_writer}}</p><br>
+        <p>내용:{{comment.comment_content}}</p><br>
+        <a href="{% url 'qb_commentdelete' comment.id %}">내 댓글 삭제하기</a>
+        <hr>
+    {% endfor %}
+
+    <a href="{% url 'qb_edit' qb.id%}">글 수정하기</a><br>
+    <a href="{% url 'qb_delete' qb.id%}">글 삭제하기</a>
 </div>
+
+
+
 
 {% endblock %}
