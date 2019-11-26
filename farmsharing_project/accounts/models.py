@@ -28,3 +28,9 @@ class Land(models.Model): #땅
     owner_user = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='user_land')
     def __str__(self):
         return self.region
+
+class Land_request(models.Model):
+    owner=models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='land_owner')
+    client=models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='land_client')
+    land=models.ForeignKey(Land, on_delete=models.CASCADE, null=True)
+    status=models.BooleanField(default=False)

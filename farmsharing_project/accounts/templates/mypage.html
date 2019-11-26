@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% block content %}
 
@@ -46,6 +47,17 @@
     {% endfor %}
 
 </div>
+공유한 땅들<br>
+{% for land in shared_lands %}
+{{land.title}}<br>
+신청한 사람들<br>
+{% for person in  shared_lands_people %}
+{% if land.choice_land.id == person.land.id %}
+{{person.client.username}}<br>
+{% endif %}
+{% endfor %}
+{% endfor %}
 
 
 {% endblock %}
+
