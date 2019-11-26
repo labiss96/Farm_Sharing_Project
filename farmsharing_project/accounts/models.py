@@ -14,7 +14,6 @@ class Profile(AbstractUser):
     def __str__(self):
          return self.username
 
-
 class Comment(models.Model):
     belong_to_user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='profile_comment') #유저 마이페이지에 연결
     writer = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='writer_comment') #작성자 onetoMany 관계
