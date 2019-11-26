@@ -1,3 +1,4 @@
+
 from django.urls import path
 from . import views
 
@@ -16,4 +17,5 @@ urlpatterns = [
     path('Profile_scrap/',views.Profile_scrap,name="Profile_scrap"),
     path('request_land/<int:land_id>',views.request_land,name="request_land"),
 ]
+
 
