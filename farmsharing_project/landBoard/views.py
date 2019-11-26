@@ -1,9 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import SharingBoard
-from .models import Region
-from .models import RequestBoard
+from .models import *
 from accounts.models import *
-from .models import SB_comment,RB_comment
 from django.core.exceptions import ObjectDoesNotExist
 # from .forms import SharingBoardForm
 from django.core.paginator import Paginator
@@ -134,7 +131,7 @@ def SharingBoardDetail(request,sb_id):
     requested=False
     if sb.writer.username != request.user.username:
         try:
-            land=Land_request.objects.get(land=sb.choice_land.id, client=request.user.id)
+            land=Land_request.objects.get(land=sb.id, client=request.user.id)
             requested=land.status
         except ObjectDoesNotExist:
             pass
