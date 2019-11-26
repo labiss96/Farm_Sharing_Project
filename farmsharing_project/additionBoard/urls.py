@@ -10,6 +10,8 @@ urlpatterns = [
     path('question/edit/<int:qb_id>', views.QuestionBoardEdit, name="qb_edit"),
     path('question/update/<int:qb_id>', views.QuestionBoardUpdate, name="qb_update"),
     path('question/delete/<int:qb_id>', views.QuestionBoardDelete, name="qb_delete"),
+    path('question/newcomment/<int:qb_id>',views.QuestionBoardCommentNew, name="qb_commentnew"),
+    path('question/deletecomment/<int:comment_id>',views.QuestionBoardCommentDelete, name="qb_commentdelete"),
 
 
 

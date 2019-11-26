@@ -28,9 +28,9 @@
     <hr>
 
     {% for rb in requestboards %}
-    <a href="{% url 'rb_detail' rb.id %}">{{rb.title}}</a> /
-    {{rb.recruitment_status}} /
-    {{rb.region}}
+    <div style="float:left">{{rb.writer}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+    <a href="{% url 'rb_detail' rb.id %}">{{rb.title}}</a>
+    <div style="float:right">{{rb.region}}</div>
     <hr>
     {% endfor %}
     
