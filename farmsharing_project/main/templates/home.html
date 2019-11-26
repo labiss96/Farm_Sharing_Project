@@ -1,6 +1,86 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
+
+<style>
+
+
+@font-face { 
+    font-family: 'RIDIBatang'; 
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff'); 
+    font-weight: normal; 
+    font-style: normal; 
+}
+
+
+
+
+.area_navigation .an_item {
+    font-family: 'RIDIBatang'; 
+    float: left;
+    padding-left: 150px;
+    
+}
+
+.section_navbar {
+ 
+  z-index: 100;
+  /* z-index: 2; */
+  height: 46px;
+  border-bottom: 2px solid #E6E6E6;
+  background: #fff;
+  
+  
+}
+
+.area_navigation {
+  
+  margin: 0 auto;
+  width: 1080px;
+  zoom: 1;
+}
+
+.area_navigation .an_l {
+  
+  float: left;
+  padding-top: 16px;
+  padding-left: 4px;
+  zoom: 1;
+}
+ul {
+  list-style: none;
+}
+</style>
+<!-- new -->
+<div class="section_navbar">
+		<div class="area_navigation" role="navigation">
+			<ul class="an_l">
+				<li class="an_item a">
+						<a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                땅 게시판
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'sharingboard' %}">땅 등록 게시판</a>
+                            <a class="dropdown-item" href="{% url 'requestboard' %}">원하는 땅 등록 게시판</a>
+                        </div>
+				</li>
+				<li class="an_item">
+						<a href="{% url 'review' %}" >성공사례</a>
+        
+					</a>
+				</li>
+				<li class="an_item">
+						<a href="{% url 'join' %}" >팀원모집</a>
+					</a>
+				</li>
+				<li class="an_item">
+						<p>수확물 쇼핑몰</p>
+					</a>
+				</li>
+				
+			</ul>
+        </div>
+    </div>
+<!-- <div class="container">
     <div class="btn-group container">
         <a class="btn green dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             땅 게시판
@@ -15,21 +95,21 @@
         
     </div>
 
-</div>
+</div> -->
 
-<hr>
-<div class="container">
+
+<div class="container" style="font-family: 'RIDIBatang';">
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <h1>농사직설 1</h1>
+            <h1 style="margin-top:50px; margin-bottom:50px; text-align: center;">농사직설 1</h1>
            
         </div>
         <div class="carousel-item">
-            <h1>농사직설 2</h1>
+            <h1 style="margin-top:50px; margin-bottom:50px; text-align: center;">농사직설 2</h1>
         </div>
         <div class="carousel-item">
-            <h1>농사직설 3</h1>
+            <h1 style="margin-top:50px; margin-bottom:50px; text-align: center;">농사직설 3</h1>
             
     </div>
     </div>
@@ -38,24 +118,17 @@
 
 
 
+
+
+<hr style="border: 1px solid #E6E6E6">
+
+
       
 
 
 
 
 
- <!-- Masthead
- <header class="masthead text-white text-center">
-    <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-9 mx-auto">
-                    <h1 class="mb-5">농사직설!</h1>
-                </div>
-            </div>
-        </div>
-    </div>    
-</header>     -->
     
 
 {% endblock %}
