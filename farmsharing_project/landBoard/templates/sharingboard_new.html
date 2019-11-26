@@ -1,3 +1,6 @@
+{% load static %}
+{% load staticfiles %}
+
 <h1>새 글 작성</h1>
 <form action="{%url 'sb_create' %}" method="POST">
     {% csrf_token %}
