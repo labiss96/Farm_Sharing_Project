@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>질문 등록하기</h1>
+<form action="{%url 'qb_create'%}" method="POST">
+    {%csrf_token%}
+    제목 : <input type="text" name='title'><br>
+    내용 : <textarea name="body" id="" cols="30" rows="10"></textarea><br>
+    <button type="submit">등록!</button>
+</form>
+
+{% endblock %}
