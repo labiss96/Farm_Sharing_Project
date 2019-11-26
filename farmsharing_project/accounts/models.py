@@ -10,7 +10,7 @@ class Profile(AbstractUser):
     introduce = models.TextField(null=True)#   - 자기소개란
     score = models.IntegerField(null = True)#   - score
     profile_img = DefaultStaticImageField(upload_to='profile_img/', blank=True, default_image_path='images/default_profile_img.png')
-
+    
     def __str__(self):
          return self.username
 
@@ -28,3 +28,9 @@ class Land(models.Model): #땅
     owner_user = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='user_land')
     def __str__(self):
         return self.region
+
+class Land_request(models.Model):
+    owner=models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='land_owner')
+    client=models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='land_client')
+    land=models.ForeignKey(Land, on_delete=models.CASCADE, null=True)
+    status=models.BooleanField(default=False)

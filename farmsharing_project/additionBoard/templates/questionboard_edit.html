@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>질문 수정하기</h1>
+<form action="{%url 'qb_update' qb.id%}" method="POST">
+    {%csrf_token%}
+    제목 : <input type="text" name='title' value="{{qb.title}}"><br>
+    내용 : <textarea name="body" id="" cols="30" rows="10">{{qb.body}}</textarea><br>
+    <button type="submit">등록!</button>
+</form>
+
+{% endblock %}

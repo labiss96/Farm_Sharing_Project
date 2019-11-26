@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class ='container'>
+    <h1>제목 : {{qb.title}}</h1><br>
+    <h5>작성자 : {{qb.writer}}</h5><br>
+    <h5>내용 : {{qb.body}}</h5>
+
+    <a href="{% url 'qb_edit' qb.id%}">수정하기</a>
+    <a href="{% url 'qb_delete' qb.id%}">삭제하기</a>
+</div>
+
+{% endblock %}

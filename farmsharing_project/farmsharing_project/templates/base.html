@@ -15,21 +15,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-
-<style>
-.navbar{
-  font-family: 'RIDIBatang';
-  background-color:#76b852;
-  
-}
-</style>
 <body>
-    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light navcolor" >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">농사직설</a>
         <!-- <img src="{% static "css/images/log.png" %}"> -->
-        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
-        </button> -->
+        </button>
         <!-- <li class="nav-item active">
                   <a class="nav-link" href="{% url 'review' %}">성공 사례 게시판 <span class="sr-only">(current)</span></a>
               </li>
@@ -45,7 +37,7 @@
                     <a class="dropdown-item" href="{% url 'requestboard' %}">원하는 땅 등록 게시판</a>
                   </div>
                 </li> -->
-        <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav a">
               {% if not user.is_authenticated %}
             <li class="nav-item active ">
@@ -62,64 +54,17 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{% url 'mypage' request.user.username %}">Mypage</a>
-                <a class="dropdown-item" href="#">뭔가 기능 하나 넣으셈</a>
+                <a class="dropdown-item" href="{%url 'questionboard_list' %}">뭔가 기능 하나 넣으셈</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
               </div>
             </li>
-            {% endif %} -->
+            {% endif %}
             
-          <!-- </ul>
+          </ul>
           
         </div>
-      </nav> -->
-
-     <!-- 새로운 navbar -->
-              <nav class="navbar navbar-expand-md navbar-dark ">
-                <div class="container">
-                    <a class="navbar-brand" href="/">농사직설</a>
-                    <ul class="navbar-nav ml-auto">
-                      <li class="nav-item cta-btn">
-                          <div class="collapse navbar-collapse" id="navbarSupportedContent" style="z-index: 1;">
-                              <ul class="navbar-nav a" style="z-index: 1;">
-                                  {% if not user.is_authenticated %}
-                                <li class="nav-item active ">
-                                  <a class="nav-link " href="{% url 'signup' %}">signup <span class="sr-only">(current)</span></a>
-                                </li>
-                            
-                                <li class="nav-item active">
-                                  <a class="nav-link " href="{% url 'login' %}">login <span class="sr-only">(current)</span></a>
-                                </li>
-                                {% else %}
-                                <li class="nav-item dropdown active">
-                                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{request.user.username}}
-                                  </a>
-                                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{% url 'mypage' request.user.username %}">Mypage</a>
-                                    <a class="dropdown-item" href="#">뭔가 기능 하나 넣으셈</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-                                  </div>
-                                </li>
-                                {% endif %}
-                                
-                              </ul>
-                              
-                            </div>
-                      </li>
-                    </ul>
-                    
-                  </div>
-                </div>
-              </nav>
-
-                  
-                
-      
-
-    
-    
+      </nav>
     {% block content %}
     {% endblock %}
 

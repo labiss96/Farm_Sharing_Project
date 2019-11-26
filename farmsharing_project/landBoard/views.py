@@ -2,14 +2,20 @@ from django.shortcuts import render,redirect,get_object_or_404
 from .models import SharingBoard
 from .models import Region
 from .models import RequestBoard
-from accounts.models import Profile, Land
+from accounts.models import *
 from .models import SB_comment,RB_comment
+from django.core.exceptions import ObjectDoesNotExist
 # from .forms import SharingBoardForm
+from django.core.paginator import Paginator
 
 def SharingBoardRead(request):
     sharingboards = SharingBoard.objects.all()
+    paginator = Paginator(sharingboards,2)
+
+    page = request.GET.get('page')
+    sharingboards2 = paginator.get_page(page)
     region_list = Region.objects.all()
-    return render(request, 'sharingboard_list.html', {'sharingboards': sharingboards, 'region_list':region_list})
+    return render(request, 'sharingboard_list.html', {'sharingboards': sharingboards, 'region_list':region_list, 'sharingboards2':sharingboards2})
 
 # filter
 def sharing_filter(request):
@@ -124,7 +130,17 @@ def SharingBoardDetail(request,sb_id):
     sb_detail = get_object_or_404(SharingBoard,pk= sb_id)
     comments = SB_comment.objects.filter(sbcomment = sb_id)
     me = request.user.username
-    return render(request, 'sharingboard_detail.html', {'sb':sb_detail, 'me':me, 'comments':comments})
+    sb=SharingBoard.objects.get(id=sb_id)
+    requested=False
+    if sb.writer.username != request.user.username:
+        try:
+            land=Land_request.objects.get(land=sb.choice_land.id, client=request.user.id)
+            requested=land.status
+        except ObjectDoesNotExist:
+            pass
+    
+
+    return render(request, 'sharingboard_detail.html', {'sb':sb_detail, 'me':me, 'comments':comments,'requested':requested})
 
 def RequestBoardDetail(request,rb_id):
     rb_detail = get_object_or_404(RequestBoard,pk= rb_id)
