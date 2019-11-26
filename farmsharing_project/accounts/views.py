@@ -56,9 +56,15 @@ def mypage(request, profile_name):
     my_lands = Land.objects.filter(owner_user=mypage_info.id)
     request_posts = mypage_info.profile_rb.all()
     sharing_posts = mypage_info.profile_sb.all()
-    shared_lands_people=Land_request.objects.filter(owner=request.user.id)
-    shared_lands=SharingBoard.objects.filter(writer=request.user.id)
-    return render(request,'mypage.html',{'mypage_info':mypage_info, 'my_lands':my_lands, 'sharing_posts':sharing_posts, 'request_posts':request_posts,'shared_lands':shared_lands,'shared_lands_people':shared_lands_people})
+    shared_lands_people=Land_request.objects.filter(owner=request.user.id)#내가 공유한 땅을 신청한 사람들
+    shared_lands=SharingBoard.objects.filter(writer=request.user.id)#내가 공유한 땅들
+    applied=Land_request.objects.filter(client=request.user.id)#내가 신청한 땅들
+    applied_lands=[]
+    for land in applied:
+        tmp=SharingBoard.objects.get(choice_land=land.land.id)
+        applied_lands.append(tmp)
+
+    return render(request,'mypage.html',{'mypage_info':mypage_info, 'my_lands':my_lands, 'sharing_posts':sharing_posts, 'request_posts':request_posts,'shared_lands':shared_lands,'shared_lands_people':shared_lands_people,'applied_lands':applied_lands})
   
 def land_new(request):
     return render(request, 'land_new.html')
