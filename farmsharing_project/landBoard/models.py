@@ -45,3 +45,10 @@ class RB_comment(models.Model):
     comment_content = models.TextField()
     land_writer = models.ForeignKey(Land,on_delete=models.CASCADE)
     rbcomment = models.ForeignKey(RequestBoard, on_delete=models.CASCADE)
+
+class Land_request(models.Model):
+    owner=models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='land_owner')
+    client=models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='land_client')
+    land=models.ForeignKey(SharingBoard, on_delete=models.CASCADE, null=True)
+    status=models.BooleanField(default=False)#신청 상태
+    is_completed=models.BooleanField(default=False)# 신청 완료 여부 

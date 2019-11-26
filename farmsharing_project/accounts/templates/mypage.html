@@ -56,7 +56,7 @@
 <p>신청한 사람들</p>
 <hr>
 {% for person in  shared_lands_people %}
-{% if land.choice_land.id == person.land.id %}
+{% if land.id == person.land.id %}
 <a href="{% url 'mypage' person.client.username %}">{{person.client.username}}</a><br>
 {% endif %}
 {% endfor %}
@@ -64,7 +64,7 @@
 {% endfor %}
 <p>내가 신청한 땅들</p>
 {% for land in applied_lands %}
-<summary><a href="{% url 'sb_detail' land.id %}">{{land.title}}</a></summary>
+<a href="{% url 'sb_detail' land.land.id %}">{{land.land.title}}</a>
 <br>
 {% endfor %}
 

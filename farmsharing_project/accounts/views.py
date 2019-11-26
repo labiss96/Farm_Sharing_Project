@@ -58,12 +58,7 @@ def mypage(request, profile_name):
     sharing_posts = mypage_info.profile_sb.all()
     shared_lands_people=Land_request.objects.filter(owner=request.user.id)#내가 공유한 땅을 신청한 사람들
     shared_lands=SharingBoard.objects.filter(writer=request.user.id)#내가 공유한 땅들
-    applied=Land_request.objects.filter(client=request.user.id)#내가 신청한 땅들
-    applied_lands=[]
-    for land in applied:
-        tmp=SharingBoard.objects.get(choice_land=land.land.id)
-        applied_lands.append(tmp)
-
+    applied_lands=Land_request.objects.filter(client=request.user.id)#내가 신청한 땅들
     return render(request,'mypage.html',{'mypage_info':mypage_info, 'my_lands':my_lands, 'sharing_posts':sharing_posts, 'request_posts':request_posts,'shared_lands':shared_lands,'shared_lands_people':shared_lands_people,'applied_lands':applied_lands})
   
 def land_new(request):
@@ -115,13 +110,21 @@ def Profile_scrap(request):
 
 def request_land(request,land_id):
     sb=SharingBoard.objects.get(id=land_id)
-    land=Land.objects.get(id=sb.choice_land.id)
+    owner=Profile.objects.get(username=sb.writer)
     land_request=Land_request()
     land_request.client=request.user
-    land_request.owner=land.owner_user
-    land_request.land=land
+    land_request.owner=owner
+    land_request.land=sb
     land_request.status=True
     land_request.save()
     return redirect('sb_detail',land_id)
-    
+
+#  def request_accept(request,land_id):
+#      land=Land_request.objects.get(id=land_id)   
+#      land.is_completed=True
+#      land.save()
+#      sb=SharingBoard.objects.get(choice_land=land.land.id)
+#      sb.is_completed=True
+#      sb.save()
+#     return redirect('mypage',request.user.username)
 
