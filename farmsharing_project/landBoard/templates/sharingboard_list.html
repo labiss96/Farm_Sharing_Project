@@ -1,49 +1,77 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
+{% load staticfiles %}
 
-<div class="container">
-    <br>
-    <p>Filter</p>
-    <form action="{% url 'sharing_filter' %}" method="POST">
-        {% csrf_token %}
-        <select name="region">
-            <option value="All">지역선택</option>
-            {% for rg in region_list %}
-                <option value="{{rg.region}}">{{rg.region}}</option>
-            {% endfor %}
-        </select>
-        <select name="is_free">
-            <option value="All">비용여부</option>
-            <option value="True">무료</option>
-            <option value="False">유료</option>
-        </select>
-        <button type="submit">필터링</button>
+
+<style>
+.btf {
+    font-family: 'RIDIBatang';
+    border-radius: 5px;
+    padding: 5px 5px;
+    font-size: 15px;
+    text-decoration: none;
+    margin: 20px;
+    color: #fff;
+    position: relative;
+    display: inline-block;
+    background-color: #4B8A08;
+    border-color:#4B8A08;
+   
+}
+
+</style>
+<div class="container" style="text-align:center;">
+    <div style="border:3px solid white; padding:10px; border-radius: 10px; background-color:#D0F5A9;"><br>
+        <form action="{% url 'sharing_filter' %}" method="POST">
+                {% csrf_token %}
+                <select name="region" style="width:100px;height:40px; border-radius: 5px;">
+                    <option value="All">지역선택</option>
+                    {% for rg in region_list %}
+                        <option value="{{rg.region}}">{{rg.region}}</option>
+                    {% endfor %}
+                </select>
+                <select name="is_free" style="width:100px;height:40px; border-radius: 5px;" >
+                    <option value="All">비용여부</option>
+                    <option value="True">무료</option>
+                    <option value="False">유료</option>
+                </select>
+                <h1>hello</h1>
+                <button type="submit" class="btf">필터링</button>
+    
+    </div>
+    
     </form>
     <hr>
     <br>
-    <h4>땅 공유 게시판</h4>
-    {% if user.is_authenticated %}
-    <a href="{% url 'sb_new' %}"><p>땅 등록하기</p></a>
-    {% endif %}
-    <hr>
-    {% for sb in sharingboards2 %}
-    <a href="{% url 'sb_detail' sb.id %}">{{sb.title}}</a> /
-    {{sb.recruitment_status}} /
-    {{sb.region}}
-    <hr>
-    {% endfor %}
-</div>
-    {% if sharingboards2.has_previous%}
-        <a href="?page={{sharingboards2.1}}">첫페이지</a>
-        <a href="?page={{sharingboards2.previous_page_number}}">이전 페이지</a>
-        {% endif %}
 
-        <span>{{sharingboards2.number}}</span>
-        <span>of</span>
-        <span>{{sharingboards2.paginator.num_pages}}</span>
+    <div class="container" style="text-align:left;">
+        <h4>땅 공유 게시판</h4>
+            {% if user.is_authenticated %}
+            <a href="{% url 'sb_new' %}"><p>땅 등록하기</p></a>
+            {% endif %}
+            <hr>
+            {% for sb in sharingboards2 %}
+            <a href="{% url 'sb_detail' sb.id %}">{{sb.title}}</a> /
+            {{sb.recruitment_status}} /
+            {{sb.region}}
+            <hr>
+            {% endfor %}
+        </div>
+            {% if sharingboards2.has_previous%}
+                <a href="?page={{sharingboards2.1}}">첫페이지</a>
+                <a href="?page={{sharingboards2.previous_page_number}}">이전 페이지</a>
+                {% endif %}
 
-        {% if sharingboards2.has_next%}
-        <a href="?page={{sharingboards2.next_page_number}}">다음페이지</a>
-        <a href="?page={{sharingboards2.paginaitor.num_pages}}">마지막 페이지</a>
-        {% endif %}
-    {% endblock %}
+                <span>{{sharingboards2.number}}</span>
+                <span>of</span>
+                <span>{{sharingboards2.paginator.num_pages}}</span>
+
+                {% if sharingboards2.has_next%}
+                <a href="?page={{sharingboards2.next_page_number}}">다음페이지</a>
+                <a href="?page={{sharingboards2.paginaitor.num_pages}}">마지막 페이지</a>
+                {% endif %}
+            {% endblock %}
+
+    </div>
+    
