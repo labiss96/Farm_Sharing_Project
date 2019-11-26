@@ -1,7 +1,11 @@
+
 {% extends 'base.html' %}
 {% block content %}
-
+               
+{% load static %}
+{% load staticfiles %}
 <h1>땅 공유!</h1>
+
 <form action="{%url 'sb_create' %}" method="POST">
     {% csrf_token %}
     제목 : <input type="text" name = 'title' required="required"><br>

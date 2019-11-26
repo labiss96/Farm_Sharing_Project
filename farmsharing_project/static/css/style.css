@@ -45,11 +45,11 @@ header.masthead {
 
   .btn {
     font-family: 'RIDIBatang';
-    border-radius: 5px;
-    padding: 15px 25px;
-    font-size: 22px;
+    border-radius: 1px;
+    padding: 5px 5px;
+    font-size: 10px;
     text-decoration: none;
-    margin: 20px;
+    margin: 10px;
     color: #fff;
     position: relative;
     display: inline-block;
@@ -309,3 +309,4 @@ a {
   text-decoration: none;
   background-color: transparent;
 }
+
