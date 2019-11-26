@@ -1,26 +1,36 @@
-<h1>새 글 작성</h1>
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>땅 공유 요청</h1>
 <form action="{%url 'rb_create' %}" method="POST">
     {% csrf_token %}
-    제목 : <input type="text" name = 'title'><br>
+    제목 : <input type="text" name ='title' required="required"><br>
     지역 : <select name='region'>
                 <option value='' selected>-- 선택 --</option>
                 {%for i in regionM%}
                 <option value='{{i}}'>{{i}}</option>
                 {%endfor%}
             </select><br>       
-    면적 : <input type="text" name = 'land_area'><br>
+    면적 : <input type="number" name = 'land_area' required="required"><br>
     기간 : <select name = 'sharing_term'>
                 <option value='' selected>-- 선택 --</option>
                 <option value='1일'>1일</option>
                 <option value='일주일이내'>일주일이내</option>
                 <option value='3년'>3년</option>
             </select><br>
-    비용 지불의사 여부 : <select name="is_pay_for">
-                        <option value='' selected>-- 선택 --</option>
-                        <option value=1>있음</option>
-                        <option value=0>무료로 해주떼용</option>
-                    </select><br>
-    본문 : <textarea name="content" cols="30" rows="10" placeholder="글을 작성해주세요"></textarea><br>
-    사용목적 : <input type="text" name="purpose"><br>
+    비용 지불의사 여부 : 
+    <!-- <select name="is_pay_for">
+        <option value='' selected>-- 선택 --</option>
+        <option value=1>있음</option>
+        <option value=0>무료로 해주떼용</option>
+    </select><br> -->
+    <input type="radio" name="is_pay_for" value=1 >o
+    <input type="radio" name="is_pay_for" value=0 >x
+    <br>
+
+    본문 : <textarea name="content" cols="30" rows="10" placeholder="글을 작성해주세요" required="required"></textarea><br>
+    사용목적 : <input type="text" name="purpose" required="required"><br>
     <button type="submit">작성하기</button>
 </form>
+
+{% endblock %}

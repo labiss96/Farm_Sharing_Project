@@ -1,4 +1,7 @@
-<h1>새 글 작성</h1>
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>땅 공유!</h1>
 <form action="{%url 'sb_create' %}" method="POST">
     {% csrf_token %}
     제목 : <input type="text" name = 'title' required="required"><br>
@@ -21,14 +24,18 @@
                 <option value='일주일이내'>일주일이내</option>
                 <option value='3년'>3년</option>
             </select><br>
-    금액여부 : <select name="is_free" required="required">
-                    <option value='' selected>-- 선택 --</option>
-                    <option value=0>유료</option>
-                    <option value=1>무료</option>
-                </select><br>
-    비용 : <input type="number" name='amount' value=0 required="required"><br>
+    금액여부
+    <input type="radio" id="amount_select" name="is_free" value=0 onchange="setAmount()">유료
+    <input type="radio" id="free_select" name="is_free" value=1 onchange="setAmount()">무료
+    <br>
+    <div id='amount_form'>
+        비용 : <input type="number" name='amount' value=0 required="required"><br>
+    </div>
     본문 : <textarea name="content" cols="30" rows="10" placeholder="글을 작성해주세요" required="required"></textarea><br>
     이미지 : <input style="text-align: center;" type="file" name="land_img" accept=".jpg,.jpeg,.png,.gif">
         <br>
     <button type="submit">작성하기</button>
 </form>
+
+
+{% endblock %}

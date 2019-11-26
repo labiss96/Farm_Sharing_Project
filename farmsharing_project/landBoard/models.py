@@ -9,7 +9,6 @@ class Region(models.Model):
     def __str__(self):
         return self.region
 
-
 # Abstract class
 class LandBoard(PolymorphicModel):
     title = models.CharField(max_length=100) #제목
