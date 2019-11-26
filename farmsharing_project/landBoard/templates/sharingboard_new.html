@@ -1,55 +1,34 @@
 <h1>새 글 작성</h1>
 <form action="{%url 'sb_create' %}" method="POST">
     {% csrf_token %}
-    제목 : <input type="text" name = 'title'><br>
-    공유할 땅 : <select name='user_land'>
+    제목 : <input type="text" name = 'title' required="required"><br>
+    공유할 땅 : <select name='user_land' required="required">
                     <option value="" selected>-- 선택 --</option>
                     {%for land in user_lands%}
                     <option value="{{land.id}}">{{land.region}} / {{i.land_area}} / {{i.land_condition}}</option>
                     {% endfor %}
                 </select><br>
-    지역 : <select name='region'>
+    지역 : <select name='region' required="required">
                 <option value='' selected>-- 선택 --</option>
                 {%for i in regionM%}
                 <option value='{{i}}'>{{i}}</option>
                 {%endfor%}
             </select><br>       
-    면적 : <input type="text" name = 'land_area'><br>
-    기간 : <select name = 'sharing_term'>
+    면적 : <input type="number" name = 'land_area' required="required"><br>
+    기간 : <select name = 'sharing_term' required="required">
                 <option value='' selected>-- 선택 --</option>
                 <option value='1일'>1일</option>
                 <option value='일주일이내'>일주일이내</option>
                 <option value='3년'>3년</option>
             </select><br>
-    금액여부 : <select name="is_free">
-                        <option value='' selected>-- 선택 --</option>
-                        <option value='False'>유료</option>
-                        <option value='True'>무료</option>
-                    </select><br>
-    비용 : <input type="text" name = 'amount'><br>
-    본문 : <textarea name="content" cols="30" rows="10" placeholder="글을 작성해주세요"></textarea><br>
-    진행상태 : <select name="recruitment_status">선택
+    금액여부 : <select name="is_free" required="required">
                     <option value='' selected>-- 선택 --</option>
-                    <option value='신청중'>신청중</option>
-                    <option value='신청완료'>신청완료</option>
+                    <option value=0>유료</option>
+                    <option value=1>무료</option>
                 </select><br>
-    이미지 : <input type="text" name="land_img">
+    비용 : <input type="number" name='amount' value=0 required="required"><br>
+    본문 : <textarea name="content" cols="30" rows="10" placeholder="글을 작성해주세요" required="required"></textarea><br>
+    이미지 : <input style="text-align: center;" type="file" name="land_img" accept=".jpg,.jpeg,.png,.gif">
+        <br>
     <button type="submit">작성하기</button>
 </form>
-
-<!-- <form method="POST">
-    {% csrf_token %}
-    <table>
-        제목 : {{sb_form.title}}<br>
-        지역 : {{sb_form.region}}<br>
-        넓이 : {{sb_form.land_area}}<br>
-        기간 : {{sb_form.sharing_term}}<br>
-        비용을 지불하실 의향이있습니까? : {{sb_form.is_free}}<br>
-        금액 : {{sb_form.amount}}<br>
-        내용 : {{sb_form.content}}<br>
-        모집상태 : {{sb_form.recruitment_status}}<br>
-        이미지 : {{sb_form.land_img}}<br>
-    </table>
-    <br>
-    <input type="submit" value="제출하기">
-</form> -->

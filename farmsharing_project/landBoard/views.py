@@ -55,8 +55,7 @@ def SharingBoardCreate(request):
     new_sb.is_free = request.POST['is_free']
     new_sb.amount = request.POST['amount']
     new_sb.content = request.POST['content']
-    new_sb.recruitment_status = request.POST['recruitment_status']
-    new_sb.land_img = request.POST['land_img']
+    new_sb.land_img = request.FILES.get('land_img')
     new_sb.writer = request.user
     new_sb.choice_land = land
 
@@ -75,9 +74,13 @@ def SharingBoardUpdate(request,sb_id):
     update_sb.land_area = request.POST['land_area']
     update_sb.sharing_term = request.POST['sharing_term']
     update_sb.is_free = request.POST['is_free']
-    update_sb.amount = request.POST['amount']
+
+    if(request.POST.get('is_free') == False):
+        update_sb.amount = request.POST['amount']
+    else:
+        update_sb.amount = 0
+
     update_sb.content = request.POST['content']
-    update_sb.recruitment_status = request.POST['recruitment_status']
     update_sb.land_img = request.POST['land_img']
     update_sb.save()
     return redirect('sharingboard')
@@ -140,10 +143,8 @@ def RequestBoardCreate(request):
     new_rb.region = request.POST['region']
     new_rb.land_area = request.POST['land_area']
     new_rb.sharing_term = request.POST['sharing_term']
-    new_rb.is_free = request.POST['is_free']
-    new_rb.amount = request.POST['amount']
+    new_rb.is_pay_for = request.POST['is_pay_for']
     new_rb.content = request.POST['content']
-    new_rb.recruitment_status = request.POST['recruitment_status']
     new_rb.purpose = request.POST['purpose']
     new_rb.writer = request.user
     new_rb.save()
@@ -160,10 +161,8 @@ def RequestBoardUpdate(request,rb_id):
     update_rb.region = request.POST['region']
     update_rb.land_area = request.POST['land_area']
     update_rb.sharing_term = request.POST['sharing_term']
-    update_rb.is_free = request.POST['is_free']
-    update_rb.amount = request.POST['amount']
+    update_rb.is_pay_for = request.POST['is_pay_for']
     update_rb.content = request.POST['content']
-    update_rb.recruitment_status = request.POST['recruitment_status']
     update_rb.purpose = request.POST['purpose']
     update_rb.save()
     return redirect('requestboard')

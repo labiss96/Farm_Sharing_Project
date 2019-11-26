@@ -15,18 +15,12 @@
                 <option value='일주일이내'>일주일이내</option>
                 <option value='3년'>3년</option>
             </select><br>
-    금액여부 : <select name="is_free">
+    비용 지불의사 여부 : <select name="is_pay_for">
                         <option value='' selected>-- 선택 --</option>
-                        <option value='False'>유료</option>
-                        <option value='True'>무료</option>
+                        <option value=1>있음</option>
+                        <option value=0>무료로 해주떼용</option>
                     </select><br>
-    비용 : <input type="text" name = 'amount'><br>
     본문 : <textarea name="content" cols="30" rows="10" placeholder="글을 작성해주세요"></textarea><br>
-    진행상태 : <select name="recruitment_status">선택
-                    <option value='' selected>-- 선택 --</option>
-                    <option value='신청중'>신청중</option>
-                    <option value='신청완료'>신청완료</option>
-                </select><br>
     사용목적 : <input type="text" name="purpose"><br>
     <button type="submit">작성하기</button>
 </form>
