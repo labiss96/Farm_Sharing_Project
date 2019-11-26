@@ -26,14 +26,24 @@
     <a href="{% url 'sb_new' %}"><p>땅 공유하기</p></a>
     {% endif %}
     <hr>
-    {% for sb in sharingboards %}
+    {% for sb in sharingboards2 %}
     <a href="{% url 'sb_detail' sb.id %}">{{sb.title}}</a> /
     {{sb.recruitment_status}} /
     {{sb.region}}
     <hr>
     {% endfor %}
-
-    
 </div>
+    {% if sharingboards2.has_previous%}
+        <a href="?page={{sharingboards2.1}}">첫페이지</a>
+        <a href="?page={{sharingboards2.previous_page_number}}">이전 페이지</a>
+        {% endif %}
 
-{% endblock %}
+        <span>{{sharingboards2.number}}</span>
+        <span>of</span>
+        <span>{{sharingboards2.paginator.num_pages}}</span>
+
+        {% if sharingboards2.has_next%}
+        <a href="?page={{sharingboards2.next_page_number}}">다음페이지</a>
+        <a href="?page={{sharingboards2.paginaitor.num_pages}}">마지막 페이지</a>
+        {% endif %}
+    {% endblock %}

@@ -1,7 +1,10 @@
+
 from django.shortcuts import render,redirect
 from django.contrib import auth
-from .models import Profile, Land
+from .models import *
 from otherBoard.models import *
+from landBoard.models import *
+from accounts.models import *
 def home(request):
     return render(request, 'home.html')
 
@@ -53,7 +56,15 @@ def mypage(request, profile_name):
     my_lands = Land.objects.filter(owner_user=mypage_info.id)
     request_posts = mypage_info.profile_rb.all()
     sharing_posts = mypage_info.profile_sb.all()
-    return render(request,'mypage.html',{'mypage_info':mypage_info, 'my_lands':my_lands, 'sharing_posts':sharing_posts, 'request_posts':request_posts})
+    shared_lands_people=Land_request.objects.filter(owner=request.user.id)#내가 공유한 땅을 신청한 사람들
+    shared_lands=SharingBoard.objects.filter(writer=request.user.id)#내가 공유한 땅들
+    applied=Land_request.objects.filter(client=request.user.id)#내가 신청한 땅들
+    applied_lands=[]
+    for land in applied:
+        tmp=SharingBoard.objects.get(choice_land=land.land.id)
+        applied_lands.append(tmp)
+
+    return render(request,'mypage.html',{'mypage_info':mypage_info, 'my_lands':my_lands, 'sharing_posts':sharing_posts, 'request_posts':request_posts,'shared_lands':shared_lands,'shared_lands_people':shared_lands_people,'applied_lands':applied_lands})
   
 def land_new(request):
     return render(request, 'land_new.html')
@@ -101,4 +112,16 @@ def Profile_scrap(request):
     profile=Profile.objects.get(username=request.user.username)
     scrapped_profiles=profile.Profile_scrap.all()
     return render(request,'profile_scraps.html',{'scraps':scrapped_profiles})
+
+def request_land(request,land_id):
+    sb=SharingBoard.objects.get(id=land_id)
+    land=Land.objects.get(id=sb.choice_land.id)
+    land_request=Land_request()
+    land_request.client=request.user
+    land_request.owner=land.owner_user
+    land_request.land=land
+    land_request.status=True
+    land_request.save()
+    return redirect('sb_detail',land_id)
+    
 
