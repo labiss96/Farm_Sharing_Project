@@ -119,12 +119,13 @@ def request_land(request,land_id):
     land_request.save()
     return redirect('sb_detail',land_id)
 
-#  def request_accept(request,land_id):
-#      land=Land_request.objects.get(id=land_id)   
-#      land.is_completed=True
-#      land.save()
-#      sb=SharingBoard.objects.get(choice_land=land.land.id)
-#      sb.is_completed=True
-#      sb.save()
-#     return redirect('mypage',request.user.username)
+def request_accept(request,land_id):
+    tmp_land=Land_request.objects.get(id=land_id)
+    tmp_land.is_completed=True
+    tmp_land.save()
+    sb=SharingBoard.objects.get(id=tmp_land.land.id)
+    sb.is_completed=True
+    sb.save()
+    
+    return redirect('mypage',request.user.username)
 

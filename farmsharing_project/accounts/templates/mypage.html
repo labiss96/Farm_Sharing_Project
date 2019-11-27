@@ -55,11 +55,22 @@
 <br>
 <p>신청한 사람들</p>
 <hr>
+{% if land.is_completed == False %}
+{% for person in  shared_lands_people %}
+{% if land.id == person.land.id %}
+<a href="{% url 'mypage' person.client.username %}">{{person.client.username}}</a><a href="{% url 'request_accept' person.id %}">수락</a><br>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if land.is_completed == True %}
+<p>신청 확정</p>
 {% for person in  shared_lands_people %}
 {% if land.id == person.land.id %}
 <a href="{% url 'mypage' person.client.username %}">{{person.client.username}}</a><br>
 {% endif %}
 {% endfor %}
+{% endif %}
 </details>
 {% endfor %}
 <p>내가 신청한 땅들</p>

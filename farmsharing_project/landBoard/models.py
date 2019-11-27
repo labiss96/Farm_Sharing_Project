@@ -51,4 +51,4 @@ class Land_request(models.Model):
     client=models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='land_client')
     land=models.ForeignKey(SharingBoard, on_delete=models.CASCADE, null=True)
     status=models.BooleanField(default=False)#신청 상태
-    is_completed=models.BooleanField(default=False)# 신청 완료 여부 
+    is_completed = models.BooleanField(default=False) #모집이 완료되었는가?
