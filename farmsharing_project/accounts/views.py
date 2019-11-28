@@ -67,12 +67,14 @@ def mypage(request, profile_name):
     return render(request,'mypage.html',{'mypage_info':mypage_info, 'my_lands':my_lands, 'sharing_posts':sharing_posts, 'request_posts':request_posts,'shared_lands':shared_lands,'shared_lands_people':shared_lands_people,'applied_lands':applied_lands})
   
 def land_new(request):
-    return render(request, 'land_new.html')
+    region_list = Region.objects.all()
+    return render(request, 'land_new.html', {"region_list":region_list})
 
 def land_create(request):
     profile = request.user
     land = Land()
     land.region = request.POST.get('region')
+    land.address = request.POST.get('address')
     land.land_area = request.POST.get('land_area')
     land.land_condition = request.POST.get('land_condition')
     land.owner_user = request.user
@@ -86,6 +88,7 @@ def land_edit(request, land_id):
 def land_update(request, land_id):
     land_info = Land.objects.get(id = land_id)
     land_info.region = request.POST.get('region')
+    land_info.address = request.POST.get('address')
     land_info.land_area = request.POST.get('land_area')
     land_info.land_condition = request.POST.get('land_condition')
     land_info.owner_user = request.user

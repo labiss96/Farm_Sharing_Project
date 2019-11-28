@@ -50,12 +50,12 @@ def SharingBoardNew(request):
 
 def SharingBoardCreate(request):
 
-    land_id = request.POST['user_land']
+    land_id = request.POST['choice_land']
     land = Land.objects.get(id = land_id)
 
     new_sb = SharingBoard() 
     new_sb.title = request.POST['title']
-    new_sb.region = request.POST['region']
+    new_sb.region = land.region
     new_sb.land_area = request.POST['land_area']
     new_sb.sharing_term = request.POST['sharing_term']
     new_sb.is_free = request.POST['is_free']
