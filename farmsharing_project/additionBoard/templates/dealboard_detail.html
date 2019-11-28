@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    제목 : {{db.title}}<br>
+    작성자 : {{me}}<br>
+    상품 사진 : <img src="{{db.prod_img.url}}" style="widows: 1000px; height:500px"><br>
+    상품 설명 : {{db.body}}<br>
+
+    <a href="{%url 'db_edit' db.id%}">수정하기</a>
+    <a href="{%url 'db_delete' db.id%}">삭제하기</a>
+</div>
+
+
+
+{% endblock %}

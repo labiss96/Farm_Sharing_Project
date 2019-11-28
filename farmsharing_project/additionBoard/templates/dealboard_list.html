@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <div class="jumbotron p-4 p-md-5 text-white" style="background-color: rgb(179, 230, 124);">
+      <div class="col-md-6 px-0">
+        <h1 class="display-4 font-italic">농사직설에서<br>당신의 수확물을 판매해보세요</h1>
+        <p class="lead my-3">당신이 어떻게 농사지었는지 보여줄 수 있고<br> 여러 유통비용에서 자유로워질 수 있습니다.</p>
+        <p class="lead mb-0"><a href="{% url 'db_new' %}" class="text-white font-weight-bold">수확물 등록하기</a></p>
+      </div>
+    </div>
+
+  <div class= "row">
+      {%for db in dealboards%}
+        <div class="col-4" style="padding:15px">
+          <div class="card" style="width: 18rem; background-color:#D0F5A9">
+              <img src="{{db.prod_img.url}}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">제목 : {{db.title}}</h5>
+                <p class="card-text">제목: {{db.summary}}...</p>
+                <a href="{%url 'db_detail' db.id %}" class="btn btn-primary">보러가기</a>
+              </div>
+          </div>
+        </div> 
+      {% endfor %}
+  </div> 
+</div>
+{% endblock %}

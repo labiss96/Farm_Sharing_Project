@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1>상품수정 페이지</h1><br>
+    <form action="{% url 'db_update' db.id %}" method="POST" enctype="multipart/form-data">
+        {%csrf_token%}
+        제목 : <input type="text" name="title" value="{{db.title}}"><br>
+        상품 사진 : <input style="text-align: center;" type="file" name="prod_img" accept=".jpg,.jpeg,.png,.gif" value=""><br>
+        상품 설명 : <input type="text" name="body" value="{{db.body}}"><br>
+        <button type="submit">수정!!</button>
+    </form>
+
+</div>
+{%endblock%}

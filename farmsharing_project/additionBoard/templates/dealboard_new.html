@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <form action="{%url 'db_create'%}" method="POST" enctype="multipart/form-data">
+        {%csrf_token%}
+        제목을 입력하세요 : <input type="text" name="title"><br>
+        상품에 대한 설명을 입력하세요 :<br> <textarea name="body" id="" cols="30" rows="10"></textarea><br>
+        상품 사진을 등록하세요 : <input style="text-align: center;" type="file" name="prod_img" accept=".jpg,.jpeg,.png,.gif"><br>
+        <button type="submit">등록!</button>
+    </form>
+
+
+</div>
+{%endblock%}
