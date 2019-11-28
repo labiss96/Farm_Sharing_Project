@@ -26,14 +26,6 @@
                             </div>                
                         </label>
                       </div>
-                <!-- <input type="radio" id="" name="choice_land" value={{land.id}}>
-                <div class="card border-success mb-3" style="width: 13rem; max-height: 12rem;">
-                    <div class="card-header" style="text-align: center;">{{land.region}}</div>
-                    <div class="card-body">
-                    <h5 class="card-title text-success ">{{land.land_area}} m<sup>2</sup></h5>
-                    <p class="card-text text-secondary ">{{land.address}}</p>
-                    </div>
-                </div> -->
                 {% endfor %}
         </div>
         <hr>
@@ -48,7 +40,7 @@
                     <option value='{{i}}'>{{i}}</option>
                     {%endfor%}
                 </select><br>        -->
-        면적 : <input type="number" name = 'land_area' required="required"><br>
+        면적 : <input type="number" name = 'land_area' required="required">m<sup>2</sup><br>
         기간 : <select name = 'sharing_term' required="required">
                     <option value='' selected>-- 선택 --</option>
                     <option value='1일'>1일</option>
@@ -69,8 +61,6 @@
     </form>
 
 </div>
-
-
 <style>
 label {
     width: 100%;
