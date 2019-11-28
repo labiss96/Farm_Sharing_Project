@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 
 def SharingBoardRead(request):
     sharingboards = SharingBoard.objects.all()
-    paginator = Paginator(sharingboards,2)
+    paginator = Paginator(sharingboards,3)
 
     page = request.GET.get('page')
     sharingboards2 = paginator.get_page(page)
@@ -19,7 +19,10 @@ def sharing_filter(request):
     region_list = Region.objects.all()
     filter_region = request.POST.get('region')
     filter_is_free = request.POST.get('is_free')
+    search_mode = request.POST.get('search_mode')
+    search_data = request.POST.get('search_data')
 
+    #지역과 비용여부 필터링
     if(filter_region == "All" and filter_is_free == "All"):
         sharingboards = SharingBoard.objects.all()
     elif(filter_region == "All" and filter_is_free != "All"):
@@ -36,7 +39,29 @@ def sharing_filter(request):
             is_free = filter_is_free
         )
 
-    return render(request, 'sharingboard_list.html', {'sharingboards': sharingboards, 'region_list':region_list})
+    #위에서 필터링 된 내용 중 검색모드에 따른 제목, 내용, 작성자 검색 -> 리스트에 담아서 페이지네이터로 뿌림
+    filter_result = []
+    if search_mode == 'title' :
+        for sb in sharingboards:
+            if search_data in sb.title :
+                filter_result.append(sb)
+    elif search_mode == 'contents':
+        for sb in sharingboards:
+            if search_data in sb.content :
+                filter_result.append(sb)
+    else :
+        for sb in sharingboards:
+            if search_data in sb.writer.username :
+                filter_result.append(sb)
+
+    sharingboards = filter_result
+
+    #페이지네이터
+    paginator = Paginator(sharingboards,3)
+    page = request.GET.get('page')
+    sharingboards2 = paginator.get_page(page)
+
+    return render(request, 'sharingboard_list.html', {'sharingboards': sharingboards, 'region_list':region_list, 'sharingboards2':sharingboards2})
 
 
 def SharingBoardNew(request):
