@@ -8,9 +8,18 @@
     <form method="POST" action="{% url 'land_create' %}" method="POST">
         {% csrf_token %}
         <br>
-        지역 : <input name="region" type="text" value="">
+        지역 :
+        <select name='region' required="required">
+            <option value="" selected>-- 선택 --</option>
+            {%for rg in region_list%}
+            <option value="{{rg.region}}">{{rg.region}}</option>
+            {% endfor %}
+        </select>
         <br>
-        땅 면적 : <input name="land_area" type="text" value="">
+        주소 : <input name="address" type="text" value="">
+        <br>
+        땅 면적 : <input name="land_area" type="text" value=""> M<sup>2</sup>
+        <br> <span>*면적 단위는 M<sup>2</sup>로 기입하시오.</span>
         <br>
         땅 상태 : <input name="land_condition" type="text" value="">
         <br><br>

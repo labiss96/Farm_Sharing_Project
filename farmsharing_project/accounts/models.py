@@ -7,8 +7,8 @@ from django_fields import DefaultStaticImageField
 class Profile(AbstractUser):
     nickname = models.CharField(max_length = 200, null=True)#  - nickname
     sns_id = models.CharField(max_length = 200, null =True)#   - SNS_ID
-    introduce = models.TextField(null=True)#   - 자기소개란
-    score = models.IntegerField(null = True)#   - score
+    introduce = models.TextField(null=True) # - 자기소개란
+    score = models.IntegerField(null = True) # - score
     profile_img = DefaultStaticImageField(upload_to='profile_img/', blank=True, default_image_path='images/default_profile_img.png')
     
     def __str__(self):
@@ -23,6 +23,7 @@ class Comment(models.Model):
 
 class Land(models.Model): #땅
     region = models.CharField(max_length=200,null=True) #지역
+    address = models.CharField(max_length=250, null=True) #주소
     land_area = models.CharField(max_length=100,null=True) #면적
     land_condition = models.CharField(max_length=200,null=True) #땅상태
     owner_user = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='user_land')
