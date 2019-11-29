@@ -92,7 +92,13 @@ def DealBoardDetail(request, db_id):
     me = request.user.username
     comments = DB_comment.objects.filter(dbcomment = db_id)
     db_detail = get_object_or_404(DealBoard,pk = db_id)
-    return render(request, 'dealboard_detail.html', {'db':db_detail , 'me' : me ,'comments':comments})
+    liked=False #좋아요 여부
+    if db_detail.like.filter(username=request.user.username).exists():
+        liked=True
+    else:
+        liked=False
+    like_count=db_detail.total_likes()
+    return render(request, 'dealboard_detail.html', {'db':db_detail , 'me' : me ,'comments':comments,'liked':liked,'like_count':like_count})
 
 def DealBoardNew(request):
     return render(request, 'dealboard_new.html')
@@ -124,3 +130,11 @@ def DealBoardDelete(request, db_id):
     delete_db = DealBoard.objects.get(pk = db_id)
     delete_db.delete()
     return redirect('dealboard_list')
+
+def deal_like(request,deal_id):
+    like_deal=get_object_or_404(DealBoard,pk=deal_id)
+    if like_deal.like.filter(username=request.user.username).exists():
+        like_deal.like.remove(request.user)
+    else:
+        like_deal.like.add(request.user)
+    return redirect('db_detail',deal_id)   

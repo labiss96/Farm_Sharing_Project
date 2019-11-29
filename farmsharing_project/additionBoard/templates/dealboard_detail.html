@@ -56,6 +56,12 @@
                 <td>{{db.body}}</td>
             </tr>
         </table>
+    {% if liked == False %}
+    <a href="{% url 'deal_like' db.id %}"> 좋아요 </a>
+    {% else %}
+    <a href="{% url 'deal_like' db.id %}"> 좋아요 취소 </a>
+    {% endif %}
+    <p>{{like_count}}명이 좋아하는 리뷰입니다.</p>
     <a href="{%url 'db_delete' db.id%}" style="float: right;">삭제하기</a>
     <a href="{%url 'db_edit' db.id%}" style="float: right;">수정하기&nbsp;&nbsp;</a>
     <br><br><br>
