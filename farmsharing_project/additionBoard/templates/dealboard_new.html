@@ -1,13 +1,61 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<style>
+    table.type05 {
+    border-collapse: separate;
+    border-spacing: 1px;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+    margin: 20px 10px;
+    width:100%;
+}
+table.type05 th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: rgb(229, 248, 205);
+    text-align: center;
+}
+table.type05 td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+    #title{
+    border-style: solid;
+    border-top-color:rgb(229, 248, 205);
+    border-bottom-color: rgb(229, 248, 205);
+    border-left-style: none;
+    border-right-style: none;
+    padding: 18px;
+    border-width: 2px;
+}
+</style>
 <div class="container">
+    <br>
+    <h1 id="title">수확물 등록하기</h1>
+    <br><br>
     <form action="{%url 'db_create'%}" method="POST" enctype="multipart/form-data">
         {%csrf_token%}
-        제목을 입력하세요 : <input type="text" name="title"><br>
-        상품에 대한 설명을 입력하세요 :<br> <textarea name="body" id="" cols="30" rows="10"></textarea><br>
-        상품 사진을 등록하세요 : <input style="text-align: center;" type="file" name="prod_img" accept=".jpg,.jpeg,.png,.gif"><br>
-        <button type="submit">등록!</button>
+        <table class="type05">
+                <tr>
+                    <th scope="row">제목을 입력하세요</th>
+                    <td><input type="text" name="title"></td>
+                </tr>
+                <tr>
+                    <th scope="row">상품에 대한 설명을 입력하세요</th>
+                    <td><textarea name="body" id="" cols="30" rows="10"></textarea></td>
+                </tr>
+                <tr>
+                    <th scope="row">상품 사진을 등록하세요</th>
+                    <td><input style="text-align: center;" type="file" name="prod_img" accept=".jpg,.jpeg,.png,.gif"></td>
+                </tr>
+            </table>
+        <button type="submit" style="float:right">등록!</button>
     </form>
 
 

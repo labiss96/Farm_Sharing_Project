@@ -1,24 +1,71 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class ='container'>
-    <h1>제목 : {{qb.title}}</h1><br>
-    <h5>작성자 : {{qb.writer}}</h5><br>
-    <h5>내용 : {{qb.body}}</h5><br>
+<style>
+    table.type05 {
+    border-collapse: separate;
+    border-spacing: 1px;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+    margin: 20px 10px;
+    width:100%;
+}
+table.type05 th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: rgb(229, 248, 205);
+    text-align: center;
+}
+table.type05 td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+#title{
+    border-style: solid;
+    border-top-color:rgb(229, 248, 205);
+    border-bottom-color: rgb(229, 248, 205);
+    border-left-style: none;
+    border-right-style: none;
+    padding: 18px;
+    border-width: 2px;
 
+}
+</style>
+
+<div class ='container'>
+        <h1 id= "title">{{qb.title}}</h1>
+        <br>
+        <table class="type05">
+                <tr>
+                    <th scope="row">작성자</th>
+                    <td>{{qb.writer}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">내용 </th>
+                    <td>{{qb.body}}</td>
+                </tr>
+            </table>
+    <a href="{% url 'qb_delete' qb.id%}" style="float: right;">삭제하기</a>
+    <a href="{% url 'qb_edit' qb.id%}" style="float: right;">수정하기&nbsp;&nbsp;</a>
+    <br><br><br>
+    <div id="title">
     {% if user.is_authenticated %}   <!-- 로그인 상태가 아니면 댓글 못씀-->
-    <h2>댓글달기</h2>
+    <h4>댓글달기</h4>
     <form action="{% url 'qb_commentnew' qb.id%}" method = "POST">
             {% csrf_token %}
             <div >
-                작성자:{{me}}
-                <br>
-                내용:<textarea name="content" class="form-control" id="" cols="30" rows="5"></textarea>
+                내용 :<textarea name="content" class="form-control" id="" cols="30" rows="5"></textarea>
                 <br>
                 <button type="submit">작성</button>
             </div>
     </form>
     {% endif %}
-
+    </div>
     {%for comment in comments.all%}
     <hr>
         <p>작성자:{{comment.comment_writer}}</p><br>
@@ -26,9 +73,8 @@
         <a href="{% url 'qb_commentdelete' comment.id %}">내 댓글 삭제하기</a>
         <hr>
     {% endfor %}
-
-    <a href="{% url 'qb_edit' qb.id%}">글 수정하기</a><br>
-    <a href="{% url 'qb_delete' qb.id%}">글 삭제하기</a>
+    
+    
 </div>
 
 
