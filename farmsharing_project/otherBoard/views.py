@@ -55,7 +55,8 @@ def join_create(request, user_id):
     join.region = request.POST['region1']+request.POST['region2']
     join.region_filter = request.POST['region1']
     join.joined_people = request.POST['joined_people']
-    join.active_period = request.POST['active_period']
+    join.active_period_start = request.POST['active_period1']
+    join.active_period_end = request.POST['active_period2']
     join.purpose = request.POST['purpose']
     join.body = request.POST['body']
     join.pub_date=timezone.datetime.now()

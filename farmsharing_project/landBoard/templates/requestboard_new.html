@@ -7,19 +7,14 @@
     <form action="{%url 'rb_create' %}" method="POST">
         {% csrf_token %}
         제목 : <input type="text" name ='title' required="required"><br>
-        지역 : <select name='region'>
+        지역 : <select name='region' required="required">
                     <option value='' selected>-- 선택 --</option>
                     {%for i in regionM%}
                     <option value='{{i}}'>{{i}}</option>
                     {%endfor%}
                 </select><br>       
         면적 : <input type="number" name = 'land_area' required="required"><br>
-        기간 : <select name = 'sharing_term'>
-                    <option value='' selected>-- 선택 --</option>
-                    <option value='1일'>1일</option>
-                    <option value='일주일이내'>일주일이내</option>
-                    <option value='3년'>3년</option>
-                </select><br>
+        기간 : <input type="date"  value="" required="required" name="sharing_term1"> ~ <input type="date"  value="" required="required" name="sharing_term2"><br>
         
         <!-- <select name="is_pay_for">
             <option value='' selected>-- 선택 --</option>
@@ -29,13 +24,13 @@
         <div class="" id="pay_for">
             비용 지불의사: 
             <label>
-                <input type="radio" name="is_pay_for" class ="card-input-element" value=1 >
+                <input type="radio" name="is_pay_for" class ="card-input-element" value=1 required="required">
                 <div class="card border-secondary card-input">    
                     Yes
                 </div>
             </label>
             <label>
-                <input type="radio" name="is_pay_for" class ="card-input-element" value=0 >
+                <input type="radio" name="is_pay_for" class ="card-input-element" value=0 required="required">
                 <div class="card border-secondary card-input">    
                     No
                 </div>
@@ -45,7 +40,7 @@
         
         <br>
     
-        본문 : <textarea name="content" cols="30" rows="10" placeholder="글을 작성해주세요" required="required"></textarea><br>
+        본문 : <textarea name="content" cols="30" rows="10" placeholder="글을 작성해주세요" required="required" ></textarea><br>
         사용목적 : <input type="text" name="purpose" required="required"><br>
         <button type="submit">작성하기</button>
     </form>
