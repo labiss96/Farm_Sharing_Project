@@ -12,14 +12,15 @@
   <div class= "row">
       {%for db in dealboards%}
         <div class="col-4" style="padding:15px">
-          <div class="card" style="width: 18rem; background-color:#D0F5A9">
+        <a href="{% url 'db_detail' db.id %}">
+          <div class="card" style="width: 18rem; background-color:rgb(229, 248, 205);">
               <img src="{{db.prod_img.url}}" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title">제목 : {{db.title}}</h5>
                 <p class="card-text">제목: {{db.summary}}...</p>
-                <a href="{%url 'db_detail' db.id %}" class="btn btn-primary">보러가기</a>
               </div>
           </div>
+        </a>
         </div> 
       {% endfor %}
   </div> 
