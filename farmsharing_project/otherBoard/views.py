@@ -7,8 +7,19 @@ from django.utils import timezone
 
 #팀 모집 게시판 함수들
 def join(request):
-    join_home = Join.objects.all()
-    paginator = Paginator(join_home,3)
+
+    if request.method == 'POST':
+       region_filter = request.POST['region']
+       join_home = Join.objects.filter(region_filter = region_filter)
+    else:
+       join_home = Join.objects.all()
+    
+    join_list = []
+    for join in join_home:
+        join_list.append(join)
+    join_list.reverse()
+    
+    paginator = Paginator(join_list,3)
     page = request.GET.get('page')
     joins = paginator.get_page(page)
     return render(request, 'join.html',{'joins':joins})
