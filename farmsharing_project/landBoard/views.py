@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 
 def SharingBoardRead(request):
     sharingboards = SharingBoard.objects.all()
-    paginator = Paginator(sharingboards,3)
+    paginator = Paginator(sharingboards,9)
 
     page = request.GET.get('page')
     sharingboards2 = paginator.get_page(page)
@@ -19,6 +19,7 @@ def sharing_filter(request):
     region_list = Region.objects.all()
     filter_region = request.POST.get('region')
     filter_is_free = request.POST.get('is_free')
+
     search_mode = request.POST.get('search_mode')
     search_data = request.POST.get('search_data')
 
@@ -57,7 +58,7 @@ def sharing_filter(request):
     sharingboards = filter_result
 
     #페이지네이터
-    paginator = Paginator(sharingboards,3)
+    paginator = Paginator(sharingboards,9)
     page = request.GET.get('page')
     sharingboards2 = paginator.get_page(page)
 
@@ -127,23 +128,42 @@ def RequestBoardRead(request):
 def request_filter(request):
     region_list = Region.objects.all()
     filter_region = request.POST.get('region')
-    filter_is_free = request.POST.get('is_free')
+    filter_is_pay_for = request.POST.get('is_pay_for')
 
-    if(filter_region == "All" and filter_is_free == "All"):
+    search_mode = request.POST.get('search_mode')
+    search_data = request.POST.get('search_data')
+
+    if(filter_region == "All" and filter_is_pay_for == "All"):
         requestboards = RequestBoard.objects.all()
-    elif(filter_region == "All" and filter_is_free != "All"):
+    elif(filter_region == "All" and filter_is_pay_for != "All"):
         requestboards = RequestBoard.objects.filter(
-            is_free = filter_is_free
+            is_pay_for = filter_is_pay_for
         )
-    elif(filter_region != "All" and filter_is_free == "All"):
+    elif(filter_region != "All" and filter_is_pay_for == "All"):
         requestboards = RequestBoard.objects.filter(
             region = filter_region
         )
-    elif(filter_region != "All" and filter_is_free != "All"):
+    elif(filter_region != "All" and filter_is_pay_for != "All"):
         requestboards = RequestBoard.objects.filter(
             region = filter_region,
-            is_free = filter_is_free
+            is_pay_for = filter_is_pay_for
         )
+
+    filter_result = []
+    if search_mode == 'title' :
+        for rb in requestboards:
+            if search_data in rb.title :
+                filter_result.append(rb)
+    elif search_mode == 'contents':
+        for rb in requestboards:
+            if search_data in rb.content :
+                filter_result.append(rb)
+    else :
+        for rb in requestboards:
+            if search_data in rb.writer.username :
+                filter_result.append(rb)
+
+    requestboards = filter_result
 
     return render(request, 'requestboard_list.html', {'requestboards': requestboards, 'region_list':region_list})
 
