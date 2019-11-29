@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import QuestionBoard,QB_comment,DealBoard
 from accounts.models import Profile
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils import timezone
+
 def QuestionBoardRead(request):
     questionboards = QuestionBoard.objects.all()
     return render(request, 'questionboard_list.html', {'questionboards':questionboards})
@@ -21,6 +23,7 @@ def QuestionBoardCreate(request):
     new_qb.title = request.POST['title']
     new_qb.body = request.POST['body']
     new_qb.writer = request.user
+    new_qb.pub_date=timezone.datetime.now()
     new_qb.save()
     return redirect('questionboard_list')
 
@@ -74,6 +77,7 @@ def DealBoardCreate(request):
     new_db.title= request.POST['title']
     new_db.body = request.POST['body']
     new_db.writer = request.user
+    new_db.pub_date=timezone.datetime.now()
     new_db.prod_img = request.FILES.get('prod_img')
     new_db.save()
     return redirect('dealboard_list')

@@ -4,6 +4,7 @@ from accounts.models import *
 from django.core.exceptions import ObjectDoesNotExist
 # from .forms import SharingBoardForm
 from django.core.paginator import Paginator
+from django.utils import timezone
 
 def SharingBoardRead(request):
     sharingboards = SharingBoard.objects.all()
@@ -87,6 +88,7 @@ def SharingBoardCreate(request):
     new_sb.land_img = request.FILES.get('land_img')
     new_sb.writer = request.user
     new_sb.choice_land = land
+    new_sb.pub_date=timezone.datetime.now()
 
     new_sb.save()
     return redirect('sharingboard')
@@ -205,6 +207,7 @@ def RequestBoardCreate(request):
     new_rb.content = request.POST['content']
     new_rb.purpose = request.POST['purpose']
     new_rb.writer = request.user
+    new_rb.pub_date=timezone.datetime.now()
     new_rb.save()
     return redirect('requestboard')
 

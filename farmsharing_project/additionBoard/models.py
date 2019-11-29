@@ -4,6 +4,7 @@ from accounts.models import *
 class QuestionBoard(models.Model):
     title = models.CharField(max_length=100)
     writer = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    pub_date = models.DateTimeField('Date published',null=True)#글 게시 날짜
     body = models.TextField()
 
     def __str__(self):
@@ -18,6 +19,7 @@ class DealBoard(models.Model):
     title = models.CharField(max_length=100)
     writer = models.ForeignKey(Profile, on_delete=models.CASCADE)
     body = models.TextField()
+    pub_date = models.DateTimeField('Date published',null=True)#글 게시 날짜
     prod_img = DefaultStaticImageField(upload_to='prod_img/', blank=True, default_image_path='images/default_profile_img.png')
 
     def __str__(self):

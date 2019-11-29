@@ -3,6 +3,7 @@
 <div class ='container'>
     <h1>제목 : {{qb.title}}</h1><br>
     <h5>작성자 : {{qb.writer}}</h5><br>
+    <h5>게시 날짜 : {{qb.pub_date}}</h5><br>
     <h5>내용 : {{qb.body}}</h5><br>
 
     {% if user.is_authenticated %}   <!-- 로그인 상태가 아니면 댓글 못씀-->
