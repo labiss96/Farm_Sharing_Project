@@ -69,7 +69,10 @@
         <p>신청 확정</p>
         {% for person in  shared_lands_people %}
             {% if land.id == person.land.id %}
-                <a href="{% url 'mypage' person.client.username %}">{{person.client.username}}</a><br>
+                {% if person.is_completed == True %}
+                    <a href="{% url 'mypage' person.client.username %}">{{person.client.username}}</a><br>
+            
+                {% endif %}
             {% endif %}
         {% endfor %}
     {% endif %}
