@@ -20,7 +20,6 @@ class Review(models.Model): #성공 사례 게시판
 class Join(models.Model): #팀 모집 게시판
     title=models.CharField(max_length=200,null=True)
     writer=models.ForeignKey(Profile, on_delete = models.CASCADE)
-    region_filter = models.CharField(max_length=200,null=True)
     region=models.CharField(max_length=200,null=True)#지역
     joined_people=models.IntegerField(default=0)#모집 인원
     current_joined=models.BooleanField(max_length=200, default = True) #모집현황
