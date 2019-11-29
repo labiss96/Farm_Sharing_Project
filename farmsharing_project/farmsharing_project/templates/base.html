@@ -74,42 +74,54 @@
   
 </head>
 <style>
-
-
-@font-face { 
-    font-family: 'RIDIBatang'; 
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff'); 
-    font-weight: normal; 
-    font-style: normal; 
-}
-
+  @font-face {
+    font-family: 'RIDIBatang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
 
 
 
-.area_navigation .an_item {
-    font-family: 'RIDIBatang'; 
+
+
+  .area_navigation .an_item {
+    font-family: 'RIDIBatang';
     float: left;
     padding-left: 70px;
-    
-}
 
-.section_navbar {
- 
-  z-index: 100;
-  /* z-index: 2; */
-  height: 46px;
-  border-bottom: 2px solid #E6E6E6;
-  background: #fff;
-  
-  
-}
+  }
 
-.area_navigation {
-  
-  margin: 0 auto;
-  width: 1080px;
-  zoom: 1;
-}
+  .section_navbar {
+
+    z-index: 100;
+    /* z-index: 2; */
+    height: 46px;
+    border-bottom: 2px solid #E6E6E6;
+    background: #fff;
+
+
+  }
+
+  .area_navigation {
+
+    margin: 0 auto;
+    width: 1080px;
+    zoom: 1;
+  }
+
+  .area_navigation .an_l {
+
+    float: left;
+    padding-top: 16px;
+    padding-left: 4px;
+    zoom: 1;
+  }
+
+  ul {
+    list-style: none;
+  }
+
 
 .area_navigation .an_l {
   
@@ -125,6 +137,73 @@ ul {
 #amount_form {
   display: none;
 }
+
+
+.f-left {
+    display: none;
+}
+
+.footer .f-right {
+    float: right;
+    color: #aaa;
+    font-size: 16.5px;
+    line-height: 1.5;
+    text-align: right;
+    top: -10px;
+}
+
+.footer {
+    padding: 8%;
+}
+.footer {
+    padding: 5% 12%;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+
+li{
+   list-style:none;
+   }
+   @font-face { font-family: 'LotteMartDream'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff') format('woff'); } @font-face { font-family: 'LotteMartDream'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff') format('woff'); } @font-face { font-family: 'LotteMartDream'; font-style: normal; font-weight: 300; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff'); } .lottemartdream * { font-family: 'LotteMartDream', sans-serif; }
+
+  .b {
+    font-family: 'LotteMartDream';
+
+  }
+
+.c{
+  font-size:15px;
+
+}
+
+.d{
+  font-size:10px;
+
+}
+
+.wra {
+
+position:relative;
+
+  min-height:100%;
+
+}
+.foot {
+
+position:absolute;
+
+bottom:0;
+
+width:100%;
+
+height:70px;   
+
+
+
+
+}
+
+.fhr{ position: fixed; left: 1%; width: 98%; }
 
 #postcode, #roadAddress, #detailAddress #land_area, #land_condition{
   margin: 0.5rem 0.5rem 0.5rem 0.5rem;
@@ -162,14 +241,17 @@ table.type05 td {
     padding: 18px;
     border-width: 2px;
 }
+
 </style>
+
 <body>
+    <div class="wra">
       <nav class="navbar navbar-expand-md navbar-dark ">
           <div class="container">
-              <a class="navbar-brand" href="/" style="color:black">농사직설</a>
+              <a class="navbar-brand" href="/" style="color:black"><img src="{% static "images/logo.png" %}" style="height: 65px; padding-left:0px; margin-left: 0px;"></a>
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item cta-btn">
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="z-index: 1;">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="z-index: 1; ">
                         <ul class="navbar-nav a" style="z-index: 1;">
                             {% if not user.is_authenticated %}
                           <li class="nav-item active ">
@@ -182,13 +264,12 @@ table.type05 td {
                           {% else %}
                           <li class="nav-item dropdown active">
                             <a class="nav-link dropdown-toggle" style="color:black" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              {{request.user.username}}
+                              <img src="{{ request.user.profile_img.url }}" alt="" style="width: 35px; height: 35px; border-radius: 40%;">
+                              <span style="padding: 5%;">{{request.user.username}}</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                               <a class="dropdown-item" href="{% url 'mypage' request.user.username %}" style="color:black">Mypage</a>
-                              <a class="dropdown-item" href="#" style="color:black">뭔가 기능 하나 넣으셈</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="{% url 'logout' %}" style="color:black">Logout</a>
+                              <a class="dropdown-item" href="{% url 'logout' %}" style="color:black">LogOut</a>
                             </div>
                           </li>
                           {% endif %}
@@ -214,7 +295,7 @@ table.type05 td {
                               <a  href="{% url 'requestboard' %}">땅 요구 게시판</a>
                           </li>
                   <li class="an_item">
-                      <a href="{% url 'review' 'recent'%}" >성공사례</a>
+                      <a href="{% url 'review' 'recent'%}" >농사일지</a>
                   
                     </a>
                   </li>
@@ -234,9 +315,39 @@ table.type05 td {
                 </ul>
                   </div>
               </div>
-      
-    {% block content %}
-    {% endblock %}
+
+            
+              {% block content %}
+              {% endblock %}
+
+
+
+
+
+
+      <footer class="foot">
+        <hr>
+        <div class="contaniner" style="margin-top:0px; margin-left:300px; margin-right:300px; padding-top:10px;">
+            <div class="row" >
+                <div class="col-3 b" >
+                    <img src="{% static "images/kook.png" %}" style="height: 60px; padding-left:0px; margin-left: 0px; float:left;">
+                   
+                  
+                  <p style="padding-top:20px; font-size: 13px;">Kookmin Univ.& Like lion</p>
+                </div>
+                <div class="col-6 b"></div>
+                <div class="col-3 b">
+                  <p class="c">creators</p>
+                  <p class="d">jongmin, junghyun, jungwoo,seoungwon, jeongyeon</p>
+                  
+                
+                </div>
+              </div>
+
+        </div>
+    </div>
+          
+
 
 </body>
 
