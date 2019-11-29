@@ -69,7 +69,7 @@
     <a href="{% url 'review_like' review.id %}" style="border-style:solid; border-color:tomato; padding: 15px; border-radius: 10px;"> 좋아요 취소 </a>
   {% endif %}
 {% endif %}
-{% if right %}
+{% if user.username == review.writer.username %}
   <a href="{% url 'review_edit' review.id %}"> 수정하기 </a>
   <br>
   <a href="{% url 'review_delete' review.id %}"> 삭제하기 </a>
