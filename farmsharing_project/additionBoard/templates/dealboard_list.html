@@ -25,6 +25,20 @@
         </a>
         </div> 
       {% endfor %}
+      <!-- 페이지네이터 -->
+    {% if dealboards.has_previous%}
+    <a href="?page={{dealboards.1}}">첫페이지</a>
+    <a href="?page={{dealboards.previous_page_number}}">이전 페이지</a>
+    {% endif %}
+
+    <span>{{dealboards.number}}</span>
+    <span>of</span>
+    <span>{{dealboards.paginator.num_pages}}</span>
+
+    {% if dealboards.has_next%}
+    <a href="?page={{dealboards.next_page_number}}">다음페이지</a>
+    <a href="?page={{dealboards.paginaitor.num_pages}}">마지막 페이지</a>
+    {% endif %}
   </div> 
 </div>
 {% endblock %}

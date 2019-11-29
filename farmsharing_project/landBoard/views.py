@@ -129,10 +129,14 @@ def SharingBoardDelete(request, sb_id):
 
 def RequestBoardRead(request):
     request_tmp = RequestBoard.objects.all()
-    requestboards=[]
+    request_list=[]
     for requestboard in request_tmp:
-        requestboards.append(requestboard)
-    requestboards.reverse()
+        request_list.append(requestboard)
+    request_list.reverse()
+
+    paginator = Paginator(request_list,9)
+    page = request.GET.get('page')
+    requestboards = paginator.get_page(page)
     region_list = Region.objects.all()
     return render(request, 'requestboard_list.html', {'requestboards': requestboards, 'region_list':region_list})
 

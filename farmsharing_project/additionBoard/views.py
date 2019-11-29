@@ -3,13 +3,17 @@ from .models import QuestionBoard,QB_comment,DealBoard,DB_comment
 from accounts.models import Profile
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
+from django.core.paginator import Paginator
 
 def QuestionBoardRead(request):
     questions = QuestionBoard.objects.all()
-    questionboards=[]
+    question_list=[]
     for question in questions:
-        questionboards.append(question)
-    questionboards.reverse()
+        question_list.append(question)
+    question_list.reverse()
+    paginator = Paginator(question_list,3)
+    page = request.GET.get('page')
+    questionboards = paginator.get_page(page)
     return render(request, 'questionboard_list.html', {'questionboards':questionboards})
 
 def QuestionBoardDetail(request, qb_id):
@@ -81,11 +85,13 @@ def DealBoardCommentDelete(request, comment_id):
 
 def DealBoardRead(request):
     deals = DealBoard.objects.all()
-    dealboards=[]
+    deal_list=[]
     for deal in deals:
-        dealboards.append(deal)
-    dealboards.reverse()
-  
+        deal_list.append(deal)
+    deal_list.reverse()
+    paginator = Paginator(deal_list,3)
+    page = request.GET.get('page')
+    dealboards = paginator.get_page(page)
     return render(request, 'dealboard_list.html', {'dealboards': dealboards})
 
 def DealBoardDetail(request, db_id):
