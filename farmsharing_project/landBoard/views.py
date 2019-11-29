@@ -199,9 +199,10 @@ def SharingBoardDetail(request,sb_id):
 def RequestBoardDetail(request,rb_id):
     rb_detail = get_object_or_404(RequestBoard,pk= rb_id)
     comments = RB_comment.objects.filter(rbcomment = rb_id)
-    me = request.user.username
-    land = request.user.user_land.all()
-    return render(request, 'requestboard_detail.html', {'rb':rb_detail, 'land':land, 'me':me,'comments':comments})
+    land=""
+    if request.user.is_authenticated :
+        land = request.user.user_land.all()
+    return render(request, 'requestboard_detail.html', {'rb':rb_detail, 'land':land,'comments':comments})
 
 def RequestBoardNew(request):
     regionM = Region.objects.all()
