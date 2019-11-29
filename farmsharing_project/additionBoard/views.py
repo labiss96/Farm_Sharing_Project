@@ -5,7 +5,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 
 def QuestionBoardRead(request):
-    questionboards = QuestionBoard.objects.all()
+    questions = QuestionBoard.objects.all()
+    questionboards=[]
+    for question in questions:
+        questionboards.append(question)
+    questionboards.reverse()
     return render(request, 'questionboard_list.html', {'questionboards':questionboards})
 
 def QuestionBoardDetail(request, qb_id):
@@ -76,7 +80,12 @@ def DealBoardCommentDelete(request, comment_id):
     return redirect('/additionBoard/deal/detail/'+str(db_id))
 
 def DealBoardRead(request):
-    dealboards = DealBoard.objects.all()
+    deals = DealBoard.objects.all()
+    dealboards=[]
+    for deal in deals:
+        dealboards.append(deal)
+    dealboards.reverse()
+  
     return render(request, 'dealboard_list.html', {'dealboards': dealboards})
 
 def DealBoardDetail(request, db_id):

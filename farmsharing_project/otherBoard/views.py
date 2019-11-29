@@ -1,3 +1,4 @@
+
 from django.shortcuts import render,get_object_or_404,redirect
 from .models import *
 from accounts.models import Profile
@@ -209,3 +210,4 @@ def review_delete_comment(request, comment_id):
         d_comment.delete()
 
     return redirect('review_detail',d_comment.review.pk)
+
