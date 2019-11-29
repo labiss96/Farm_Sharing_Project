@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-
+{% load staticfiles %}
 <style>
 
 
@@ -49,23 +49,24 @@
 ul {
   list-style: none;
 }
+
+
 </style>
 
 <!-- 중간 글귀 -->
-<div class="container" style="font-family: 'RIDIBatang';">
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
+<div class="container" style="font-family: 'RIDIBatang';" >
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" >
+    <div class="carousel-inner" >
         <div class="carousel-item active">
-            <h1 style="margin-top:50px; margin-bottom:50px; text-align: center;">농사직설 1</h1>
+            
+            <img src="{% static "images/mm1.png" %}" style="height: 100%; width: 100%; padding-top:0px">
+
            
         </div>
         <div class="carousel-item">
-            <h1 style="margin-top:50px; margin-bottom:50px; text-align: center;">농사직설 2</h1>
+          <img src="{% static "images/mm3.png" %}" style="height: 100%; width: 100%; padding-top:0px">
         </div>
-        <div class="carousel-item">
-            <h1 style="margin-top:50px; margin-bottom:50px; text-align: center;">농사직설 3</h1>
-            
-    </div>
+       
     </div>
 </div>
 </div>
