@@ -23,7 +23,8 @@ class Join(models.Model): #팀 모집 게시판
     region=models.CharField(max_length=200,null=True)#지역
     joined_people=models.IntegerField(default=0)#모집 인원
     current_joined=models.BooleanField(max_length=200, default = True) #모집현황
-    active_period=models.CharField(max_length = 200,default=0)#활동 기간
+    active_period_start=models.CharField(max_length = 200,default=0)#활동 기간 시작
+    active_period_end=models.CharField(max_length = 200,default=0)#활동 기간 끝
     purpose=models.CharField(max_length=200,null=True)#사용 목적
     body=models.CharField(max_length=200,null=True) #내용
     pub_date = models.DateTimeField('Date published',null=True)#글 게시 날짜
