@@ -12,7 +12,7 @@
     <br>
     <p>context:{{review.body}}</p>
     <br>
-{% if right %}
+{% if user.username == review.writer.username %}
     <a href="{% url 'review_edit' review.id %}"> 수정하기 </a>
     <br>
     <a href="{% url 'review_delete' review.id %}"> 삭제하기 </a>

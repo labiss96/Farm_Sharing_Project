@@ -35,7 +35,7 @@ def join_detail(request, join_id):
     right = False
     me = request.user
     if me.is_authenticated:
-        if me.id != join_detail.writer.id:
+        if me.id == join_detail.writer.id:
             rigtht = True
         else:
             pass
