@@ -17,7 +17,7 @@ def join(request):
     for join in join_home:
         join_list.append(join)
     join_list.reverse()
-    paginator = Paginator(join_home,3)
+    paginator = Paginator(join_list,3)
     page = request.GET.get('page')
     joins = paginator.get_page(page)
     return render(request, 'join.html',{'joins':joins})
