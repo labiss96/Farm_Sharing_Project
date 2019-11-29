@@ -138,8 +138,9 @@ def review_detail(request, review_id):
     right = False
     me = request.user
     if me.is_authenticated:
-        if me.id != review_detail.writer.id:
+        if me.id == review_detail.writer.id:
             rigtht = True
+            
         else:
             pass
     return render(request, 'review_detail.html', {'review':review_detail,'like_count':like_count,'liked':liked,'me':me,'comments': comments,'right':right})
@@ -155,6 +156,7 @@ def review_create(request, user_id):
     review.writer = get_object_or_404(Profile, username = user)
     review.body = request.POST['body']
     review.pub_date=timezone.datetime.now()
+    review.picture = request.FILES.get('picture')
     review.save()
     return redirect('/otherBoard/review_detail/'+str(review.id))
 
