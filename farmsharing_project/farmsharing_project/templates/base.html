@@ -28,7 +28,7 @@
           $('#amount_form').hide();
         }
       }
-      
+
       function execPostCode() {
          new daum.Postcode({
              oncomplete: function(data) {
@@ -125,7 +125,43 @@ ul {
 #amount_form {
   display: none;
 }
-    
+
+#postcode, #roadAddress, #detailAddress #land_area, #land_condition{
+  margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+
+
+table.type05 {
+    border-collapse: separate;
+    border-spacing: 1px;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+    margin: 20px 10px;
+    width:100%;
+}
+table.type05 th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    background: rgb(229, 248, 205);
+    text-align: center;
+}
+table.type05 td {
+    width: 350px;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+#title{
+    border-style: solid;
+    border-top-color:rgb(229, 248, 205);
+    border-bottom-color: rgb(229, 248, 205);
+    border-left-style: none;
+    border-right-style: none;
+    padding: 18px;
+    border-width: 2px;
+}
 </style>
 <body>
       <nav class="navbar navbar-expand-md navbar-dark ">
