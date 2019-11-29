@@ -61,6 +61,21 @@
     <div style="float:right">{{rb.region}}</div>
     <hr>
     {% endfor %}
+    <!-- 페이지네이터 -->
+    {% if requestboards.has_previous%}
+    <a href="?page={{requestboards.1}}">첫페이지</a>
+    <a href="?page={{requestboards.previous_page_number}}">이전 페이지</a>
+    {% endif %}
+
+    <span>{{requestboards.number}}</span>
+    <span>of</span>
+    <span>{{requestboards.paginator.num_pages}}</span>
+
+    {% if requestboards.has_next%}
+    <a href="?page={{requestboards.next_page_number}}">다음페이지</a>
+    <a href="?page={{requestboards.paginaitor.num_pages}}">마지막 페이지</a>
+    {% endif %}
+
     
 </div>
 

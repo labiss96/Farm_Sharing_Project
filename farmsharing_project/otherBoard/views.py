@@ -3,12 +3,22 @@ from .models import *
 from accounts.models import Profile
 from django.core.paginator import Paginator
 from django.utils import timezone
+from landBoard.models import *
 # Create your views here.
 
 #팀 모집 게시판 함수들
 def join(request):
-    join_home = Join.objects.all()
-    paginator = Paginator(join_home,3)
+    if request.method == 'POST':
+       region_filter = request.POST['region']
+       join_home = Join.objects.filter(region_filter = region_filter)
+    else:
+       join_home = Join.objects.all()
+    
+    join_list = []
+    for join in join_home:
+        join_list.append(join)
+    join_list.reverse()
+    paginator = Paginator(join_list,3)
     page = request.GET.get('page')
     joins = paginator.get_page(page)
     return render(request, 'join.html',{'joins':joins})
@@ -41,7 +51,9 @@ def join_create(request, user_id):
     join.title = request.POST['title']
     user = request.user
     join.writer = get_object_or_404(Profile, username = user)
+    join.region_filter = request.POST['region1']
     join.region = request.POST['region1']+request.POST['region2']
+    join.region_filter = request.POST['region1']
     join.joined_people = request.POST['joined_people']
     join.active_period = request.POST['active_period']
     join.purpose = request.POST['purpose']
@@ -138,15 +150,22 @@ def review_detail(request, review_id):
     right = False
     me = request.user
     if me.is_authenticated:
-        if me.id != review_detail.writer.id:
+        if me.id == review_detail.writer.id:
             rigtht = True
+            
         else:
             pass
     return render(request, 'review_detail.html', {'review':review_detail,'like_count':like_count,'liked':liked,'me':me,'comments': comments,'right':right})
 
 def review_new(request, user_id):
-    myname =  Profile.objects.get(id = user_id)
-    return render(request, 'review_new.html', {'myuser':myname})
+    me =  Profile.objects.get(id = user_id)
+    requests = Land_request.objects.filter ( client = me)     
+    for one_request in requests:   
+       if one_request.is_completed == True:
+           return render(request, 'review_new.html', {'myuser':me})
+       else:
+           pass
+    return redirect('/otherBoard/review/recent')
 
 def review_create(request, user_id):
     review = Review()
@@ -155,6 +174,7 @@ def review_create(request, user_id):
     review.writer = get_object_or_404(Profile, username = user)
     review.body = request.POST['body']
     review.pub_date=timezone.datetime.now()
+    review.picture = request.FILES.get('picture')
     review.save()
     return redirect('/otherBoard/review_detail/'+str(review.id))
 

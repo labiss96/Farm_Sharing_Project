@@ -15,8 +15,10 @@
     <h5>내용 : {{rb.content}}</h5>
     <h5>사용목적 : {{rb.purpose}}</h5>
     <br><br>
+    {% if user.username == rb.writer.username %}
     <a href="{% url 'rb_edit' rb.id%}">수정하기</a>
     <a href="{% url 'rb_delete' rb.id%}">삭제하기</a>
+    {% endif %}
 
     {%for comment in comments.all%}
     <div class ='container'>
@@ -31,7 +33,7 @@
     <form action="{% url 'RequestBoardCommentNew' rb.id%}" method = "POST">
             {% csrf_token %}
             <div >
-                작성자:{{me}}
+                작성자:{{user.username}}
                 <br>
                 땅정보: <select name="l">
                     <option value='' selected>-- 땅선택 --</option>

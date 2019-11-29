@@ -69,7 +69,9 @@ def land_create(request):
     profile = request.user
     land = Land()
     land.region = request.POST.get('region')
-    land.address = request.POST.get('address')
+    land.postcode = request.POST.get('postcode')
+    land.roadAddress = request.POST.get('roadAddress')
+    land.detailAddress = request.POST.get('detailAddress')
     land.land_area = request.POST.get('land_area')
     land.land_condition = request.POST.get('land_condition')
     land.owner_user = request.user
@@ -78,12 +80,15 @@ def land_create(request):
 
 def land_edit(request, land_id):
     land_info = Land.objects.get(id = land_id)
-    return render(request, 'land_edit.html', {'land_info':land_info})
+    region_list = Region.objects.all()
+    return render(request, 'land_edit.html', {'land_info':land_info, "region_list":region_list})
 
 def land_update(request, land_id):
     land_info = Land.objects.get(id = land_id)
     land_info.region = request.POST.get('region')
-    land_info.address = request.POST.get('address')
+    land_info.postcode = request.POST.get('postcode')
+    land_info.roadAddress = request.POST.get('roadAddress')
+    land_info.detailAddress = request.POST.get('detailAddress')
     land_info.land_area = request.POST.get('land_area')
     land_info.land_condition = request.POST.get('land_condition')
     land_info.owner_user = request.user

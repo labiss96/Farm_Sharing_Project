@@ -4,7 +4,9 @@
   <div class="jumbotron">
       <h3 class="display-4">관련 분야 전문가에게 질문하세요</h3>
       <p>당신이 농사를 지으면서 마주쳤던 문제나 궁금했던 점들을 전문가에게 질문해보세요.</p>
+      {% if user.is_authenticated %}
       <p><a class="btn btn-primary btn-lg" href="{% url 'qb_new' %}" role="button">질문 등록하기 &raquo;</a></p>
+      {% endif %}
   </div>
   <div class="card" style="width: 18rem;">
     <img
@@ -31,6 +33,20 @@
         </li>
       </ul>
   {% endfor %}
+   <!-- 페이지네이터 -->
+   {% if questionboards.has_previous%}
+   <a href="?page={{questionboards.1}}">첫페이지</a>
+   <a href="?page={{questionboards.previous_page_number}}">이전 페이지</a>
+   {% endif %}
+
+   <span>{{questionboards.number}}</span>
+   <span>of</span>
+   <span>{{questionboards.paginator.num_pages}}</span>
+
+   {% if questionboards.has_next%}
+   <a href="?page={{questionboards.next_page_number}}">다음페이지</a>
+   <a href="?page={{questionboards.paginaitor.num_pages}}">마지막 페이지</a>
+   {% endif %}
 </div>
 </div>
 {% endblock %}
