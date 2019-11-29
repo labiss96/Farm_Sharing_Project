@@ -22,12 +22,14 @@
    <a href="{% url 'sb_edit' sb.id%}">수정하기</a>
    <a href="{% url 'sb_delete' sb.id%}">삭제하기</a>
    {% endif %}
-
+   
+   {% if user.is_authenticated %}
    {% if user.username != sb.writer.username %}
    {% if requested == False %}
    <a href="{% url 'request_land' sb.id%}">신청하기</a>
    {% else %}
    <p>신청 되었습니다.</p>
+   {% endif %}
    {% endif %}
    {% endif %}
    <hr>

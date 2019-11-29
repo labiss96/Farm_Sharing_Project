@@ -33,7 +33,7 @@
     <form action="{% url 'RequestBoardCommentNew' rb.id%}" method = "POST">
             {% csrf_token %}
             <div >
-                작성자:{{me}}
+                작성자:{{user.username}}
                 <br>
                 땅정보: <select name="l">
                     <option value='' selected>-- 땅선택 --</option>
