@@ -14,7 +14,8 @@ class LandBoard(PolymorphicModel):
     title = models.CharField(max_length=100) #제목
     region = models.CharField(max_length=100) #지역
     land_area = models.FloatField() #면적
-    sharing_term = models.CharField(max_length=100) #공유기간
+    sharing_term_start = models.CharField(max_length=100) #공유기간 시작
+    sharing_term_end = models.CharField(max_length=100) #공유기간 끝
     content = models.TextField() #글 내용
     is_completed = models.BooleanField(default=False) #모집이 완료되었는가?
     pub_date = models.DateTimeField('Date published',null=True)#글 게시 날짜 
@@ -35,6 +36,7 @@ class RequestBoard(LandBoard):
     purpose = models.CharField(max_length=100) #사용 목적
     is_pay_for = models.BooleanField(default=False)  # 비용지불 의사 여부
     writer = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='profile_rb') #작성자 - 땅게시판 (1:N) 관계설정.
+
 
 class SB_comment(models.Model):
     comment_writer = models.ForeignKey(Profile, on_delete=models.CASCADE)
