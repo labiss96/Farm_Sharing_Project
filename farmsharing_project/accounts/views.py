@@ -80,7 +80,8 @@ def land_create(request):
 
 def land_edit(request, land_id):
     land_info = Land.objects.get(id = land_id)
-    return render(request, 'land_edit.html', {'land_info':land_info})
+    region_list = Region.objects.all()
+    return render(request, 'land_edit.html', {'land_info':land_info, "region_list":region_list})
 
 def land_update(request, land_id):
     land_info = Land.objects.get(id = land_id)
