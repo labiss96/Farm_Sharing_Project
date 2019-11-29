@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
 <div class="container">
     <br>
     <h2>Register Land</h2>
@@ -16,7 +15,12 @@
             {% endfor %}
         </select>
         <br>
-        주소 : <input name="address" type="text" value="">
+        주소 <br>
+        <input type="text" name="postcode" id="postcode" placeholder="우편번호">
+        <input type="button" onclick="execPostCode()" value="우편번호 찾기"><br>
+        <input type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소"><br>
+        <input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
+        <br>
         <br>
         땅 면적 : <input name="land_area" type="text" value=""> M<sup>2</sup>
         <br> <span>*면적 단위는 M<sup>2</sup>로 기입하시오.</span>
@@ -27,6 +31,5 @@
         <br>
     </form>
 </div>
-
 
 {% endblock %}

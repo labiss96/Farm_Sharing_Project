@@ -9,7 +9,12 @@
         <br>
         지역 : <input name="region" type="text" value="{{land_info.region}}">
         <br>
-        주소 : <input name="address" type="text" value="{{land_info.address}}">
+        주소 <br>
+        <input type="text" name="postcode" id="postcode" value="{{land_info.postcode}}" placeholder="우편번호">
+        <input type="button" onclick="execPostCode()" value="우편번호 찾기"><br>
+        <input type="text" name="roadAddress" id="roadAddress" value="{{land_info.roadAddress}}" placeholder="도로명주소">
+        <input type="text" name="detailAddress" id="detailAddress" value="{{land_info.detailAddress}}" placeholder="상세주소">
+
         <br>
         땅 면적 : <input name="land_area" type="text" value="{{land_info.land_area}}">
         <br>
