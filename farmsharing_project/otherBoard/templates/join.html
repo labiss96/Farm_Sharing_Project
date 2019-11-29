@@ -10,6 +10,7 @@
 {% endif %}
 
 <!-- 게시물들 -->
+<div>
 {% for join in joins %}
        <a href="{% url 'join_detail' join.id %}">
        <div class="container">
@@ -23,5 +24,21 @@
        </div>
        </a>
 {% endfor %}
+<!-- 페이지네이터 -->
+{% if joins.has_previous%}
+<a href="?page={{joins.1}}">첫페이지</a>
+<a href="?page={{joins.previous_page_number}}">이전 페이지</a>
+{% endif %}
+
+<span>{{joins.number}}</span>
+<span>of</span>
+<span>{{joins.paginator.num_pages}}</span>
+
+{% if joins.has_next%}
+<a href="?page={{joins.next_page_number}}">다음페이지</a>
+<a href="?page={{joins.paginaitor.num_pages}}">마지막 페이지</a>
+{% endif %}
+
+</div>
 
 {% endblock %}
