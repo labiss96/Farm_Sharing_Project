@@ -51,8 +51,10 @@ table.type05 td {
                     <td>{{qb.body}}</td>
                 </tr>
             </table>
+    {% if user.username == qb.writer.username %}
     <a href="{% url 'qb_delete' qb.id%}" style="float: right;">삭제하기</a>
     <a href="{% url 'qb_edit' qb.id%}" style="float: right;">수정하기&nbsp;&nbsp;</a>
+    {% endif %}
     <br><br><br>
     <div id="title">
     {% if user.is_authenticated %}   <!-- 로그인 상태가 아니면 댓글 못씀-->
@@ -71,7 +73,9 @@ table.type05 td {
     <hr>
         <p>작성자:{{comment.comment_writer}}</p><br>
         <p>내용:{{comment.comment_content}}</p><br>
+        {% if comment.comment_writer.username == user.username %}
         <a href="{% url 'qb_commentdelete' comment.id %}" style="float: right;">내 댓글 삭제하기</a>
+        {% endif %}
         <hr>
     {% endfor %}
     

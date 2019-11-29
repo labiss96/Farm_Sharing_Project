@@ -56,14 +56,20 @@
                 <td>{{db.body}}</td>
             </tr>
         </table>
+        {% if user.is_authenticated %}
+      {% if user.username != db.writer.usename %}
     {% if liked == False %}
     <a href="{% url 'deal_like' db.id %}"> 좋아요 </a>
     {% else %}
     <a href="{% url 'deal_like' db.id %}"> 좋아요 취소 </a>
     {% endif %}
+    {% endif %}
+    {% endif %}
     <p>{{like_count}}명이 좋아하는 리뷰입니다.</p>
+    {% if user.username == db.writer.usename %}
     <a href="{%url 'db_delete' db.id%}" style="float: right;">삭제하기</a>
     <a href="{%url 'db_edit' db.id%}" style="float: right;">수정하기&nbsp;&nbsp;</a>
+    {% endif %}
     <br><br><br>
     <div id="title">
         {% if user.is_authenticated %}   <!-- 로그인 상태가 아니면 댓글 못씀-->
@@ -83,7 +89,9 @@
     <hr>
         <p>작성자:{{comment.comment_writer}}</p><br>
         <p>내용:{{comment.comment_content}}</p><br>
+        {% if user.username == comment.comment_writer.username %}
         <a href="{% url 'db_commentdelete' comment.id %}" style="float: right;">내 댓글 삭제하기</a>
+        {% endif %}
         <hr>
     {% endfor %}
 </div>
