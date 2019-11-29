@@ -21,7 +21,8 @@
                               <div class="card-header" style="text-align: center;">{{land.region}}</div>
                               <div class="card-body">
                                     <h5 class="card-title text-success " >{{land.land_area}} m<sup>2</sup></h5>
-                                    <p class="card-text text-secondary ">{{land.address}}</p>
+                                    
+                                    <p class="card-text text-secondary "> PostCode [{{land.postcode}}] <br> {{land.roadAddress}}</p>
                               </div>
                             </div>                
                         </label>
@@ -34,12 +35,6 @@
         <br>
         
         제목 : <input type="text" name = 'title' required="required"><br>
-        <!-- 지역 : <select name='region' required="required">
-                    <option value='' selected>-- 선택 --</option>
-                    {%for i in regionM%}
-                    <option value='{{i}}'>{{i}}</option>
-                    {%endfor%}
-                </select><br>        -->
         면적 : <input type="number" name = 'land_area' required="required">m<sup>2</sup><br>
         기간 : <select name = 'sharing_term' required="required">
                     <option value='' selected>-- 선택 --</option>

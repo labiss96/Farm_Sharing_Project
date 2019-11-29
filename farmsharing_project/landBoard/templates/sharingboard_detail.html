@@ -33,11 +33,21 @@
    {% endif %}
    {% endif %}
    <hr>
-   {%for comment in comments.all%}
-      
-         <p>작성자:{{comment.comment_writer}}</p>
-         <p>내용:{{comment.comment_content}}</p>
-      
+
+
+   {%for comment in comments.all%}   
+   <table>
+      <tr>
+         <th style="padding: 10px;">
+            <img src="{{ comment.comment_writer.profile_img.url }}" alt="" style="width: 35px; height: 35px; border-radius: 40%;"> <span style="padding: 8px; ">{{comment.comment_writer}}</span>
+         </th>
+         <td>
+            <span>{{comment.comment_content}}</span>
+         </td>
+      </tr>
+   </table>
+   <hr>  
+         
    {% endfor %}
    <hr>
    {% if user.is_authenticated %}   <!-- 로그인 상태가 아니면 댓글 못씀-->

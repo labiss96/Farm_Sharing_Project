@@ -264,7 +264,8 @@ table.type05 td {
                           {% else %}
                           <li class="nav-item dropdown active">
                             <a class="nav-link dropdown-toggle" style="color:black" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              {{request.user.username}}
+                              <img src="{{ request.user.profile_img.url }}" alt="" style="width: 35px; height: 35px; border-radius: 40%;">
+                              <span style="padding: 5%;">{{request.user.username}}</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                               <a class="dropdown-item" href="{% url 'mypage' request.user.username %}" style="color:black">Mypage</a>
