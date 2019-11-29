@@ -10,6 +10,11 @@
    <h5>기간 : {{sb.sharing_term}}</h5>
    <h5>금액 : {{sb.amount}}</h5>
    <h5>내용 : {{sb.content}}</h5>
+  {% if sb.is_completed == True %}
+  <h5>상태 : 마감됨</h5>
+  {% else %}
+  <h5>상태 : 모집중</h5>
+  {% endif %}
    <img style="width: 18rem; height: 13rem;" src="{{ sb.land_img.url }}">
    <br><hr>
    <a href="{% url 'sb_edit' sb.id%}">수정하기</a>
