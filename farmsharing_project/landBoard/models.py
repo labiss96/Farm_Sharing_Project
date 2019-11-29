@@ -17,6 +17,7 @@ class LandBoard(PolymorphicModel):
     sharing_term = models.CharField(max_length=100) #공유기간
     content = models.TextField() #글 내용
     is_completed = models.BooleanField(default=False) #모집이 완료되었는가?
+    pub_date = models.DateTimeField('Date published',null=True)#글 게시 날짜 
 
     def __str__(self):
         return self.title
