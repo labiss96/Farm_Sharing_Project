@@ -90,23 +90,21 @@
    {% endif%}
    <!-- 스크랩 끝 -->
 
-   <!-- 댓글 시작 -->
-   <br>
-   <hr>
-   <h2>댓글</h2>
-   {%for comment in comments.all%}
-   <div class='container'>
-      <p>작성자:{{comment.writer}}</p>
-      <p>내용:{{comment.content}}</p>
-   </div>
-   {% if user.is_authenticated %}
-   <a href="{% url 'join_delete_comment' comment.id%}">삭제하기</a>
-   {% endif %}
 
-   {% endfor %}
+<!-- 댓글 시작 -->
+       <br>
+       <hr>
+<h2>댓글</h2>
+{%for comment in comments.all%}
+  <p>작성자:{{comment.writer}}</p>
+  <p>내용:{{comment.content}}</p>
+  {% if user.is_authenticated %}
+  <a href="{% url 'join_delete_comment' comment.id%}">삭제하기</a>
+  {% endif %}
+{% endfor %}
    <br>
    <!-- 댓글 작성하기 -->
-   {% if user.is_authenticated %}
+ {% if user.is_authenticated %}
    <!-- 로그인 상태가 아니면 댓글 못씀-->
    <form action="{% url 'join_new_comment' join.id%}" method="POST">
       {% csrf_token %}
@@ -116,11 +114,9 @@
          내용:<textarea name="content" class="form-control" id="" cols="30" rows="5"></textarea>
          <br>
          <button type="submit">작성</button>
-
       </div>
-
    </form>
-   {% endif %}
+ {% endif %}
    <br>
    <!-- 댓글 끝 -->
 </div>

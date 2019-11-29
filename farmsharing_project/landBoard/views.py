@@ -7,9 +7,15 @@ from django.core.paginator import Paginator
 from django.utils import timezone
 
 def SharingBoardRead(request):
-    sharingboards = SharingBoard.objects.all()
-    paginator = Paginator(sharingboards,9)
+    sharing_tmp = SharingBoard.objects.all()
+    sharingboards=[]
 
+    for sharingboard in sharing_tmp:
+        sharingboards.append(sharingboard)
+    sharingboards.reverse()
+
+    paginator = Paginator(sharingboards,9)
+    
     page = request.GET.get('page')
     sharingboards2 = paginator.get_page(page)
     region_list = Region.objects.all()
@@ -122,7 +128,15 @@ def SharingBoardDelete(request, sb_id):
     return redirect('sharingboard')
 
 def RequestBoardRead(request):
-    requestboards = RequestBoard.objects.all()
+    request_tmp = RequestBoard.objects.all()
+    request_list=[]
+    for requestboard in request_tmp:
+        request_list.append(requestboard)
+    request_list.reverse()
+
+    paginator = Paginator(request_list,9)
+    page = request.GET.get('page')
+    requestboards = paginator.get_page(page)
     region_list = Region.objects.all()
     return render(request, 'requestboard_list.html', {'requestboards': requestboards, 'region_list':region_list})
 
@@ -189,9 +203,10 @@ def SharingBoardDetail(request,sb_id):
 def RequestBoardDetail(request,rb_id):
     rb_detail = get_object_or_404(RequestBoard,pk= rb_id)
     comments = RB_comment.objects.filter(rbcomment = rb_id)
-    me = request.user.username
-    land = request.user.user_land.all()
-    return render(request, 'requestboard_detail.html', {'rb':rb_detail, 'land':land, 'me':me,'comments':comments})
+    land=""
+    if request.user.is_authenticated :
+        land = request.user.user_land.all()
+    return render(request, 'requestboard_detail.html', {'rb':rb_detail, 'land':land,'comments':comments})
 
 def RequestBoardNew(request):
     regionM = Region.objects.all()

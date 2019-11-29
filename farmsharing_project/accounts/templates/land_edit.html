@@ -6,18 +6,48 @@
     <h2>Edit Land</h2>
     <form method="POST" action="{% url 'land_update' land_info.id %}" method="POST">
         {% csrf_token %}
-        <br>
-        지역 : <input name="region" type="text" value="{{land_info.region}}">
-        <br>
-        주소 : <input name="address" type="text" value="{{land_info.address}}">
-        <br>
-        땅 면적 : <input name="land_area" type="text" value="{{land_info.land_area}}">
-        <br>
-        땅 상태 : <input name="land_condition" type="text" value="{{land_info.land_condition}}">
-        <br><br>
-        <input type="submit" value="정보 수정">
-        <br>
+        <table class="type05">
+                <tr>
+                    <th scope="row">지역</th>
+                    <td>
+                        <select name='region' required="required">
+                            <option value="{{land_info.region}}" selected>{{land_info.region}}</option>
+                            {%for rg in region_list%}
+                                {%if rg.region != land_info.region %}
+                                    <option value="{{rg.region}}">{{rg.region}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">주소를 입력해주세요</th>
+                    <td>
+                        <input type="text" name="postcode" id="postcode" placeholder="우편번호" value="{{land_info.postcode}}">
+                        <input type="button" onclick="execPostCode()" value="우편번호 찾기"><br>
+                        <input type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소" value="{{land_info.roadAddress}}">
+                        <input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소" value="{{land_info.detailAddress}}">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">땅의 면적을 입력해주세요</th>
+                    <td>
+                        <input name="land_area" id="land_area" type="text" placeholder="땅 면적" value="{{land_info.land_area}}"> M<sup>2</sup> <br>
+                        <span>*면적 단위는 M<sup>2</sup>로 기입하시오.</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">땅의 상태를 입력해주세요</th>
+                    <td>
+                        <input name="land_condition" id="land_condition" type="text" placeholder="땅 상태" value="{{land_info.land_condition}}">
+                    </td>
+                </tr>
+            </table>
+        <button type="submit" style="float:right">등록!</button>
     </form>
+
+    
+
 </div>
 
 {% endblock %}
