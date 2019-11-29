@@ -131,7 +131,7 @@ def RequestBoardRead(request):
     request_tmp = RequestBoard.objects.all()
     requestboards=[]
     for requestboard in request_tmp:
-        requestboards.append(Requestboard)
+        requestboards.append(requestboard)
     requestboards.reverse()
     region_list = Region.objects.all()
     return render(request, 'requestboard_list.html', {'requestboards': requestboards, 'region_list':region_list})

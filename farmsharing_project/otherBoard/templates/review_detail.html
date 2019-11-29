@@ -21,10 +21,12 @@
 <br>
     <!-- 좋아요 -->
 {% if user.is_authenticated %}   <!-- 로그인 상태가 아니면 좋아요 못누름-->
+{% if user.username != review.writer.username %}
     {% if liked == False %}
     <a href="{% url 'review_like' review.id %}"> 좋아요 </a>
     {% else %}
     <a href="{% url 'review_like' review.id %}"> 좋아요 취소 </a>
+    {% endif %}
     {% endif %}
  {% endif %}
   <p>{{like_count}}명이 좋아하는 리뷰입니다.</p>

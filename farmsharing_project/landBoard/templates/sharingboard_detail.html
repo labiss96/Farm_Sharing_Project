@@ -18,8 +18,11 @@
   {% endif %}
    <img style="width: 18rem; height: 13rem;" src="{{ sb.land_img.url }}">
    <br><hr>
+   {% if user.username == sb.writer.username %}
    <a href="{% url 'sb_edit' sb.id%}">수정하기</a>
    <a href="{% url 'sb_delete' sb.id%}">삭제하기</a>
+   {% endif %}
+
    {% if user.username != sb.writer.username %}
    {% if requested == False %}
    <a href="{% url 'request_land' sb.id%}">신청하기</a>
