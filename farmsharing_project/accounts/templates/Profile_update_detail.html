@@ -1,0 +1,9 @@
+<form method="POST" action="{% url 'Profile_update'%}">
+    {% csrf_token %}
+        
+        E-mail: <input type="email" name="email" value={{user.email}}  required="required" placeholder="Your email"><br>
+        SNS_ID: <input type="text" name="sns_id" value={{user.sns_id}}  required="required" placeholder="Your sns_id"><br>
+        자기소개: <textarea class="form-control" name="self_introduction"   placeholder="자기소개">{{user.introduce}}</textarea><br>
+        
+        <input type="submit" value="update" ><br>
+    </form>

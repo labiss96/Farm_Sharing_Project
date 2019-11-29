@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+        table.type05 {
+        border-collapse: separate;
+        border-spacing: 1px;
+        text-align: left;
+        line-height: 1.5;
+        border-top: 1px solid #ccc;
+        margin: 20px 10px;
+        width:100%;
+    }
+    table.type05 th {
+        width: 150px;
+        padding: 10px;
+        font-weight: bold;
+        vertical-align: top;
+        border-bottom: 1px solid #ccc;
+        background: rgb(229, 248, 205);
+        text-align: center;
+    }
+    table.type05 td {
+        width: 350px;
+        padding: 10px;
+        vertical-align: top;
+        border-bottom: 1px solid #ccc;
+    }
+        #title{
+        border-style: solid;
+        border-top-color:rgb(229, 248, 205);
+        border-bottom-color: rgb(229, 248, 205);
+        border-left-style: none;
+        border-right-style: none;
+        padding: 18px;
+        border-width: 2px;
+    }
+    </style>
+<div class="container">
+        <br>
+        <h1 id="title">팀원 모집 글 등록하기</h1>
+        <br><br>
+        <form action="{% url 'join_create' myuser.id%}" method="POST">
+            {%csrf_token%}
+            <table class="type05">
+                    <tr>
+                        <th scope="row">제목을 입력하세요</th>
+                        <td><input type="text" name="title"></td>
+                    </tr>
+                    <tr>
+                            <th scope="row">지역</th>
+                            <td><select name="region1">
+                                    <option value="서울 특별시">서울 특별시</option>
+                                    <option value="인천 광역시">인천 광역시</option>
+                                    <option value="대구 광역시">대구 광역시</option>
+                                    <option value="대전 광역시">대전 광역시</option>
+                                    <option value="부산 광역시">부산 광역시</option>
+                                    <option value="광주 광역시">광주 광역시</option>
+                                    <option value="울산 광역시">울산 광역시</option>
+                                    <option value="세종 특별자치시">세종 특별자치시</option>
+                                    <option value="경기도">경기도</option>
+                                    <option value="강원도">강원도</option>
+                                    <option value="충청북도">충청북도</option>
+                                    <option value="충청남도">충청남도</option>
+                                    <option value="경상북도">경상북도</option>
+                                    <option value="경상남도">경상남도</option>
+                                    <option value="전라북도">전라북도</option>
+                                    <option value="전라남도">전라남도</option>
+                                    <option value="제주특별자치도">제주특별자치도</option>
+                                </select>
+                                <input type="text" name="region2" value=""></td>
+                        </tr>
+                    <tr>
+                        <th scope="row">모집인원</th>
+                        <td><input type="text" name="joined_people" value="" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" />명</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">활동기간</th>
+                        <td><input type="text" name="active_period" value=""></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">목적</th>
+                        <td><input type="text" name="purpose" value=""></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">내용</th>
+                        <td><textarea name="body" cols="30" rows="10">
+                            </textarea></td>
+                    </tr>
+                </table>
+            <button type="submit" style="float:right">등록!</button>
+        </form>
+</div>
+{% endblock %}

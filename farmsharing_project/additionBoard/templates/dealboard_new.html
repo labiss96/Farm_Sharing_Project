@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+
+</style>
+<div class="container">
+    <br>
+    <h1 id="title">수확물 등록하기</h1>
+    <br><br>
+    <form action="{%url 'db_create'%}" method="POST" enctype="multipart/form-data">
+        {%csrf_token%}
+        <table class="type05">
+                <tr>
+                    <th scope="row">제목을 입력하세요</th>
+                    <td><input type="text" name="title"></td>
+                </tr>
+                <tr>
+                    <th scope="row">상품에 대한 설명을 입력하세요</th>
+                    <td><textarea name="body" id="" cols="30" rows="10"></textarea></td>
+                </tr>
+                <tr>
+                    <th scope="row">상품 사진을 등록하세요</th>
+                    <td><input style="text-align: center;" type="file" name="prod_img" accept=".jpg,.jpeg,.png,.gif"></td>
+                </tr>
+            </table>
+        <button type="submit" style="float:right">등록!</button>
+    </form>
+
+</div>
+{%endblock%}

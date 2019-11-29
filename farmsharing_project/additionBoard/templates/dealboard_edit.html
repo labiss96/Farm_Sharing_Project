@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+        table.type05 {
+        border-collapse: separate;
+        border-spacing: 1px;
+        text-align: left;
+        line-height: 1.5;
+        border-top: 1px solid #ccc;
+        margin: 20px 10px;
+        width:100%;
+    }
+    table.type05 th {
+        width: 150px;
+        padding: 10px;
+        font-weight: bold;
+        vertical-align: top;
+        border-bottom: 1px solid #ccc;
+        background: rgb(229, 248, 205);
+        text-align: center;
+    }
+    table.type05 td {
+        width: 350px;
+        padding: 10px;
+        vertical-align: top;
+        border-bottom: 1px solid #ccc;
+    }
+        #title{
+        border-style: solid;
+        border-top-color:rgb(229, 248, 205);
+        border-bottom-color: rgb(229, 248, 205);
+        border-left-style: none;
+        border-right-style: none;
+        padding: 18px;
+        border-width: 2px;
+    }
+    </style>
+
+<div class="container">
+    <h1>상품수정 페이지</h1><br>
+    <form action="{% url 'db_update' db.id %}" method="POST" enctype="multipart/form-data">
+        {%csrf_token%}
+        <table class="type05">
+                <tr>
+                    <th scope="row">제목을 수정하세요</th>
+                    <td><input type="text" name="title" value="{{db.title}}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">상품에 대한 설명을 수정하세요</th>
+                    <td><textarea name="body" id="" cols="30" rows="10" value="{{db.body}}">{{db.body}}</textarea></td>
+                </tr>
+                <tr>
+                    <th scope="row">상품 사진을 수정하세요</th>
+                    <td><input style="text-align: center;" type="file" name="prod_img" accept=".jpg,.jpeg,.png,.gif" value="{{db.prod_img}}"></td>
+                </tr>
+            </table>
+        <button type="submit" style="float:right">수정!!</button>
+    </form>
+
+</div>
+{%endblock%}

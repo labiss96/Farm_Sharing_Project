@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container" style="z-index: -1;">
+  <div class="jumbotron p-4 p-md-5 text-white" style="background-color: rgb(179, 230, 124);">
+      <div class="col-md-6 px-0">
+        <h1 class="display-4 font-italic">농사직설에서<br>당신의 수확물을 판매해보세요</h1>
+        <p class="lead my-3">당신이 어떻게 농사지었는지 보여줄 수 있고<br> 여러 유통비용에서 자유로워질 수 있습니다.</p>
+        {% if user.is_authenticated %}
+        <p class="lead mb-0"><a href="{% url 'db_new' %}" class="text-white font-weight-bold">수확물 등록하기</a></p>
+        {% endif %}
+      </div>
+    </div>
+
+  <div class= "row">
+      {%for db in dealboards%}
+        <div class="col-4" style="padding:15px">
+        <a href="{% url 'db_detail' db.id %}">
+          <div class="card" style="width: 18rem; background-color:rgb(229, 248, 205);">
+              <img src="{{db.prod_img.url}}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">제목 : {{db.title}}</h5>
+                <p class="card-text">제목: {{db.summary}}...</p>
+              </div>
+          </div>
+        </a>
+        </div> 
+      {% endfor %}
+      <!-- 페이지네이터 -->
+    {% if dealboards.has_previous%}
+    <a href="?page={{dealboards.1}}">첫페이지</a>
+    <a href="?page={{dealboards.previous_page_number}}">이전 페이지</a>
+    {% endif %}
+
+    <span>{{dealboards.number}}</span>
+    <span>of</span>
+    <span>{{dealboards.paginator.num_pages}}</span>
+
+    {% if dealboards.has_next%}
+    <a href="?page={{dealboards.next_page_number}}">다음페이지</a>
+    <a href="?page={{dealboards.paginaitor.num_pages}}">마지막 페이지</a>
+    {% endif %}
+  </div> 
+</div>
+{% endblock %}

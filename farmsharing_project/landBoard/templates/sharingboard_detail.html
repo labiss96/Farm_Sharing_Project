@@ -1,0 +1,67 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<div class ='container'>
+   <h1>제목 : {{sb.title}}</h1></a>
+   <h5>게시 날짜 : {{sb.pub_date}}</h5>
+   <h5>작성자 : {{sb.writer}}</h5>
+   <h5>지역 : {{sb.region}}</h5>
+   <h5>주소 : {{sb.choice_land.address}}</h5>
+   <h5>면적 : {{sb.land_area}}</h5>
+   <h5>기간 : {{sb.sharing_term}}</h5>
+   <h5>금액 : {{sb.amount}}</h5>
+   <h5>내용 : {{sb.content}}</h5>
+  {% if sb.is_completed == True %}
+  <h5>상태 : 마감됨</h5>
+  {% else %}
+  <h5>상태 : 모집중</h5>
+  {% endif %}
+   <img style="width: 18rem; height: 13rem;" src="{{ sb.land_img.url }}">
+   <br><hr>
+   {% if user.username == sb.writer.username %}
+   <a href="{% url 'sb_edit' sb.id%}">수정하기</a>
+   <a href="{% url 'sb_delete' sb.id%}">삭제하기</a>
+   {% endif %}
+   
+   {% if user.is_authenticated %}
+   {% if user.username != sb.writer.username %}
+   {% if requested == False %}
+   <a href="{% url 'request_land' sb.id%}">신청하기</a>
+   {% else %}
+   <p>신청 되었습니다.</p>
+   {% endif %}
+   {% endif %}
+   {% endif %}
+   <hr>
+
+
+   {%for comment in comments.all%}   
+   <table>
+      <tr>
+         <th style="padding: 10px;">
+            <img src="{{ comment.comment_writer.profile_img.url }}" alt="" style="width: 35px; height: 35px; border-radius: 40%;"> <span style="padding: 8px; ">{{comment.comment_writer}}</span>
+         </th>
+         <td>
+            <span>{{comment.comment_content}}</span>
+         </td>
+      </tr>
+   </table>
+   <hr>  
+         
+   {% endfor %}
+   <hr>
+   {% if user.is_authenticated %}   <!-- 로그인 상태가 아니면 댓글 못씀-->
+      <form action="{% url 'SharingBoardCommentNew' sb.id%}" method = "POST">
+         {% csrf_token %}
+         <div >
+            작성자:{{me}}
+            <br>
+            내용:<textarea name="content" class="form-control" id="" cols="15" rows="5"></textarea>
+            <br>
+            <button type="submit">작성</button>
+         </div>
+      </form>
+   {% endif %}
+</div>
+
+{% endblock %}

@@ -1,3 +1,220 @@
-from django.shortcuts import render
-
+from django.shortcuts import render,get_object_or_404,redirect
+from .models import *
+from accounts.models import Profile
+from django.core.paginator import Paginator
+from django.utils import timezone
+from landBoard.models import *
 # Create your views here.
+
+#팀 모집 게시판 함수들
+def join(request):
+    if request.method == 'POST':
+       region_filter = request.POST['region']
+       join_home = Join.objects.filter(region_filter = region_filter)
+    else:
+       join_home = Join.objects.all()
+    
+    join_list = []
+    for join in join_home:
+        join_list.append(join)
+    join_list.reverse()
+    paginator = Paginator(join_list,3)
+    page = request.GET.get('page')
+    joins = paginator.get_page(page)
+    return render(request, 'join.html',{'joins':joins})
+       
+
+def join_detail(request, join_id):        
+    join_detail = get_object_or_404(Join, pk = join_id)
+    scrapped=False #스크랩 여부
+    if join_detail.scrap.filter(username=request.user.username).exists():
+        scrapped=True
+    else:
+        scrapped=False
+    comments = Join_comments.objects.filter(join = join_id)
+    right = False
+    me = request.user
+    if me.is_authenticated:
+        if me.id == join_detail.writer.id:
+            rigtht = True
+        else:
+            pass
+    return render(request, 'join_detail.html', {'join':join_detail,'scrapped':scrapped, 'me':me, 'comments':comments,'right':right})
+
+
+def join_new(request, user_id):
+    myname =  Profile.objects.get(id = user_id)
+    return render(request, 'join_new.html', {'myuser':myname})
+
+def join_create(request, user_id):
+    join = Join()
+    join.title = request.POST['title']
+    user = request.user
+    join.writer = get_object_or_404(Profile, username = user)
+    join.region_filter = request.POST['region1']
+    join.region = request.POST['region1']+request.POST['region2']
+    join.region_filter = request.POST['region1']
+    join.joined_people = request.POST['joined_people']
+    join.active_period = request.POST['active_period']
+    join.purpose = request.POST['purpose']
+    join.body = request.POST['body']
+    join.pub_date=timezone.datetime.now()
+    join.save()
+    return redirect('join')
+
+def join_delete(request, delete_join_id):
+    delete_join = get_object_or_404(Join, pk= delete_join_id)
+    delete_join.delete()
+    return redirect('join')
+
+def join_edit(request, edit_join_id):
+    edit_join = get_object_or_404(Join, pk=edit_join_id)
+    return render(request, 'join_edit.html', {'join':edit_join})
+
+def join_update(request, update_join_id):
+    update_join = get_object_or_404(Join, pk=update_join_id)
+    update_join.title = request.POST['title']
+    update_join.region = request.POST['region']
+    update_join.joined_people = request.POST['joined_people']
+    update_join.active_period = request.POST['active_period']
+    update_join.purpose = request.POST['purpose']
+    update_join.body = request.POST['body']
+    update_join.save()
+    return redirect('join')
+
+def join_scrap(request,scrap_join_id):
+    scrap_join=get_object_or_404(Join,pk=scrap_join_id)
+    
+    if scrap_join.scrap.filter(username=request.user.username).exists():
+        scrap_join.scrap.remove(request.user)
+    else:
+        scrap_join.scrap.add(request.user)
+    scrap_join.save()
+
+    return redirect('join_detail',scrap_join_id) 
+
+
+def join_new_comment(request, join_id):
+    comment = Join_comments()
+    user = request.user
+    comment.writer = get_object_or_404(Profile, username = user)
+    comment.content = request.POST['content']
+    comment.join= get_object_or_404( Join, pk= join_id)
+    comment.save()
+    return redirect('join_detail',join_id)
+
+def join_delete_comment(request, comment_id):
+    d_comment = Join_comments.objects.get(id=comment_id) 
+    if d_comment.writer == request.user:
+        d_comment.delete()
+
+    return redirect('join_detail',d_comment.join.pk)
+
+
+
+# 성공 사례 계시판 함수들
+def review(request,arrange):
+    review_home = Review.objects.all()
+    page = request.GET.get('page')
+    review_list = []
+     
+    if arrange == "recent":
+        for review in review_home:
+            review_list.append(review)
+        review_list.reverse()
+
+    elif arrange == "popular": 
+        for review in review_home:
+            review_list.append(review)
+        review_list.reverse()
+        for i in range(0,len(review_list)-1):
+            for j in range(i,len(review_list)):
+                if review_list[i].total_likes() < review_list[j].total_likes():
+                    review_list[i],review_list[j] = review_list[j],review_list[i]
+                    
+    paginator = Paginator(review_list, 3)
+    reviews = paginator.get_page(page)
+    return render(request, 'review.html',{'reviews':reviews})
+
+
+def review_detail(request, review_id):
+    review_detail = get_object_or_404(Review, pk = review_id)
+    comments = Review_comments.objects.filter(review = review_id)
+    me = request.user.username
+    liked=False #좋아요 여부
+    if review_detail.like.filter(username=request.user.username).exists():
+        liked=True
+    else:
+        liked=False
+    like_count=review_detail.total_likes()
+    right = False
+    me = request.user
+    if me.is_authenticated:
+        if me.id == review_detail.writer.id:
+            rigtht = True
+            
+        else:
+            pass
+    return render(request, 'review_detail.html', {'review':review_detail,'like_count':like_count,'liked':liked,'me':me,'comments': comments,'right':right})
+
+def review_new(request, user_id):
+    me =  Profile.objects.get(id = user_id)
+    requests = Land_request.objects.filter ( client = me)     
+    for one_request in requests:   
+       if one_request.is_completed == True:
+           return render(request, 'review_new.html', {'myuser':me})
+       else:
+           pass
+    return redirect('/otherBoard/review/recent')
+
+def review_create(request, user_id):
+    review = Review()
+    review.title = request.POST['title']
+    user = request.user
+    review.writer = get_object_or_404(Profile, username = user)
+    review.body = request.POST['body']
+    review.pub_date=timezone.datetime.now()
+    review.picture = request.FILES.get('picture')
+    review.save()
+    return redirect('/otherBoard/review_detail/'+str(review.id))
+
+def review_delete(request, delete_review_id):
+    delete_review = get_object_or_404(Review, pk= delete_review_id)
+    delete_review.delete()
+    return redirect('review')
+
+def review_edit(request, edit_review_id):
+    edit_review = get_object_or_404(Review, pk=edit_review_id)
+    return render(request, 'review_edit.html', {'review':edit_review})
+
+def review_update(request, update_review_id):
+    update_review = get_object_or_404(Review, pk=update_review_id)
+    update_review.title = request.POST['title']
+    update_review.body = request.POST['body']
+    update_review.save()
+    return redirect('/otherBoard/review_detail/'+str(update_review.id))
+    
+def review_like(request,like_review_id):
+    like_review=get_object_or_404(Review,pk=like_review_id)
+    if like_review.like.filter(username=request.user.username).exists():
+        like_review.like.remove(request.user)
+    else:
+        like_review.like.add(request.user)
+    return redirect('review_detail',like_review_id)   
+
+
+def review_new_comment(request, review_id):
+    comment = Review_comments()
+    user = request.user
+    comment.writer = get_object_or_404(Profile, username = user)
+    comment.content = request.POST['content']
+    comment.review= get_object_or_404( Review, pk= review_id)
+    comment.save()
+    return redirect('review_detail',review_id)
+
+def review_delete_comment(request, comment_id):
+    d_comment = Review_comments.objects.get(id=comment_id) 
+    if d_comment.writer == request.user:
+        d_comment.delete()
+
+    return redirect('review_detail',d_comment.review.pk)

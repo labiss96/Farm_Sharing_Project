@@ -1,0 +1,3 @@
+{% for scrap in scraps %}
+<a href="{% url 'join_detail' scrap.id %}" >{{scrap.title}}</a>
+{% endfor %}

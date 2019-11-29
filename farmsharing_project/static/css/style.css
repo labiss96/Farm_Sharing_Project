@@ -1,0 +1,312 @@
+@font-face { 
+  font-family: 'RIDIBatang'; 
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff'); 
+  font-weight: normal; 
+  font-style: normal; 
+}
+
+header.masthead {
+    font-family: 'RIDIBatang';
+    position: relative;
+    background-color: #343a40;
+    background: url("../img/bg-masthead.jpg") no-repeat center center;
+    background-size: cover;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+  
+  header.masthead .overlay {
+    font-family: 'RIDIBatang';
+    position: absolute;
+    background-color: #212529;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.3;
+  }
+  
+  header.masthead h1 {
+    font-family: 'RIDIBatang';
+    font-size: 5rem;
+  }
+  
+  @media (min-width: 768px) {
+    header.masthead {
+      font-family: 'RIDIBatang';
+      padding-top: 12rem;
+      padding-bottom: 12rem;
+    }
+    header.masthead h1 {
+      font-family: 'RIDIBatang';
+      font-size: 3rem;
+    }
+  }
+
+  .btn {
+    font-family: 'RIDIBatang';
+    border-radius: 1px;
+    padding: 5px 5px;
+    font-size: 10px;
+    text-decoration: none;
+    margin: 10px;
+    color: #fff;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .btn:active {
+    font-family: 'RIDIBatang';
+    transform: translate(0px, 5px);
+    -webkit-transform: translate(0px, 5px);
+    box-shadow: 0px 1px 0px 0px;
+  }
+
+  .green {
+    font-family: 'RIDIBatang';
+    background-color: #2ecc71;
+    box-shadow: 0px 5px 0px 0px #15B358;
+  }
+  
+  .green:hover {
+    font-family: 'RIDIBatang';
+    background-color: #48E68B;
+  }
+
+  @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+  .login-page {
+    font-family: 'RIDIBatang';
+    width: 360px;
+    padding: 8% 0 0;
+    margin: auto;
+  }
+  .bo {
+    font-family: 'RIDIBatang';
+    /* position: relative; */
+    z-index: 50;
+    background: #FFFFFF;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 50px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    margin: 50px;
+  }
+  .in {
+    /* font-family: "Roboto", sans-serif; */
+    font-family: 'RIDIBatang';
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+
+  .inb {
+    font-family: 'RIDIBatang';
+    outline: 0;
+    background: #f2f2f2;
+    width: 50%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+
+
+  .form button {
+    font-family: 'RIDIBatang';
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+  }
+  .form button:hover,.form button:active,.form button:focus {
+    font-family: 'RIDIBatang';
+    background: #43A047;
+  }
+  /* .mc {
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 1px;
+  } */
+  .mc {
+    font-family: 'RIDIBatang';
+    color: #4CAF50;
+    text-decoration: none;
+    font-size: 30px;
+    margin: 15px 0 0;
+  }
+  .form .register-form {
+    font-family: 'RIDIBatang';
+    display: none;
+  }
+  .container {
+    font-family: 'RIDIBatang';
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .container:before, .container:after {
+    font-family: 'RIDIBatang';
+    content: "";
+    display: block;
+    clear: both;
+  }
+  .container .info {
+    font-family: 'RIDIBatang';
+    margin: 50px auto;
+    text-align: center;
+  }
+  .container .info h1 {
+    font-family: 'RIDIBatang';
+    margin: 0 0 15px;
+    padding: 0;
+    font-size: 36px;
+    font-weight: 300;
+    color: #1a1a1a;
+  }
+  .container .info span {
+    font-family: 'RIDIBatang';
+    color: #4d4d4d;
+    font-size: 12px;
+  }
+  .container .info span a {
+    font-family: 'RIDIBatang';
+    color: #000000;
+    text-decoration: none;
+  }
+  .container .info span .fa {
+    font-family: 'RIDIBatang';
+    color: #EF3B3A;
+  }
+  .lobody {
+    font-family: 'RIDIBatang';
+    background: #76b852; /* fallback for old browsers */
+    background: -webkit-linear-gradient(right, #76b852, #8DC26F);
+    background: -moz-linear-gradient(right, #76b852, #8DC26F);
+    background: -o-linear-gradient(right, #76b852, #8DC26F);
+    background: linear-gradient(to left, #76b852, #8DC26F);
+    
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;      
+  }
+
+ .su {
+    color: #0B4C5F;
+    text-align: center;
+    font-size: large;
+}
+
+.subtn{
+    font-family: 'RIDIBatang';
+    outline: 0;
+    background: #f2f2f2;
+    width: 5%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    
+
+}
+
+.animate
+{
+ transition: all 0.1s;
+ -webkit-transition: all 0.1s;
+}
+.action-button
+{
+    
+    position: relative;
+    padding: 10px 40px;
+            margin: 0px 10px 10px 0px;
+    border-radius: 3px;
+    font-family: 'RIDIBatang';
+    font-size: 18px;
+    color: #FFF;
+    text-decoration: none; 
+}
+.red
+{
+
+ background-color: #e74c3c;
+ border-bottom: 5px solid #c0392b;
+ text-shadow: 0px -2px #c0392b;
+}
+.action-button:active
+{
+ transform: translate(0px,5px);
+  -webkit-transform: translate(0px,5px);
+ border-bottom: 1px solid;
+}
+
+.yellow
+{
+    background-color: #f1c40f;
+    border-bottom: 5px solid #f39c12;
+    text-shadow: 0px -2px #f39c12;
+    }
+
+/* 노란색버튼 */
+
+/* test */
+.header-area .main-header-area .main-menu ul li a {
+  color: #fff;
+  font-size: 16px;
+  text-transform: capitalize;
+  font-weight: 400;
+  display: inline-block;
+  padding: 35px 10px 35px 10px;
+  font-family: 'RIDIBatang';
+  position: relative;
+}
+
+/* test */
+.section_navbar {
+  
+  z-index: 100;
+  height: 60px;
+  border-top: 1px solid #f1f3f6;
+  background: #fff;
+}
+
+.area_navigation {
+  position: relative;
+  margin: 0 auto;
+  width: 1080px;
+  zoom: 1;
+}
+
+.area_navigation .an_l {
+    position: relative;
+    float: left;
+    padding-top: 16px;
+    padding-left: 4px;
+    zoom: 1;
+}
+ol, ul {
+    list-style: none;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  background-color: transparent;
+}
+

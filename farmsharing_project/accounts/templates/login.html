@@ -1,0 +1,38 @@
+
+
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<style>
+body{
+    background: #76b852; /* fallback for old browsers */
+    background: -webkit-linear-gradient(right, #76b852, #8DC26F);
+    background: -moz-linear-gradient(right, #76b852, #8DC26F);
+    background: -o-linear-gradient(right, #76b852, #8DC26F);
+    background: linear-gradient(to left, #76b852, #8DC26F);
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;  
+}
+</style>
+
+<div class ="bo container login-page">
+    {% if error %}
+        {{error}}
+    {% endif %}
+    <br>
+    <h2 class="mc"> Login </h2>
+    <br>
+    <form method="POST" action="{% url 'login'%}">
+    {% csrf_token %}
+         <input class="in" type="text" name="username"  required="required" placeholder="Your id"><br>
+         <input class="in" type="password" name="password"   required="required" placeholder="Your password"><br>
+        <br>
+        
+        <input class="inb" type="submit" value="Sign in" > <a href="{% url 'signup' %}" ><input type="button" class="inb" value="sign up"></a>
+        
+    </form>
+</div>
+
+
+{% endblock %}

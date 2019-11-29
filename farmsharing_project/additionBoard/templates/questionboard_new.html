@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    table.type05 {
+    border-collapse: separate;
+    border-spacing: 1px;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+    margin: 20px 10px;
+    width:100%;
+}
+table.type05 th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: rgb(229, 248, 205);
+    text-align: center;
+}
+table.type05 td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+#title{
+    border-style: solid;
+    border-top-color:rgb(229, 248, 205);
+    border-bottom-color: rgb(229, 248, 205);
+    border-left-style: none;
+    border-right-style: none;
+    padding: 18px;
+    border-width: 2px;
+}
+</style>
+<div class="container">
+    <br>
+    <h1 id ="title">질문 등록하기</h1>
+    <br><br>
+    <form action="{%url 'qb_create'%}" method="POST">
+        {%csrf_token%}
+        <table class="type05">
+                <tr>
+                    <th scope="row">제목을 입력하세요</th>
+                    <td><input type="text" name='title'></td>
+                </tr>
+                <tr>
+                    <th scope="row">내용을 입력하세요</th>
+                    <td><textarea name="body" id="" cols="30" rows="10"></textarea></td>
+                </tr>
+            </table>
+        <button type="submit" style="float:right">등록!</button>
+    </form>
+</div>
+{% endblock %}
