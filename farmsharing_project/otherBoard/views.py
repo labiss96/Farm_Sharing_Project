@@ -7,16 +7,7 @@ from django.utils import timezone
 
 #팀 모집 게시판 함수들
 def join(request):
-    if request.method == 'POST':
-       region_filter = request.POST['region']
-       join_home = Join.objects.filter(region_filter = region_filter)
-    else:
-       join_home = Join.objects.all()
-    
-    join_list = []
-    for join in join_home:
-        join_list.append(join)
-    join_list.reverse()
+    join_home = Join.objects.all()
     paginator = Paginator(join_home,3)
     page = request.GET.get('page')
     joins = paginator.get_page(page)
@@ -50,9 +41,7 @@ def join_create(request, user_id):
     join.title = request.POST['title']
     user = request.user
     join.writer = get_object_or_404(Profile, username = user)
-    join.region_filter = request.POST['region1']
     join.region = request.POST['region1']+request.POST['region2']
-    join.region_filter = request.POST['region1']
     join.joined_people = request.POST['joined_people']
     join.active_period = request.POST['active_period']
     join.purpose = request.POST['purpose']
