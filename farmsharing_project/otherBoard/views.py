@@ -1,3 +1,4 @@
+
 from django.shortcuts import render,get_object_or_404,redirect
 from .models import *
 from accounts.models import Profile
@@ -7,12 +8,19 @@ from django.utils import timezone
 
 #팀 모집 게시판 함수들
 def join(request):
-    join_tmp = Join.objects.all()
-    join_home=[]
-    for join in join_tmp:
-        join_home.append(join)
-    join_home.reverse()
-    paginator = Paginator(join_home,3)
+
+    if request.method == 'POST':
+       region_filter = request.POST['region']
+       join_home = Join.objects.filter(region_filter = region_filter)
+    else:
+       join_home = Join.objects.all()
+    
+    join_list = []
+    for join in join_home:
+        join_list.append(join)
+    join_list.reverse()
+    
+    paginator = Paginator(join_list,3)
     page = request.GET.get('page')
     joins = paginator.get_page(page)
     return render(request, 'join.html',{'joins':joins})
@@ -202,3 +210,4 @@ def review_delete_comment(request, comment_id):
         d_comment.delete()
 
     return redirect('review_detail',d_comment.review.pk)
+
