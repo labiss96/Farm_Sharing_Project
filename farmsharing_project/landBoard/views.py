@@ -4,10 +4,11 @@ from accounts.models import *
 from django.core.exceptions import ObjectDoesNotExist
 # from .forms import SharingBoardForm
 from django.core.paginator import Paginator
+from django.utils import timezone
 
 def SharingBoardRead(request):
     sharingboards = SharingBoard.objects.all()
-    paginator = Paginator(sharingboards,2)
+    paginator = Paginator(sharingboards,9)
 
     page = request.GET.get('page')
     sharingboards2 = paginator.get_page(page)
@@ -20,6 +21,10 @@ def sharing_filter(request):
     filter_region = request.POST.get('region')
     filter_is_free = request.POST.get('is_free')
 
+    search_mode = request.POST.get('search_mode')
+    search_data = request.POST.get('search_data')
+
+    #지역과 비용여부 필터링
     if(filter_region == "All" and filter_is_free == "All"):
         sharingboards = SharingBoard.objects.all()
     elif(filter_region == "All" and filter_is_free != "All"):
@@ -36,7 +41,29 @@ def sharing_filter(request):
             is_free = filter_is_free
         )
 
-    return render(request, 'sharingboard_list.html', {'sharingboards': sharingboards, 'region_list':region_list})
+    #위에서 필터링 된 내용 중 검색모드에 따른 제목, 내용, 작성자 검색 -> 리스트에 담아서 페이지네이터로 뿌림
+    filter_result = []
+    if search_mode == 'title' :
+        for sb in sharingboards:
+            if search_data in sb.title :
+                filter_result.append(sb)
+    elif search_mode == 'contents':
+        for sb in sharingboards:
+            if search_data in sb.content :
+                filter_result.append(sb)
+    else :
+        for sb in sharingboards:
+            if search_data in sb.writer.username :
+                filter_result.append(sb)
+
+    sharingboards = filter_result
+
+    #페이지네이터
+    paginator = Paginator(sharingboards,9)
+    page = request.GET.get('page')
+    sharingboards2 = paginator.get_page(page)
+
+    return render(request, 'sharingboard_list.html', {'sharingboards': sharingboards, 'region_list':region_list, 'sharingboards2':sharingboards2})
 
 
 def SharingBoardNew(request):
@@ -61,6 +88,7 @@ def SharingBoardCreate(request):
     new_sb.land_img = request.FILES.get('land_img')
     new_sb.writer = request.user
     new_sb.choice_land = land
+    new_sb.pub_date=timezone.datetime.now()
 
     new_sb.save()
     return redirect('sharingboard')
@@ -102,23 +130,42 @@ def RequestBoardRead(request):
 def request_filter(request):
     region_list = Region.objects.all()
     filter_region = request.POST.get('region')
-    filter_is_free = request.POST.get('is_free')
+    filter_is_pay_for = request.POST.get('is_pay_for')
 
-    if(filter_region == "All" and filter_is_free == "All"):
+    search_mode = request.POST.get('search_mode')
+    search_data = request.POST.get('search_data')
+
+    if(filter_region == "All" and filter_is_pay_for == "All"):
         requestboards = RequestBoard.objects.all()
-    elif(filter_region == "All" and filter_is_free != "All"):
+    elif(filter_region == "All" and filter_is_pay_for != "All"):
         requestboards = RequestBoard.objects.filter(
-            is_free = filter_is_free
+            is_pay_for = filter_is_pay_for
         )
-    elif(filter_region != "All" and filter_is_free == "All"):
+    elif(filter_region != "All" and filter_is_pay_for == "All"):
         requestboards = RequestBoard.objects.filter(
             region = filter_region
         )
-    elif(filter_region != "All" and filter_is_free != "All"):
+    elif(filter_region != "All" and filter_is_pay_for != "All"):
         requestboards = RequestBoard.objects.filter(
             region = filter_region,
-            is_free = filter_is_free
+            is_pay_for = filter_is_pay_for
         )
+
+    filter_result = []
+    if search_mode == 'title' :
+        for rb in requestboards:
+            if search_data in rb.title :
+                filter_result.append(rb)
+    elif search_mode == 'contents':
+        for rb in requestboards:
+            if search_data in rb.content :
+                filter_result.append(rb)
+    else :
+        for rb in requestboards:
+            if search_data in rb.writer.username :
+                filter_result.append(rb)
+
+    requestboards = filter_result
 
     return render(request, 'requestboard_list.html', {'requestboards': requestboards, 'region_list':region_list})
 
@@ -160,6 +207,7 @@ def RequestBoardCreate(request):
     new_rb.content = request.POST['content']
     new_rb.purpose = request.POST['purpose']
     new_rb.writer = request.user
+    new_rb.pub_date=timezone.datetime.now()
     new_rb.save()
     return redirect('requestboard')
 

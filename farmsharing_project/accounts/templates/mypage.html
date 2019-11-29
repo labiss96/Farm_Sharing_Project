@@ -29,54 +29,64 @@
     <hr>
     <a href="{% url 'land_new' %}">땅 등록</a>
     <br><hr>
-    {% for land in my_lands %}
-        <div class="card border-success mb-3" style="max-width: 18rem;">
-            <div class="card-header">{{land.region}}</div>
-            <div class="card-body text-success">
-                <h5 class="card-title">{{land.address}}</h5>
-                <p class="card-text">
-                    <p>면적 : {{land.land_area}} m<sup>2</sup></p>
-                    <p>땅 상태 : {{land.land_condition}}</p>
-                    <a href="{% url 'land_edit' land.id %}">수정</a> /
-                    <a href="{% url 'land_delete' land.id %}">삭제</a>    
-                </p>
+    <div class="row">
+        {% for land in my_lands %}
+            <div class="card border-success md-3" style="width: 15rem; margin-top: 1%;">
+                <div class="card-header">{{land.region}}</div>
+                <div class="card-body text-success">
+                    <h5 class="card-title">{{land.address}}</h5>
+                    <p class="card-text">
+                        <p>면적 : {{land.land_area}} m<sup>2</sup></p>
+                        <p>땅 상태 : {{land.land_condition}}</p>
+                        <a href="{% url 'land_edit' land.id %}">수정</a> /
+                        <a href="{% url 'land_delete' land.id %}">삭제</a>    
+                    </p>
+                </div>
             </div>
-        </div>
-        <hr>
-    {% endfor %}
-
-</div>
-<p>공유한 땅들</p>
+            <hr>
+        {% endfor %}
+    </div>
+    <br>
+    <hr>
+    <p>공유한 땅들</p>
 <hr>
 {% for land in shared_lands %}
 <details>
-<summary><a href="{% url 'sb_detail' land.id %}">{{land.title}}</a></summary>
-<br>
-<p>신청한 사람들</p>
-<hr>
-{% if land.is_completed == False %}
-{% for person in  shared_lands_people %}
-{% if land.id == person.land.id %}
-<a href="{% url 'mypage' person.client.username %}">{{person.client.username}}</a><a href="{% url 'request_accept' person.id %}">수락</a><br>
-{% endif %}
-{% endfor %}
-{% endif %}
+    <summary><a href="{% url 'sb_detail' land.id %}">{{land.title}}</a></summary>
+    <br>
+    <p>신청한 사람들</p>
+    <hr>
+    {% if land.is_completed == False %}
+        {% for person in  shared_lands_people %}
+            {% if land.id == person.land.id %}
+                <a href="{% url 'mypage' person.client.username %}">{{person.client.username}}</a>
+                <a href="{% url 'request_accept' person.id %}">수락</a><br>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 
-{% if land.is_completed == True %}
-<p>신청 확정</p>
-{% for person in  shared_lands_people %}
-{% if land.id == person.land.id %}
-<a href="{% url 'mypage' person.client.username %}">{{person.client.username}}</a><br>
-{% endif %}
-{% endfor %}
-{% endif %}
+    {% if land.is_completed == True %}
+        <p>신청 확정</p>
+        {% for person in  shared_lands_people %}
+            {% if land.id == person.land.id %}
+                {% if person.is_completed == True %}
+                    <a href="{% url 'mypage' person.client.username %}">{{person.client.username}}</a><br>
+            
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 </details>
 {% endfor %}
+
+<hr>
 <p>내가 신청한 땅들</p>
+<hr>
 {% for land in applied_lands %}
-<a href="{% url 'sb_detail' land.land.id %}">{{land.land.title}}</a>
-<br>
+    <a href="{% url 'sb_detail' land.land.id %}">{{land.land.title}}</a>
+    <br>
 {% endfor %}
 
-{% endblock %}
+{% endblock %}  
 
+</div>

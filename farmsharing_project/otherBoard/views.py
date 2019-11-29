@@ -2,6 +2,7 @@ from django.shortcuts import render,get_object_or_404,redirect
 from .models import *
 from accounts.models import Profile
 from django.core.paginator import Paginator
+from django.utils import timezone
 # Create your views here.
 
 #팀 모집 게시판 함수들
@@ -45,6 +46,7 @@ def join_create(request, user_id):
     join.active_period = request.POST['active_period']
     join.purpose = request.POST['purpose']
     join.body = request.POST['body']
+    join.pub_date=timezone.datetime.now()
     join.save()
     return redirect('join')
 
@@ -152,6 +154,7 @@ def review_create(request, user_id):
     user = request.user
     review.writer = get_object_or_404(Profile, username = user)
     review.body = request.POST['body']
+    review.pub_date=timezone.datetime.now()
     review.save()
     return redirect('/otherBoard/review_detail/'+str(review.id))
 
