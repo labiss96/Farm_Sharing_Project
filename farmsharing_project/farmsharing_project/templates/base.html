@@ -138,6 +138,73 @@ ul {
   display: none;
 }
 
+
+.f-left {
+    display: none;
+}
+
+.footer .f-right {
+    float: right;
+    color: #aaa;
+    font-size: 16.5px;
+    line-height: 1.5;
+    text-align: right;
+    top: -10px;
+}
+
+.footer {
+    padding: 8%;
+}
+.footer {
+    padding: 5% 12%;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+
+li{
+   list-style:none;
+   }
+   @font-face { font-family: 'LotteMartDream'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff') format('woff'); } @font-face { font-family: 'LotteMartDream'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff') format('woff'); } @font-face { font-family: 'LotteMartDream'; font-style: normal; font-weight: 300; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff'); } .lottemartdream * { font-family: 'LotteMartDream', sans-serif; }
+
+  .b {
+    font-family: 'LotteMartDream';
+
+  }
+
+.c{
+  font-size:15px;
+
+}
+
+.d{
+  font-size:10px;
+
+}
+
+.wra {
+
+position:relative;
+
+  min-height:100%;
+
+}
+.foot {
+
+position:absolute;
+
+bottom:0;
+
+width:100%;
+
+height:70px;   
+
+
+
+
+}
+
+.fhr{ position: fixed; left: 1%; width: 98%; }
+
 #postcode, #roadAddress, #detailAddress #land_area, #land_condition{
   margin: 0.5rem 0.5rem 0.5rem 0.5rem;
 }
@@ -176,13 +243,15 @@ table.type05 td {
 }
 
 </style>
+
 <body>
+    <div class="wra">
       <nav class="navbar navbar-expand-md navbar-dark ">
           <div class="container">
-              <a class="navbar-brand" href="/" style="color:black">농사직설</a>
+              <a class="navbar-brand" href="/" style="color:black"><img src="{% static "images/logo.png" %}" style="height: 65px; padding-left:0px; margin-left: 0px;"></a>
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item cta-btn">
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="z-index: 1;">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="z-index: 1; ">
                         <ul class="navbar-nav a" style="z-index: 1;">
                             {% if not user.is_authenticated %}
                           <li class="nav-item active ">
@@ -245,9 +314,39 @@ table.type05 td {
                 </ul>
                   </div>
               </div>
-      
-    {% block content %}
-    {% endblock %}
+
+            
+              {% block content %}
+              {% endblock %}
+
+
+
+
+
+
+      <footer class="foot">
+        <hr>
+        <div class="contaniner" style="margin-top:0px; margin-left:300px; margin-right:300px; padding-top:10px;">
+            <div class="row" >
+                <div class="col-3 b" >
+                    <img src="{% static "images/kook.png" %}" style="height: 60px; padding-left:0px; margin-left: 0px; float:left;">
+                   
+                  
+                  <p style="padding-top:20px; font-size: 13px;">Kookmin Univ.& Like lion</p>
+                </div>
+                <div class="col-6 b"></div>
+                <div class="col-3 b">
+                  <p class="c">creators</p>
+                  <p class="d">jongmin, junghyun, jungwoo,seoungwon, jeongyeon</p>
+                  
+                
+                </div>
+              </div>
+
+        </div>
+    </div>
+          
+
 
 </body>
 
