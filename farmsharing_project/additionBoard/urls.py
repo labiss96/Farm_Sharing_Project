@@ -19,6 +19,8 @@ urlpatterns = [
     path('deal/edit/<int:db_id>', views.DealBoardEdit, name = "db_edit"),
     path('deal/update/<int:db_id>', views.DealBoardUpdate, name="db_update"),
     path('deal/delete/<int:db_id>', views.DealBoardDelete, name="db_delete"),
+    path('deal/newcomment/<int:db_id>',views.DealBoardCommentNew, name="db_commentnew"),
+    path('deal/deletecomment/<int:comment_id>',views.DealBoardCommentDelete, name="db_commentdelete"),
 
     
 

@@ -62,7 +62,7 @@ table.type05 td {
             <div >
                 내용 :<textarea name="content" class="form-control" id="" cols="30" rows="5"></textarea>
                 <br>
-                <button type="submit">작성</button>
+                <button type="submit" style="float: right;" >작성</button>
             </div>
     </form>
     {% endif %}
@@ -71,7 +71,7 @@ table.type05 td {
     <hr>
         <p>작성자:{{comment.comment_writer}}</p><br>
         <p>내용:{{comment.comment_content}}</p><br>
-        <a href="{% url 'qb_commentdelete' comment.id %}">내 댓글 삭제하기</a>
+        <a href="{% url 'qb_commentdelete' comment.id %}" style="float: right;">내 댓글 삭제하기</a>
         <hr>
     {% endfor %}
     

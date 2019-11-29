@@ -26,3 +26,8 @@ class DealBoard(models.Model):
         return self.title
     def summary(self):
         return self.body[:100]
+
+class DB_comment(models.Model):
+    comment_writer = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    comment_content = models.TextField()
+    dbcomment = models.ForeignKey(DealBoard, on_delete=models.CASCADE)
