@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import QuestionBoard,QB_comment,DealBoard
+from .models import QuestionBoard,QB_comment,DealBoard,DB_comment
 from accounts.models import Profile
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
@@ -11,7 +11,6 @@ def QuestionBoardRead(request):
 def QuestionBoardDetail(request, qb_id):
     me = request.user.username
     comments = QB_comment.objects.filter(qbcomment = qb_id)
-
     qb_detail = get_object_or_404(QuestionBoard, pk = qb_id)
     return render(request,'questionboard_detail.html',{'qb':qb_detail ,'me':me, 'comments':comments})
 
@@ -52,6 +51,15 @@ def QuestionBoardCommentNew(request,qb_id):
     comment.qbcomment = get_object_or_404(QuestionBoard, pk = qb_id)
     comment.save()
     return redirect('/additionBoard/question/detail/'+str(qb_id))
+
+def DealBoardCommentNew(request,db_id):
+    comment = DB_comment()
+    user = request.user
+    comment.comment_writer = get_object_or_404(Profile , username= user)
+    comment.comment_content = request.POST['content']
+    comment.dbcomment = get_object_or_404(DealBoard, pk = db_id)
+    comment.save()
+    return redirect('/additionBoard/deal/detail/'+str(db_id))
     
 def QuestionBoardCommentDelete(request, comment_id):
     delete_comment = QB_comment.objects.get(id=comment_id) 
@@ -60,14 +68,22 @@ def QuestionBoardCommentDelete(request, comment_id):
         delete_comment.delete()
     return redirect('/additionBoard/question/detail/'+str(qb_id))
 
+def DealBoardCommentDelete(request, comment_id):
+    delete_comment = DB_comment.objects.get(id=comment_id) 
+    db_id = delete_comment.dbcomment.id
+    if delete_comment.comment_writer == request.user:
+        delete_comment.delete()
+    return redirect('/additionBoard/deal/detail/'+str(db_id))
+
 def DealBoardRead(request):
     dealboards = DealBoard.objects.all()
     return render(request, 'dealboard_list.html', {'dealboards': dealboards})
 
 def DealBoardDetail(request, db_id):
     me = request.user.username
+    comments = DB_comment.objects.filter(dbcomment = db_id)
     db_detail = get_object_or_404(DealBoard,pk = db_id)
-    return render(request, 'dealboard_detail.html', {'db':db_detail , 'me' : me })
+    return render(request, 'dealboard_detail.html', {'db':db_detail , 'me' : me ,'comments':comments})
 
 def DealBoardNew(request):
     return render(request, 'dealboard_new.html')
