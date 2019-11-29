@@ -8,32 +8,8 @@
 {% if user.is_authenticated %}
        <a href="{% url 'join_new' request.user.id%}"  class="action-button shadow animate yellow"> 팀원 모으기</a>
 {% endif %}
-<form action="{% url 'join' %}" method = "POST">
-       {%csrf_token%}
-<select name="region" id="">
-       <option value="서울 특별시">서울 특별시</option>
-            <option value="인천 광역시">인천 광역시</option>
-            <option value="대구 광역시">대구 광역시</option>
-            <option value="대전 광역시">대전 광역시</option>
-            <option value="부산 광역시">부산 광역시</option>
-            <option value="광주 광역시">광주 광역시</option>
-            <option value="울산 광역시">울산 광역시</option>
-            <option value="세종 특별자치시">세종 특별자치시</option>
-            <option value="경기도">경기도</option>
-            <option value="강원도">강원도</option>
-            <option value="충청북도">충청북도</option>
-            <option value="충청남도">충청남도</option>
-            <option value="경상북도">경상북도</option>
-            <option value="경상남도">경상남도</option>
-            <option value="전라북도">전라북도</option>
-            <option value="전라남도">전라남도</option>
-            <option value="제주특별자치도">제주특별자치도</option>
 
-</select>
-<input type="submit" value ="그 지역 찾기">
-</form>
 <!-- 게시물들 -->
-<div>
 {% for join in joins %}
        <a href="{% url 'join_detail' join.id %}">
        <div class="container">
@@ -47,20 +23,5 @@
        </div>
        </a>
 {% endfor %}
-
-{% if joins.has_previous%}
-         <a href="?page={{joins.1}}">첫페이지</a>
-         <a href="?page={{joins.previous_page_number}}">이전 페이지</a>
-         {% endif %}
-
-         <span>{{joins.number}}</span>
-         <span>of</span>
-         <span>{{joins.paginator.num_pages}}</span>
-
-         {% if joins.has_next%}
-         <a href="?page={{joins.next_page_number}}">다음페이지</a>
-         <a href="?page={{joins.paginaitor.num_pages}}">마지막 페이지</a>
-         {% endif %}
-</div>
 
 {% endblock %}

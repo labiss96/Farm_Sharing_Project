@@ -24,6 +24,9 @@ class Comment(models.Model):
 class Land(models.Model): #땅
     region = models.CharField(max_length=200,null=True) #지역
     address = models.CharField(max_length=250, null=True) #주소
+    postcode = models.CharField(max_length=50, null=True) #우편번호
+    roadAddress = models.CharField(max_length=200, null=True) #도로명주소
+    detailAddress = models.CharField(max_length=200, null=True) #상세주소
     land_area = models.CharField(max_length=100,null=True) #면적
     land_condition = models.CharField(max_length=200,null=True) #땅상태
     owner_user = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='user_land')
