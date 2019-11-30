@@ -18,7 +18,7 @@
         
 </style>
 <div class="container" style="text-align: left;">
-    <h4>땅 공유 요청게시판</h4><br>
+    
 
 
     <div class="container" style="text-align:center;">
@@ -49,18 +49,33 @@
         </form>
     </div>
 </div>
-<hr>
-    {% if user.is_authenticated %}
-    <a href="{% url 'rb_new' %}">공유요청글 등록</a>
-    {% endif %}
-    <hr>
+<br>
 
-    {% for rb in requestboards %}
-    <div style="float:left">{{rb.writer}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-    <a href="{% url 'rb_detail' rb.id %}">{{rb.title}}</a>
-    <div style="float:right">{{rb.region}}</div>
-    <hr>
-    {% endfor %}
+
+<!-- new -->
+<h1>땅 요청  게시판</h1><br>
+        {% if user.is_authenticated %}
+        <a href="{% url 'rb_new' %}" style="text-align:right">공유요청글 등록</a>
+        {% endif %}
+        <br>
+  <div class="boardlist" style="border-top-style:solid; border-top-color:rgb(197, 240, 80); padding-top: 15px;">
+        
+        {% for rb in requestboards %}
+       <ul class="list_wrap"
+              style="border-bottom-style: solid; border-bottom-color: rgb(197, 240, 80); border-bottom-width: 1px;">
+              <li>
+                     <a href="{% url 'rb_detail' rb.id %}">
+                            <p class="card-title" style="font-size: 24px;">{{rb.title}}</p>
+                            <p style="font-size: 14px;">작성자 : {{rb.writer}}</p>
+                            <p style="font-size: 14px;">지역 : {{rb.region}}</p>
+                     </a>
+              </li>
+       </ul>
+       {% endfor %}
+       </div>
+
+
+
     <!-- 페이지네이터 -->
     {% if requestboards.has_previous%}
     <a href="?page={{requestboards.1}}">첫페이지</a>

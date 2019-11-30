@@ -50,6 +50,59 @@ ul {
   list-style: none;
 }
 
+.box {
+  background-color:rgb(192, 219, 119);
+  width:470px;
+  text-align:center; 
+  padding:30px 0px;
+  font-family: 'RIDIBatang';
+  color:white;
+  border-radius: 15px;
+  margin:0 auto;
+  height:150px;
+  
+  
+}
+
+.inbox{
+
+  color:rgb(139, 80, 59);
+  font-size:25px;
+  font-weight:bold;
+}
+
+.sebox{
+  background-color: rgb(250, 197, 154);
+  width:470px;
+  text-align:center; 
+  padding:30px 0px;
+  font-family: 'RIDIBatang';
+  color:white;
+  border-radius: 15px;
+  margin:0 auto;
+  height:150px;
+
+}
+
+a.no-uline { text-decoration:none }
+
+
+    .wrap 
+    { 
+      width:100%; position:relative;
+    }
+    .align_center 
+    { 
+      position:absolute; 
+      /* margin:-100px 0 0 -150px; */
+    }
+
+    /* p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  margin-right: 40px;
+} */
+
 
 </style>
 
@@ -73,9 +126,33 @@ ul {
 <hr style="border: 1px solid #E6E6E6">
 <!-- 그 밑에 -->
 
+<div class="wrap">
+    <div class="container">
+        <a href="{% url 'sharingboard' %}" class="no-uline" style="float: left;">
+        <div class="box">
+          <p class="inbox">땅 공유 게시판</p>
+          <p style="text-align: right; padding:50px margin-top: 0; margin-bottom: 1rem; margin-right: 40px;">
+            필요없는 땅이 있으세요?<br>지금바로 공유해보세요!
+
+          </p>
+            
+      
+        </div>
+        </a>
+        <a href="{% url 'requestboard' %}" class="no-uline" style="float: left; padding-left: 25px;">
+          <div class="sebox">
+            <p class="inbox">땅 요청 게시판</p>
+              <p style="text-align: right; padding:50px margin-top: 0; margin-bottom: 1rem; margin-right: 40px;">
+              땅이 필요하신데 없으시다고요?<br> 요청해보세요! </p>
+              
+              
+            
+          </div>
+        </a>
+      </div>
 
 
-
+</div>
 
 
 

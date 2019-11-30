@@ -1,6 +1,5 @@
 
-{% extends 'base.html' %}
-{% block content %}
+
 {% load static %}
 <style>
         body{
@@ -14,34 +13,77 @@
             -moz-osx-font-smoothing: grayscale;  
         }
 
-/* h2{
-    color:white;
-    font-size:35px;
+    .bo {
+    font-family: 'RIDIBatang';
+    /* position: relative; */
+    z-index: 50;
+    background: #FFFFFF;
+    max-width: 450px;
+    max-height: 600px;
+    
+    padding: 50px;
     text-align: center;
-} */
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    margin: 50px auto;
+  }
+  .mc {
+    font-family: 'RIDIBatang';
+    color: #4CAF50;
+    text-decoration: none;
+    font-size: 50px;
+    margin: 15px 0 0;
+  }
+
+  .in {
+    /* font-family: "Roboto", sans-serif; */
+    font-family: 'RIDIBatang';
+    outline: 0;
+    
+    /* width: 100%; */
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  .inb {
+    font-family: 'RIDIBatang';
+    outline: 0;
+    background: #f2f2f2;
+    width: 50%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+
+ 
 </style>
 
-<div class ="container">
+<div class =" bo container">
 {% if error %}
     {{error}}
 {% endif %}
     <br>
+    <h2 class="mc" style="text-align: center; margin: 0px;">Sign up</h2>
     <div class="in">
+            
         <div class="container">
-            <h2 class="mc" style="text-align: center;">Sign up</h2>
+            
                 <br>
-                <form method="POST" action="{% url 'signup' %}" enctype="multipart/form-data" style="margin-top:15px;">
+                <form class="ooh" method="POST" action="{% url 'signup' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                     
-                        Username: <input style="text-align: center; " type="text" name="username" required="required" placeholder="Your id"><br>
-                        Password : <input style="text-align: center;" type="password" name="password1" required="required" placeholder="Your password"><br>
-                        Confirm Passward :<input style="text-align: center;" type="password" name="password2" required="required" placeholder="Your password"><br>
-                        E-mail : <input style="text-align: center;" type="email" name="email" required="required" placeholder="Your email"><br>
-                        SNS ID : <input style="text-align: center;" type="text" name="sns_id" required="required" placeholder="Your sns_id"><br>
-                        Introduce : <textarea style="text-align: center;"  class="form-control" name="self_introduction" placeholder="자기소개"></textarea><br>
-                        Profile Image : <input  style="text-align: center;" type="file" name="pofile_img" accept=".jpg,.jpeg,.png,.gif">
-                        
-                            <input type="submit" value="Sign Up!">
+                        <p style="float:left;">Username:</p> <input class="in" style="text-align: center;" type="text" name="username" required="required" placeholder="Your id"><br>
+                        <p style="float:left;">Password :</p> <input class="in" style="text-align: center;" type="password" name="password1" required="required" placeholder="Your password"><br>
+                        <p style="float:left;">Confirm Passward :</p><input  class="in" style="text-align: center;" type="password" name="password2" required="required" placeholder="Your password"><br>
+                        <p style="float:left;">E-mail :</p> <input  class="in"style="text-align: center;" type="email" name="email" required="required" placeholder="Your email"><br>
+                        <p style="float:left;">SNS ID :</p> <input class="in" style="text-align: center;" type="text" name="sns_id" required="required" placeholder="Your sns_id"><br>
+                        <p style="float:left;">Introduce :</p> <textarea class="in" style="text-align: center;"  class="form-control" name="self_introduction" placeholder="자기소개"></textarea><br>
+                        <p style="float:left;">Profile Image :</p> <input  class="in"style="text-align: center;" type="file" name="pofile_img" accept=".jpg,.jpeg,.png,.gif">
+                       
+                            <input  class="inb" type="submit" value="Sign Up!">
                         
                             
                 </form>
@@ -51,7 +93,7 @@
     
 </div>
 
-{% endblock %}
+
 
 
 

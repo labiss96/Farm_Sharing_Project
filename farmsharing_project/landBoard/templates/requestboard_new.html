@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
 <div class="container">
     <h1>공유 요청게시물 작성</h1>
     <hr>
@@ -74,5 +75,59 @@ label {
      /* background-color: #70e09f; */
  }
 </style>
+
+<div class="container" style="margin-bottom:50px;">
+        <br>
+        <h1 id="title">땅 요청 글 작성하기</h1>
+        <br>
+        <form action="{%url 'rb_create' %}" method="POST">
+            {%csrf_token%}
+            <table class="type05">
+                    <tr>
+                        <th scope="row">제목을 입력하세요</th>
+                        <td><input type="text" name="title"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">지역 </th>
+                            <td><select name='region'>
+                                <option value='' selected>-- 선택 --</option>
+                                {%for i in regionM%}
+                                <option value='{{i}}'>{{i}}</option>
+                                 {%endfor%}
+                            </select>
+                             <br>
+                            </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">면적</th>
+                        <td><input type="number" name = 'land_area' required="required"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">기간</th>
+                            <td>
+                            <select name = 'sharing_term'>
+                                <option value='' selected>-- 선택 --</option>
+                                <option value='1일'>1일</option>
+                                <option value='일주일이내'>일주일이내</option>
+                                <option value='3년'>3년</option>
+                            </select><br>    
+                            </td>
+                            
+                    </tr>
+                    <tr>
+                        <th scope="row">목적</th>
+                        <td><input type="text" name="purpose" value=""></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">내용</th>
+                        <td><textarea name="body" cols="30" rows="10">
+                            </textarea></td>
+                    </tr>
+                </table>
+            <button type="submit" style="float:right">등록!</button>
+        </form>
+</div>
+
+
 
 {% endblock %}
