@@ -4,6 +4,8 @@ from accounts.models import Profile
 from django.core.paginator import Paginator
 from django.utils import timezone
 from landBoard.models import *
+from django.contrib import messages
+
 # Create your views here.
 
 #팀 모집 게시판 함수들
@@ -35,7 +37,7 @@ def join_detail(request, join_id):
     right = False
     me = request.user
     if me.is_authenticated:
-        if me.id != join_detail.writer.id:
+        if me.id == join_detail.writer.id:
             rigtht = True
         else:
             pass
@@ -55,7 +57,8 @@ def join_create(request, user_id):
     join.region = request.POST['region1']+request.POST['region2']
     join.region_filter = request.POST['region1']
     join.joined_people = request.POST['joined_people']
-    join.active_period = request.POST['active_period']
+    join.active_period_start = request.POST['active_period1']
+    join.active_period_end = request.POST['active_period2']
     join.purpose = request.POST['purpose']
     join.body = request.POST['body']
     join.pub_date=timezone.datetime.now()
@@ -134,7 +137,16 @@ def review(request,arrange):
                     
     paginator = Paginator(review_list, 3)
     reviews = paginator.get_page(page)
-    return render(request, 'review.html',{'reviews':reviews})
+    me =  request.user
+    requests = Land_request.objects.filter ( client = me)   
+    create_right = False  
+    for one_request in requests:   
+       if one_request.is_completed == True:
+           create_right = True
+           return render(request, 'review.html',{'reviews':reviews,'right':create_right})
+       else:
+           pass
+    return render(request, 'review.html',{'reviews':reviews,'right':create_right})
 
 
 def review_detail(request, review_id):
@@ -159,13 +171,7 @@ def review_detail(request, review_id):
 
 def review_new(request, user_id):
     me =  Profile.objects.get(id = user_id)
-    requests = Land_request.objects.filter ( client = me)     
-    for one_request in requests:   
-       if one_request.is_completed == True:
-           return render(request, 'review_new.html', {'myuser':me})
-       else:
-           pass
-    return redirect('/otherBoard/review/recent')
+    return render(request, 'review_new.html', {'myuser':me})
 
 def review_create(request, user_id):
     review = Review()

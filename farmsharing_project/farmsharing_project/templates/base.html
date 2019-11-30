@@ -183,6 +183,12 @@ position:relative;
 min-height:100%;
 }
 
+.foot {
+bottom:0;
+width:100%;
+height:70px;   
+}
+
 
 .fhr{ 
   position: fixed;
@@ -332,18 +338,18 @@ label {
                   <li class="an_item">
                       <a  href="{% url 'requestboard' %}">땅 요구 게시판</a>
                   </li>
-                <li class="an_item">
-                    <a href="{% url 'review' 'recent'%}" >농사일지</a>
-                </li>
-                <li class="an_item">
-                    <a href="{% url 'join' %}" >팀원모집</a>
-                </li>
-                <li class="an_item">
-                    <a href="{%url 'dealboard_list'%}"><p>수확물 쇼핑몰</p></a>
-                </li>
-                <li class="an_item">
-                  <a href="{%url 'questionboard_list'%}"><p>전문가 질문하기</p></a>
-                </li>
+                  <li class="an_item">
+                      <a href="{% url 'review' 'recent'%}" >농사일지</a>
+                  </li>
+                  <li class="an_item">
+                      <a href="{% url 'join' %}" >팀원모집</a>
+                  </li>
+                  <li class="an_item">
+                      <a href="{%url 'dealboard_list'%}"><p>수확물 쇼핑몰</p></a>
+                  </li>
+                  <li class="an_item">
+                    <a href="{%url 'questionboard_list'%}"><p>전문가 질문하기</p></a>
+                  </li>
               </ul>
             </div>
           </div>
