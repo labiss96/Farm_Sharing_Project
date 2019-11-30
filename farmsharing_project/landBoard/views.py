@@ -86,7 +86,8 @@ def SharingBoardCreate(request):
     new_sb = SharingBoard() 
     new_sb.title = request.POST['title']
     new_sb.region = land.region
-    new_sb.sharing_term = request.POST['sharing_term']
+    new_sb.sharing_term_start = request.POST['sharing_term1']
+    new_sb.sharing_term_end = request.POST['sharing_term2']
     new_sb.is_free = request.POST['is_free']
     new_sb.amount_period = request.POST['amount_period']
     new_sb.amount = request.POST['amount']
@@ -112,7 +113,8 @@ def SharingBoardUpdate(request,sb_id):
     update_sb = SharingBoard.objects.get(pk=sb_id) 
     update_sb.title = request.POST['title']
     update_sb.region = land.region
-    update_sb.sharing_term = request.POST['sharing_term']
+    update_sb.sharing_term_start = request.POST['sharing_term1']
+    update_sb.sharing_term_end = request.POST['sharing_term2']
     update_sb.is_free = request.POST['is_free']
     update_sb.amount_period = request.POST['amount_period']
 
