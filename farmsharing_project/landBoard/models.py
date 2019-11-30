@@ -28,6 +28,7 @@ class SharingBoard(LandBoard):
     land_img = DefaultStaticImageField(upload_to='land_img/', blank=True, default_image_path='images/default_land_img.png')
     writer = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='profile_sb') #작성자 - 땅게시판 (1:N) 관계설정.
     is_free = models.BooleanField(default=True)  #무료여부
+    amount_period = models.CharField(max_length=30) #지불 기간 (연당, 월당, 일당)
     amount = models.IntegerField(null=True, blank=True) #금액
     choice_land = models.ForeignKey(Land, on_delete=models.CASCADE)
     
@@ -35,6 +36,7 @@ class SharingBoard(LandBoard):
 class RequestBoard(LandBoard): 
     purpose = models.CharField(max_length=100) #사용 목적
     is_pay_for = models.BooleanField(default=False)  # 비용지불 의사 여부
+    land_area = models.FloatField(default=0.0) #면적
     writer = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='profile_rb') #작성자 - 땅게시판 (1:N) 관계설정.
 
 

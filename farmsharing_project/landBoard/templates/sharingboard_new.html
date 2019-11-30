@@ -4,79 +4,87 @@
                
 {% load static %}
 {% load staticfiles %}
+
 <div class="container">
 
-    <h1>땅 공유!</h1>
+    <h2 id="title">땅 공유!</h2>
 
     <form action="{%url 'sb_create' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <hr>
-        어떤 땅을 공유하시겠어요? <br> <br>
+        공유할 땅을 선택해주세요 <br>
         <div class="row">
-                {%for land in user_lands%}
+            {%for land in user_lands%}
                 <div class="col-md-4 col-lg-4 col-sm-4">
-                        <label>
-                          <input type="radio" name="choice_land" class="card-input-element" value="{{land.id}}"/>
-                            <div class="card border-success card-input" style="height: 10rem;">    
-                              <div class="card-header" style="text-align: center;">{{land.region}}</div>
-                              <div class="card-body">
-                                    <h5 class="card-title text-success " >{{land.land_area}} m<sup>2</sup></h5>
-                                    
-                                    <p class="card-text text-secondary "> PostCode [{{land.postcode}}] <br> {{land.roadAddress}}</p>
-                              </div>
-                            </div>                
-                        </label>
-                      </div>
-                {% endfor %}
+                    <label>
+                        <input type="radio" name="choice_land" class="card-input-element" value="{{land.id}}" required="required"/>
+                        <div class="card border-success card-input" style="height: 10rem;">    
+                            <div class="card-header" style="text-align: center;">{{land.region}}</div>
+                            <div class="card-body">
+                                <h5 class="card-title text-success " >{{land.land_area}} m<sup>2</sup></h5>    
+                                <p class="card-text text-secondary "> PostCode [{{land.postcode}}] <br> {{land.roadAddress}}</p>
+                            </div>
+                        </div>                
+                    </label>
+                </div>
+            {% endfor %}
         </div>
         <hr>
-        
-
-        <br>
-        
-        제목 : <input type="text" name = 'title' required="required"><br>
-        면적 : <input type="number" name = 'land_area' required="required">m<sup>2</sup><br>
-        기간 : <select name = 'sharing_term' required="required">
-                    <option value='' selected>-- 선택 --</option>
-                    <option value='1일'>1일</option>
-                    <option value='일주일이내'>일주일이내</option>
-                    <option value='3년'>3년</option>
-                </select><br>
-        금액여부
-        <input type="radio" id="amount_select" name="is_free" value=0 onchange="setAmount()">유료
-        <input type="radio" id="free_select" name="is_free" value=1 onchange="setAmount()">무료
-        <br>
-        <div id='amount_form'>
-            비용 : <input type="number" name='amount' value=0 required="required"><br>
-        </div>
-        본문 : <textarea name="content" cols="30" rows="10" placeholder="글을 작성해주세요" required="required"></textarea><br>
-        이미지 : <input style="text-align: center;" type="file" name="land_img" accept=".jpg,.jpeg,.png,.gif">
-            <br>
+        <table class="type05">
+            <tr>
+                <th scope="row">제목</th>
+                <td>
+                    <input type="text" name = 'title' required="required">
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">기간</th>
+                <td>
+                    <select name = 'sharing_term' required="required">
+                        <option value='' selected>-- 선택 --</option>
+                        <option value='1일'>1일</option>
+                        <option value='일주일이내'>일주일이내</option>
+                        <option value='3년'>3년</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">금액여부</th>
+                <td>
+                    <input type="radio" id="amount_select" name="is_free" value=0 onchange="setAmount()">유료
+                    <input type="radio" id="free_select" name="is_free" value=1 onchange="setAmount()">무료            
+                </td>
+            </tr>
+            <tr id = 'amount_form'>
+                <th scope="row">비용</th>
+                <td>
+                    <select name='amount_period'>
+                        <option value='' selected>지불기간 선택</option>
+                        <option value='one_off'>일시불</option>
+                        <option value='year'>연 당</option>
+                        <option value='month'>월 당</option>
+                        <option value='day'>일 당</option>
+                    </select>
+                    <input type="number" name='amount' value=0 required="required">
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">본문</th>
+                <td>
+                    <textarea name="content" cols="30" rows="10" placeholder="글을 작성해주세요" required="required"></textarea><br>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">이미지</th>
+                <td>
+                    <input style="text-align: center;" type="file" name="land_img" accept=".jpg,.jpeg,.png,.gif">
+                </td>
+            </tr>
+        </table>
         <button type="submit">작성하기</button>
     </form>
 
 </div>
-<style>
-label {
-    width: 100%;
-}
-
-.card-input-element {
-    display: none;
-}
-
-.card-input {
-    margin: 10px;
-    padding: 00px;
-}
-
-.card-input:hover {
-    cursor: pointer;
-}
-
-.card-input-element:checked + .card-input {
-     box-shadow: 0 0 1px 1px #2ecc71;
- }
-</style>
 
 {% endblock %}
+
