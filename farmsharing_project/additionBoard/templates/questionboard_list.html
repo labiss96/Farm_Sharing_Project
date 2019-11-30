@@ -31,20 +31,23 @@
         </li>
       </ul>
   {% endfor %}
-   <!-- 페이지네이터 -->
-   {% if questionboards.has_previous%}
-   <a href="?page={{questionboards.1}}">첫페이지</a>
-   <a href="?page={{questionboards.previous_page_number}}">이전 페이지</a>
-   {% endif %}
+  <div class="page_style">
+      <!-- 페이지네이터 -->
+    {% if questionboards.has_previous%}
+    <a href="?page={{questionboards.1}}">첫페이지</a>
+    <a href="?page={{questionboards.previous_page_number}}">이전 페이지</a>
+    {% endif %}
 
-   <span>{{questionboards.number}}</span>
-   <span>of</span>
-   <span>{{questionboards.paginator.num_pages}}</span>
+    <span>{{questionboards.number}}</span>
+    <span>of</span>
+    <span>{{questionboards.paginator.num_pages}}</span>
 
-   {% if questionboards.has_next%}
-   <a href="?page={{questionboards.next_page_number}}">다음페이지</a>
-   <a href="?page={{questionboards.paginaitor.num_pages}}">마지막 페이지</a>
-   {% endif %}
+    {% if questionboards.has_next%}
+    <a href="?page={{questionboards.next_page_number}}">다음페이지</a>
+    <a href="?page={{questionboards.paginaitor.num_pages}}">마지막 페이지</a>
+    {% endif %}
+  </div>
+   
 </div>
 </div>
 {% endblock %}

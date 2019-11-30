@@ -21,11 +21,11 @@
 }
 </style>
 
-<div class="container" style="text-align: left;">
+<div class="container" >
         <h4>땅 등록 게시판</h4><br>
 
     <div style="text-align:center;">
-        <div style="border:3px solid white; padding:10px; border-radius: 10px; background-color:#D0F5A9;"><br>
+        <div style="border:3px solid white; border-radius: 10px; background-color:#D0F5A9; text-align: center;"><br>
             <form action="{% url 'sharing_filter' %}" method="POST">
                 {% csrf_token %}
                 <select name="region" style="width:100px;height:40px; border-radius: 5px;">
@@ -39,16 +39,16 @@
                     <option value=1>무료</option>
                     <option value=0>유료</option>
                 </select>
-                <br>
-                <div class="input-group">
-                        <select name="search_mode" style="width:100px;height:40px; border-radius: 5px;" >
-                            <option value="title">제목</option>
-                            <option value="contents">내용</option>
-                            <option value="writer">작성자</option>
-                        </select>
-                        <input type="text" name="search_data" class="form-control">
-                      </div>
-                <button type="submit" class="btf">Search!</button>
+                <div class="input-group" style="width: 90%; margin: 2%; padding-left:10%; " >
+                    <select name="search_mode" style="width:100px;height:40px; border-radius: 5px; margin-right: 2%;" >
+                        <option value="title">제목</option>
+                        <option value="contents">내용</option>
+                        <option value="writer">작성자</option>
+                    </select>
+                    <input type="text" name="search_data" class="form-control" style="border-radius: 5px;">
+                    <button type="submit" class="btn btn-success" style="margin-left: 1%;">Search!</button>
+                </div>
+                
         </form>
     </div>
     
@@ -64,7 +64,7 @@
         <div class= "row">
             {% for sb in sharingboards2 %}
             <a href="{% url 'sb_detail' sb.id %}">
-                <div class="col-4" style="padding:15px">
+                <div class="col-4" style="padding:10px; text-align: center;">
                     <div class="card" style="width: 18rem; height: 18rem;">
                         <img src="{{sb.land_img.url}}" class="card-img-top" alt="...">
                         <div class="card-body">
