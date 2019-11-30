@@ -4,6 +4,8 @@ from accounts.models import Profile
 from django.core.paginator import Paginator
 from django.utils import timezone
 from landBoard.models import *
+from django.contrib import messages
+
 # Create your views here.
 
 #팀 모집 게시판 함수들
@@ -134,7 +136,16 @@ def review(request,arrange):
                     
     paginator = Paginator(review_list, 3)
     reviews = paginator.get_page(page)
-    return render(request, 'review.html',{'reviews':reviews})
+    me =  request.user
+    requests = Land_request.objects.filter ( client = me)   
+    create_right = False  
+    for one_request in requests:   
+       if one_request.is_completed == True:
+           create_right = True
+           return render(request, 'review.html',{'reviews':reviews,'right':create_right})
+       else:
+           pass
+    return render(request, 'review.html',{'reviews':reviews,'right':create_right})
 
 
 def review_detail(request, review_id):
@@ -159,13 +170,7 @@ def review_detail(request, review_id):
 
 def review_new(request, user_id):
     me =  Profile.objects.get(id = user_id)
-    requests = Land_request.objects.filter ( client = me)     
-    for one_request in requests:   
-       if one_request.is_completed == True:
-           return render(request, 'review_new.html', {'myuser':me})
-       else:
-           pass
-    return redirect('/otherBoard/review/recent')
+    return render(request, 'review_new.html', {'myuser':me})
 
 def review_create(request, user_id):
     review = Review()
