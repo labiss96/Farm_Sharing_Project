@@ -29,6 +29,7 @@
         }
       }
 
+
       function execPostCode() {
          new daum.Postcode({
              oncomplete: function(data) {
@@ -66,13 +67,12 @@
                 /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
                 document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
                 document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress; */
-
             }
          }).open();
      }
     </script>
-  
 </head>
+
 <style>
   @font-face {
     font-family: 'RIDIBatang';
@@ -80,16 +80,18 @@
     font-weight: normal;
     font-style: normal;
   }
+  @font-face { 
+    font-family: 'TmonMonsori'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/TmonMonsori.woff') format('woff'); font-weight: normal; font-style: normal; 
+  }
 
-
-
-
+  .ddd { 
+    font-family: 'TmonMonsori';
+  }
 
   .area_navigation .an_item {
     font-family: 'RIDIBatang';
     float: left;
     padding-left: 70px;
-
   }
 
   .section_navbar {
@@ -124,7 +126,6 @@
 
 
 .area_navigation .an_l {
-  
   float: left;
   padding-top: 16px;
   padding-left: 4px;
@@ -134,31 +135,29 @@ ul {
   list-style: none;
 }
 
-#amount_form {
+.f-left {
   display: none;
 }
 
-
-.f-left {
-    display: none;
-}
-
 .footer .f-right {
-    float: right;
-    color: #aaa;
-    font-size: 16.5px;
-    line-height: 1.5;
-    text-align: right;
-    top: -10px;
+  float: right;
+  color: #aaa;
+  font-size: 16.5px;
+  line-height: 1.5;
+  text-align: right;
+  top: -10px;
 }
 
 .footer {
-    padding: 8%;
+  font-family: 'Noto Sans KR', sans-serif;
 }
-.footer {
-    padding: 5% 12%;
-    font-family: 'Noto Sans KR', sans-serif;
+
+.foot {
+bottom:0;
+width:100%;
+height:70px;   
 }
+
 
 
 li{
@@ -166,81 +165,121 @@ li{
    }
    @font-face { font-family: 'LotteMartDream'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff') format('woff'); } @font-face { font-family: 'LotteMartDream'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff') format('woff'); } @font-face { font-family: 'LotteMartDream'; font-style: normal; font-weight: 300; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff'); } .lottemartdream * { font-family: 'LotteMartDream', sans-serif; }
 
-  .b {
-    font-family: 'LotteMartDream';
+.b {
+  font-family: 'LotteMartDream';
 
-  }
+}
 
 .c{
   font-size:15px;
-
 }
 
 .d{
   font-size:10px;
-
 }
 
 .wra {
-
 position:relative;
-
-  min-height:100%;
-
-}
-.foot {
-
-position:absolute;
-
-bottom:0;
-
-width:100%;
-
-height:70px;   
-
-
-
-
+min-height:100%;
 }
 
-.fhr{ position: fixed; left: 1%; width: 98%; }
+
+.fhr{ 
+  position: fixed;
+  left: 1%;
+  width: 98%;
+}
 
 #postcode, #roadAddress, #detailAddress #land_area, #land_condition{
   margin: 0.5rem 0.5rem 0.5rem 0.5rem;
 }
 
+table.type_comment {
+  border-collapse: separate;
+  border-spacing: 1px;
+  text-align: left;
+  line-height: 1.5;
+  border-top: 1px solid #ccc;
+  margin: 20px 10px;
+  width:100%;  
+}
+table.type_comment th {
+  width: 150px;
+  padding: 10px;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  background: rgb(255, 255, 255);
+  text-align: center;
+}
+table.type_comment td {
+  width: 350px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
 
 table.type05 {
-    border-collapse: separate;
-    border-spacing: 1px;
-    text-align: left;
-    line-height: 1.5;
-    border-top: 1px solid #ccc;
-    margin: 20px 10px;
-    width:100%;
+  border-collapse: separate;
+  border-spacing: 1px;
+  text-align: left;
+  line-height: 1.5;
+  border-top: 1px solid #ccc;
+  margin: 20px 10px;
+  width:100%;
 }
+
 table.type05 th {
-    width: 150px;
-    padding: 10px;
-    font-weight: bold;
-    border-bottom: 1px solid #ccc;
-    background: rgb(229, 248, 205);
-    text-align: center;
+  width: 150px;
+  padding: 10px;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  background: rgb(229, 248, 205);
+  text-align: center;
 }
 table.type05 td {
-    width: 350px;
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
+  width: 350px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
 }
 #title{
-    border-style: solid;
-    border-top-color:rgb(229, 248, 205);
-    border-bottom-color: rgb(229, 248, 205);
-    border-left-style: none;
-    border-right-style: none;
-    padding: 18px;
-    border-width: 2px;
+  border-style: solid;
+  border-top-color:rgb(229, 248, 205);
+  border-bottom-color: rgb(229, 248, 205);
+  border-left-style: none;
+  border-right-style: none;
+  padding: 18px;
+  border-width: 2px;
 }
+/* sharing board 수정,삭제 버튼 */
+.edit_btn {
+  text-align: right;
+}
+.edit_btn a{
+  padding-left: 2%;
+}
+
+/* Sharing board 땅정보 카드. */
+
+label {
+    width: 100%;
+}
+
+.card-input-element {
+    display: none;
+}
+
+.card-input {
+    margin: 10px;
+    padding: 00px;
+}
+
+.card-input:hover {
+    cursor: pointer;
+}
+    
+.card-input-element:checked + .card-input {
+    box-shadow: 0 0 1px 1px #ff5959;
+} 
+        /* #2ecc71; */
 
 </style>
 
@@ -248,7 +287,7 @@ table.type05 td {
     <div class="wra">
       <nav class="navbar navbar-expand-md navbar-dark ">
           <div class="container">
-              <a class="navbar-brand" href="/" style="color:black"><img src="{% static "images/logo.png" %}" style="height: 65px; padding-left:0px; margin-left: 0px;"></a>
+              <a class="navbar-brand" href="/" style="color:black"><img src="{% static 'images/logo.png' %}" style="height: 65px; padding-left:0px; margin-left: 0px;"></a>
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item cta-btn">
                     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="z-index: 1; ">
@@ -279,76 +318,56 @@ table.type05 td {
                       </div>
                 </li>
               </ul>
-              
             </div>
           </div>
         </nav>
           
           <div class="section_navbar">
-              <div class="area_navigation" role="navigation">
-                <ul class="an_l">
-                  <li class="an_item a">
-                          <li class="an_item">
-                              <a href="{% url 'sharingboard' %}">땅 등록 게시판</a>            
-                          </li>
-                          <li class="an_item">
-                              <a  href="{% url 'requestboard' %}">땅 요구 게시판</a>
-                          </li>
+            <div class="area_navigation" role="navigation">
+              <ul class="an_l">
+                <li class="an_item a">
                   <li class="an_item">
-                      <a href="{% url 'review' 'recent'%}" >농사일지</a>
-                  
-                    </a>
+                      <a href="{% url 'sharingboard' %}">땅 등록 게시판</a>            
                   </li>
                   <li class="an_item">
-                      <a href="{% url 'join' %}" >팀원모집</a>
-                    </a>
+                      <a  href="{% url 'requestboard' %}">땅 요구 게시판</a>
                   </li>
-                  <li class="an_item">
-                      <a href="{%url 'dealboard_list'%}"><p>수확물 쇼핑몰</p></a>
-                    </a>
-                          </li>
-                          <li class="an_item">
-                      <a href="{%url 'questionboard_list'%}"><p>전문가 질문하기</p></a>
-                    </a>
-                  </li>
-                  
-                </ul>
-                  </div>
-              </div>
-
-            
-              {% block content %}
-              {% endblock %}
-
-
-
-
-
-
-      <footer class="foot">
+                <li class="an_item">
+                    <a href="{% url 'review' 'recent'%}" >농사일지</a>
+                </li>
+                <li class="an_item">
+                    <a href="{% url 'join' %}" >팀원모집</a>
+                </li>
+                <li class="an_item">
+                    <a href="{%url 'dealboard_list'%}"><p>수확물 쇼핑몰</p></a>
+                </li>
+                <li class="an_item">
+                  <a href="{%url 'questionboard_list'%}"><p>전문가 질문하기</p></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+    
+        {% block content %}
+        {% endblock %}
         <hr>
-        <div class="contaniner" style="margin-top:0px; margin-left:300px; margin-right:300px; padding-top:10px;">
-            <div class="row" >
-                <div class="col-3 b" >
-                    <img src="{% static "images/kook.png" %}" style="height: 60px; padding-left:0px; margin-left: 0px; float:left;">
-                   
-                  
-                  <p style="padding-top:20px; font-size: 13px;">Kookmin Univ.& Like lion</p>
-                </div>
-                <div class="col-6 b"></div>
-                <div class="col-3 b">
-                  <p class="c">creators</p>
-                  <p class="d">jongmin, junghyun, jungwoo,seoungwon, jeongyeon</p>
-                  
-                
-                </div>
-              </div>
-
-        </div>
-    </div>
-          
-
-
+    <footer class="foot">
+      <div class="contaniner" style="margin-top:0px; margin-left:300px; margin-right:300px; padding-top:10px;">
+          <div class="row" >  
+            <div class="col-3 b" >
+              <img src="{% static 'images/kook.png' %}" style="height: 60px; padding-left:0px; margin-left: 0px; float:left;">
+              <p style="padding-top:20px; font-size: 13px;">Kookmin Univ /  LikeLion</p>
+            </div>
+            <div class="col-6 b"></div>
+            <div class="col-3 b">
+              <p class="c">creators</p>
+              <p class="d">jongmin, junghyun, jungwoo,seoungwon, jeongyeon</p>
+            </div>
+          </div>
+      </div>
+    </footer>
 </body>
+
+
 
 </html>

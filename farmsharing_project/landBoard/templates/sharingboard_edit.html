@@ -1,32 +1,137 @@
-<h1>글 수정</h1>
-<form action="{%url 'sb_update' sb.id %}" method="POST">
-    {% csrf_token %}
-    제목 : <input type="text" name = 'title' value="{{sb.title}}"><br>
-    지역 : <select name='region'>
-                <option value='{{sb.region}}' selected>{{sb.region}}</option>
-                {%for i in regionM%}
-                <option value='{{i}}'>{{i}}</option>
-                {%endfor%}
-            </select><br>       
-    면적 : <input type="text" name = 'land_area' value="{{sb.land_area}}"><br>
-    기간 : <select name = 'sharing_term'>
-                <option value='{{sb.sharing_term}}' selected>{{sb.sharing_term}}</option>
-                <option value='1일'>1일</option>
-                <option value='일주일이내'>일주일이내</option>
-                <option value='3년'>3년</option>
-            </select><br>
-    금전지불의사 : <select name="is_free">
-                        <option value='{{sb.is_free}}' selected>--선택--</option>
-                        <option value='지불의사있음'>지불의사있음</option>
-                        <option value='지불의사없음'>지불의사없음</option>
-                    </select><br>
-    비용 : <input type="text" name = 'amount' value="{{sb.amount}}"><br>
-    본문 : <textarea name="content" cols="30" rows="10" placeholder="글을 작성해주세요">{{sb.content}}</textarea><br>
-    진행상태 : <select name="recruitment_status">선택
-                    <option value='{{sb.recruitment_status}}' selected>{{sb.recruitment_status}}</option>
-                    <option value='신청중'>신청중</option>
-                    <option value='신청완료'>신청완료</option>
-                </select><br>
-    이미지 : <input type="text" name="land_img" value="{{sb.land_img}}">
-    <button type="submit">수정하기</button>
-</form>
+{% extends 'base.html' %}
+{% block content %}
+               
+{% load static %}
+{% load staticfiles %}
+
+<div class="container">
+    <h2 id="title">땅 공유글 수정</h2>
+    <form action="{%url 'sb_update' sb.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <hr>
+        공유할 땅을 선택해주세요 <br>
+        <div class="row">
+            <div class="col-md-4 col-lg-4 col-sm-4">
+                <label>
+                    <input type="radio" name="choice_land" class="card-input-element" value="{{sb.choice_land.id}}" required="required" checked="checked"/>
+                    <div class="card border-success card-input" style="height: 10rem;">    
+                        <div class="card-header" style="text-align: center;">{{sb.choice_land.region}}</div>
+                        <div class="card-body">                                
+                            <h5 class="card-title text-success " >{{sb.choice_land.land_area}} m<sup>2</sup></h5>    
+                            <p class="card-text text-secondary "> PostCode [{{sb.choice_land.postcode}}] <br> {{sb.choice_land.roadAddress}}</p>
+                        </div>
+                    </div>                
+                </label>
+            </div>
+            {%for land in user_lands%}
+                {% if land.id != sb.choice_land.id%}
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <label>
+                            <input type="radio" name="choice_land" class="card-input-element" value="{{land.id}}" required="required"/>
+                            <div class="card border-success card-input" style="height: 10rem;">    
+                                <div class="card-header" style="text-align: center;">{{land.region}}</div>
+                                <div class="card-body">
+                                    <h5 class="card-title text-success " >{{land.land_area}} m<sup>2</sup></h5>    
+                                    <p class="card-text text-secondary "> PostCode [{{land.postcode}}] <br> {{land.roadAddress}}</p>
+                                </div>
+                            </div>                
+                        </label>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <hr>
+        <table class="type05">
+            <tr>
+                <th scope="row">제목</th>
+                <td>
+                    <input type="text" name = 'title' value="{{sb.title}}" required="required">
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">기간</th>
+                <td>
+                    <select name = 'sharing_term' required="required">
+                        <option value='' selected>-- 선택 --</option>
+                        <option value='1일'>1일</option>
+                        <option value='일주일이내'>일주일이내</option>
+                        <option value='3년'>3년</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">금액여부</th>
+                <td> 
+                    {% if sb.is_free == True %}
+                        <input type="radio" id="amount_select" name="is_free" value=0 onchange="setAmount()">유료
+                        <input type="radio" id="free_select" name="is_free" value=1 onchange="setAmount()" checked="checked">무료
+                    {% else %}
+                        <input type="radio" id="amount_select" name="is_free" value=0 onchange="setAmount()" checked="checked">유료
+                        <input type="radio" id="free_select" name="is_free" value=1 onchange="setAmount()">무료
+                    {% endif %}
+                </td>
+            </tr>
+            {% if sb.is_free == True %}
+            <tr id = 'amount_form' style="display: none;">
+                <th scope="row">비용</th>
+                <td>
+                    <select name='amount_period'>
+                        <option value='' selected>지불기간 선택</option>
+                        <option value='one_off'>일시불</option>
+                        <option value='year'>연 당</option>
+                        <option value='month'>월 당</option>
+                        <option value='day'>일 당</option>
+                    </select>
+                    <input type="number" name='amount' value=0 required="required">
+                </td>
+            </tr>
+            {% else %}
+            <tr id = 'amount_form'>
+                <th scope="row">비용</th>
+                <td>
+                    <select name='amount_period'>
+                        {% if sb.amount_period == 'one_off' %}
+                            <option value='{{sb.amount_period}}' selected>일시불</option>
+                            <option value='year'>연 당</option>
+                            <option value='month'>월 당</option>
+                            <option value='day'>일 당</option>
+                        {% elif sb.amount_period == 'year' %}
+                            <option value='{{sb.amount_period}}' selected>연 당</option>
+                            <option value='one_off'>일시불</option>    
+                            <option value='month'>월 당</option>
+                            <option value='day'>일 당</option>
+                        {% elif sb.amount_period == 'month' %}
+                            <option value='{{sb.amount_period}}' selected>월 당</option>
+                            <option value='one_off'>일시불</option>
+                            <option value='year'>연 당</option>
+                            <option value='day'>일 당</option>
+                        {% elif sb.amount_period == 'day' %}
+                            <option value='{{sb.amount_period}}' selected>일 당</option>
+                            <option value='one_off'>일시불</option>
+                            <option value='year'>연 당</option>
+                            <option value='month'>월 당</option>
+                        {% endif %}
+                    </select>
+                    <input type="number" name='amount' value={{sb.amount}} required="required">
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th scope="row">본문</th>
+                <td>
+                    <textarea name="content" cols="30" rows="10" placeholder="글을 작성해주세요" required="required">{{sb.content}}</textarea><br>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">이미지</th>
+                <td>
+                    <input style="text-align: center;" type="file" name="land_img" value="{{sb.land_img}}" accept=".jpg,.jpeg,.png,.gif">
+                </td>
+            </tr>
+        </table>
+        <button type="submit">작성하기</button>
+    </form>
+
+</div>
+
+{% endblock %}
