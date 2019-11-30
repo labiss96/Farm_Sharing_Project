@@ -70,15 +70,13 @@
   {% endif %}
 {% endif %}
 {% if user.username == review.writer.username %}
-  <a href="{% url 'review_edit' review.id %}"> 수정하기 </a>
-  <br>
-  <a href="{% url 'review_delete' review.id %}"> 삭제하기 </a>
+  <a href="{% url 'review_edit' review.id %}"style="float:right"> 수정하기 </a>
+  <a href="{% url 'review_delete' review.id  %}"style="float:right"> 삭제하기 &nbsp;</a>
   <br>
 {% endif %}
-<a href="{%url 'review' 'recent'%}"style="float:right">농사일지 목록</a>
+<a href="{%url 'review' 'recent'%}"style="float:right"> 목록</a>
 <br>  
-<a href="{%url 'review' 'recent'%}">리스트 보기</a>
-<br>
+
     
   <!-- 댓글 시작 -->
   <br>

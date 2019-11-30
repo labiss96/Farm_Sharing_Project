@@ -29,7 +29,8 @@ def QuestionBoardCreate(request):
     new_qb = QuestionBoard()
     new_qb.title = request.POST['title']
     new_qb.body = request.POST['body']
-    new_qb.writer = request.user
+    user = request.user
+    new_qb.writer = get_object_or_404(Profile, username = user)
     new_qb.pub_date=timezone.datetime.now()
     new_qb.save()
     return redirect('questionboard_list')
@@ -113,7 +114,8 @@ def DealBoardCreate(request):
     new_db = DealBoard()
     new_db.title= request.POST['title']
     new_db.body = request.POST['body']
-    new_db.writer = request.user
+    user = request.user
+    new_db.writer = get_object_or_404(Profile, username = user)
     new_db.pub_date=timezone.datetime.now()
     new_db.prod_img = request.FILES.get('prod_img')
     new_db.save()
