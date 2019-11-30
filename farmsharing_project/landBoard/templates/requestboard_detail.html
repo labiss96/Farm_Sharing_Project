@@ -1,38 +1,77 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class ='container'>
-    <h1>제목 : {{rb.title}}</h1></a>
-    <h5>게시 날짜 : {{rb.pub_date}}</h5>
-    <h5>작성자 : {{rb.writer}}</h5>
-    <h5>지역 : {{rb.region}}</h5>
-    <h5>면적 : {{rb.land_area}}</h5>
-    <h5>기간 : {{rb.sharing_term}}</h5>
-    {% if rb.is_pay_for %}
-    <h5>비용 : 지불의사 o</h5>
-    {% else %}
-    <h5>비용 : 지불의사 x</h5>
-    {% endif %}
-    <h5>내용 : {{rb.content}}</h5>
-    <h5>사용목적 : {{rb.purpose}}</h5>
-    <br><br>
-    {% if user.username == rb.writer.username %}
-    <a href="{% url 'rb_edit' rb.id%}">수정하기</a>
-    <a href="{% url 'rb_delete' rb.id%}">삭제하기</a>
-    {% endif %}
 
-    {%for comment in comments.all%}
-    <div class ='container'>
+<div class="container">
+        
+        <h1 id="title">{{rb.title}}</h1>
+   
+        <table class="type05">
+           <tr>
+              <th scope="row">작성자</th>
+              <td>{{rb.writer}}</td>
+           </tr>
+           <tr>
+                <th scope="row">게시날짜</th>
+                <td>{{rb.pub_date}}</td>
+             </tr>
+           <tr>
+              <th scope="row">지역</th>
+              <td>{{rb.region}}</td>
+           </tr>
+           <tr>
+              <th scope="row">면적</th>
+              <td>{{rb.land_area}}</td>
+           </tr>
+           <tr>
+              <th scope="row">기간</th>
+              <td>{{rb.sharing_term}}</td>
+           </tr>
+           <tr>
+            <th scope="row">지불의사</th>
+                <td>{% if rb.is_pay_for %}
+                    비용 : 지불의사 o
+                    {% else %}
+                    비용 : 지불의사 x
+                    {% endif %}
+            </td>   
+           </tr>
+           <tr>
+              <th scope="row">내용</th>
+              <td>{{rb.content}}</textarea></td>
+           </tr>
+           <tr>
+              <th scope="row">사용목적</th>
+              <td>{{rb.purpose}}</td>
+           </tr>
+        </table>
+        
+        <hr>
+        {%for comment in comments.all%}
+        <div class ='container'>
             <p>작성자:{{comment.comment_writer}}</p>
             <p>땅정보:{{comment.land_writer.region}}</p>
             <p>땅 크기 : {{comment.land_writer.land_area}}</p>
             <p>내용:{{comment.comment_content}}</p>
         </div>
-    {% endfor %}
-    <hr>
-    {% if user.is_authenticated %}   <!-- 로그인 상태가 아니면 댓글 못씀-->
-    <form action="{% url 'RequestBoardCommentNew' rb.id%}" method = "POST">
+        <hr>
+        {% endfor %}
+        
+        {% if user.username == join.writer.username%}
+        <!-- 게시물 작성자가 아니면 수정 삭제 못함!-->
+        <a href="{% url 'rb_edit' rb.id%}"> 수정하기 </a>
+        <br>
+        <a href="{% url 'rb_delete' rb.id%}"> 삭제하기 </a>
+        <br>
+        <hr>
+        {% endif %}
+
+
+<!-- 이어서 -->
+        {% if user.is_authenticated %}   <!-- 로그인 상태가 아니면 댓글 못씀-->
+        <form action="{% url 'RequestBoardCommentNew' rb.id%}" method = "POST">
             {% csrf_token %}
             <div >
+                <h2>댓글</h2>
                 작성자:{{user.username}}
                 <br>
                 땅정보: <select name="l">
@@ -49,3 +88,13 @@
     {% endif %}
 </div>
 {% endblock %}
+        
+
+
+
+
+
+
+    
+
+    
