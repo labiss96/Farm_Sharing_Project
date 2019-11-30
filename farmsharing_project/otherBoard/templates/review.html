@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+<script>
+    function warn(){ alert('권한이 없습니다');} 
+</script>
 
 <style>
 </style>
@@ -10,9 +13,18 @@
                      <h1 class="display-4 font-italic">당신이 농사짓는 과정과 결과들을 보여주세요</h1>
                      <p class="lead my-3">땅 주인과 연결되고 농사를 짓고 <br>수확하는 모습까지 농사일지를 남겨보세요.</p>
                      {% if user.is_authenticated %}
-                     <p class="lead mb-0"><a href="{% url 'review_new' request.user.id%}"
-                                   class="text-white font-weight-bold">농사일지 등록하기</a></p>
+                     <div>
+                     {% if right  %}
+                     <p class="lead mb-0"><a href="{% url 'review_new' request.user.id %}"
+                                   class="text-white font-weight-bold" >농사일지 등록하기</a>
+                     {% else %}
+                     <p class="lead mb-0"><a href="{% url 'review' 'recent'%}"
+                            class="text-white font-weight-bold" onclick = "javascript:warn();""} >농사일지 등록하기</a>
                      {% endif %}
+                     </p>
+                     </div>
+                     {% endif %}
+              
               </div>
        </div>
 
