@@ -25,7 +25,7 @@ SECRET_KEY = '2m%=rfi5@x1mh$+40b)noxu-g9_y%m6^)ajll6(6ovdfv@h&g4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 AUTH_USER_MODEL ='accounts.Profile'
 
 # Application definition
@@ -61,7 +61,7 @@ ROOT_URLCONF = 'farmsharing_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['farmsharing_project/templates'],
+        'DIRS': [os.path.join(BASE_DIR,'farmsharing_project/templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
