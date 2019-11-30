@@ -13,7 +13,6 @@ class Region(models.Model):
 class LandBoard(PolymorphicModel):
     title = models.CharField(max_length=100) #제목
     region = models.CharField(max_length=100) #지역
-    land_area = models.FloatField() #면적
     sharing_term_start = models.CharField(max_length=100) #공유기간 시작
     sharing_term_end = models.CharField(max_length=100) #공유기간 끝
     content = models.TextField() #글 내용
