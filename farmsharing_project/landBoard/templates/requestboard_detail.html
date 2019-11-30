@@ -45,6 +45,14 @@
            </tr>
         </table>
         
+        {% if request.user.username == rb.writer.username%}
+        <!-- 게시물 작성자가 아니면 수정 삭제 못함!-->
+        <a href="{% url 'rb_edit' rb.id%}"> 수정하기 </a>
+        <a href="{% url 'rb_delete' rb.id%}"> 삭제하기 </a>
+        <br>
+        
+        {% endif %}
+
         <hr>
         {%for comment in comments.all%}
         <div class ='container'>
@@ -56,14 +64,7 @@
         <hr>
         {% endfor %}
         
-        {% if user.username == join.writer.username%}
-        <!-- 게시물 작성자가 아니면 수정 삭제 못함!-->
-        <a href="{% url 'rb_edit' rb.id%}"> 수정하기 </a>
-        <br>
-        <a href="{% url 'rb_delete' rb.id%}"> 삭제하기 </a>
-        <br>
-        <hr>
-        {% endif %}
+        
 
 
 <!-- 이어서 -->

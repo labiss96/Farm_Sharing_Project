@@ -32,13 +32,13 @@ td,tr{
 </style>
 
 <div class="container-fluid">
-    <table width="100%" style="text-align:center; border:none;">
+    <table width="100%" style="text-align:center; border:none; font-family: 'RIDIBatang';">
         <tr>
             <td style="background-color:#D0F5A9;width:280px; padding:20px">
                 <div class="container inc">
                     <br>
                     <h2> My Page </h2>
-                    <p><img style="width: 13.5rem; height: 18rem;" src="{{ mypage_info.profile_img.url }}"></p>
+                    <p><img style="width: 13.5rem; border-radius: 25%;" src="{{ mypage_info.profile_img.url }}"></p>
                     <p>Username : {{mypage_info.username}}</p>
                     <p>E-mail : {{mypage_info.email}}</p>
                     <p>SNS ID : {{mypage_info.sns_id}}</p>
@@ -111,9 +111,10 @@ td,tr{
                         <div class="card border-success md-3" style="width: 15rem; margin-top: 1%;">
                             <div class="card-header">{{land.region}}</div>
                             <div class="card-body text-success">
-                                <h5 class="card-title">{{land.address}}</h5>
+                                <h5 class="card-title">PostCode [{{land.postcode}}]</h5>
                                 <p class="card-text">
-                                    <p>면적 : {{land.land_area}} m<sup>2</sup></p>
+                                    <p>{{land.roadAddress}} / {{land.detailAddress}}</p>
+                                    <p>{{land.land_area}} m<sup>2</sup></p>
                                     <p>땅 상태 : {{land.land_condition}}</p>
                                     <a href="{% url 'land_edit' land.id %}">수정</a> /
                                     <a href="{% url 'land_delete' land.id %}">삭제</a>
