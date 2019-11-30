@@ -54,6 +54,8 @@ table.type05 td {
     {% if user.username == qb.writer.username %}
     <a href="{% url 'qb_delete' qb.id%}" style="float: right;">삭제하기</a>
     <a href="{% url 'qb_edit' qb.id%}" style="float: right;">수정하기&nbsp;&nbsp;</a>
+    <a href="{% url 'questionboard_list' %}" style="float: right;">목록&nbsp;&nbsp;</a>
+
     {% endif %}
     <br><br><br>
     <div id="title">

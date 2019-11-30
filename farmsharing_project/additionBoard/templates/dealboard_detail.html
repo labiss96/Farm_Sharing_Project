@@ -45,7 +45,7 @@
     <table class="type05">
             <tr>
                 <th scope="row">작성자</th>
-                <td>{{me}}</td>
+                <td>{{db.writer}}</td>
             </tr>
             <tr>
                 <th scope="row">상품 사진</th>
@@ -65,11 +65,13 @@
     {% endif %}
     {% endif %}
     {% endif %}
-    <p>{{like_count}}명이 좋아하는 리뷰입니다.</p>
-    {% if user.username == db.writer.usename %}
+    <p>{{like_count}}명이 좋아하는 상품입니다.</p>
+
+    {% if user.username == db.writer.username %}
     <a href="{%url 'db_delete' db.id%}" style="float: right;">삭제하기</a>
     <a href="{%url 'db_edit' db.id%}" style="float: right;">수정하기&nbsp;&nbsp;</a>
     {% endif %}
+    <a href="{%url 'dealboard_list' %}" style="float: right;">목록 &nbsp;&nbsp;</a>
     <br><br><br>
     <div id="title">
         {% if user.is_authenticated %}   <!-- 로그인 상태가 아니면 댓글 못씀-->

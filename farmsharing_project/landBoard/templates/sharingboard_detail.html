@@ -49,12 +49,15 @@
       </tr>
    </table>
 
-   {% if user.username == sb.writer.username %}
+  
    <div class="edit_btn">
+      {% if user.username == sb.writer.username %}
       <a href="{% url 'sb_edit' sb.id%}">수정하기</a>
       <a href="{% url 'sb_delete' sb.id%}">삭제하기</a>
+      {% endif %}
+      <a href="{% url 'sharingboard' %}">목록</a>
    </div>
-   {% endif %}
+
 
    
    
