@@ -120,10 +120,13 @@ td,tr{
                 <p>내가 신청한 땅들</p>
                 <hr>
                 {% for land in applied_lands %}
-                    <a href="{% url 'sb_detail' land.land.id %}">{{land.land.title}}</a>
-                    <br>
+                    {% if land.is_completed == False %}
+                    <a href="{% url 'sb_detail' land.land.id %}">{{land.land.title}}</a> 신청중
+                    {% else %}
+                    <a href="{% url 'sb_detail' land.land.id %}">{{land.land.title}}</a> 신청확정
+                    {% endif %}
                 {% endfor %}         
-
+                <br>
             </div>
                         
         </td>
