@@ -86,9 +86,9 @@ def SharingBoardCreate(request):
     new_sb = SharingBoard() 
     new_sb.title = request.POST['title']
     new_sb.region = land.region
-    new_sb.land_area = request.POST['land_area']
     new_sb.sharing_term = request.POST['sharing_term']
     new_sb.is_free = request.POST['is_free']
+    new_sb.amount_period = request.POST['amount_period']
     new_sb.amount = request.POST['amount']
     new_sb.content = request.POST['content']
     new_sb.land_img = request.FILES.get('land_img')
@@ -102,22 +102,27 @@ def SharingBoardCreate(request):
 def SharingBoardEdit(request,sb_id):
     regionM = Region.objects.all()
     edit_sb = SharingBoard.objects.get(pk=sb_id)
-    return render(request,'sharingboard_edit.html',{'sb':edit_sb , 'regionM': regionM})
+    user_lands = request.user.user_land.all()
+    return render(request,'sharingboard_edit.html',{'sb':edit_sb , 'regionM': regionM, "user_lands":user_lands})
 
 def SharingBoardUpdate(request,sb_id):
+    land_id = request.POST['choice_land']
+    land = Land.objects.get(id = land_id)
+
     update_sb = SharingBoard.objects.get(pk=sb_id) 
     update_sb.title = request.POST['title']
-    update_sb.region = request.POST['region']
-    update_sb.land_area = request.POST['land_area']
+    update_sb.region = land.region
     update_sb.sharing_term = request.POST['sharing_term']
     update_sb.is_free = request.POST['is_free']
+    update_sb.amount_period = request.POST['amount_period']
 
-    if(request.POST.get('is_free') == False):
+    if(request.POST['is_free'] == False):
         update_sb.amount = request.POST['amount']
     else:
         update_sb.amount = 0
 
     update_sb.content = request.POST['content']
+    update_sb.choice_land = land
     update_sb.land_img = request.POST['land_img']
     update_sb.save()
     return redirect('sharingboard')
@@ -217,7 +222,8 @@ def RequestBoardCreate(request):
     new_rb.title = request.POST['title']
     new_rb.region = request.POST['region']
     new_rb.land_area = request.POST['land_area']
-    new_rb.sharing_term = request.POST['sharing_term']
+    new_rb.sharing_term_start = request.POST['sharing_term1']
+    new_rb.sharing_term_end = request.POST['sharing_term2']
     new_rb.is_pay_for = request.POST['is_pay_for']
     new_rb.content = request.POST['content']
     new_rb.purpose = request.POST['purpose']
