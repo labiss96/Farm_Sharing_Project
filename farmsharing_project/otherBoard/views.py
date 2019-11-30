@@ -138,7 +138,9 @@ def review(request,arrange):
     paginator = Paginator(review_list, 3)
     reviews = paginator.get_page(page)
     me =  request.user
-    requests = Land_request.objects.filter ( client = me)   
+    requests = ""
+    if request.user.is_authenticated:
+        requests = Land_request.objects.filter ( client = me)   
     create_right = False  
     for one_request in requests:   
        if one_request.is_completed == True:
