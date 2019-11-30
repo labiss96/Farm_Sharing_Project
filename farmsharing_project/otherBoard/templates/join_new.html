@@ -44,11 +44,11 @@
             <table class="type05">
                     <tr>
                         <th scope="row">제목을 입력하세요</th>
-                        <td><input type="text" name="title"></td>
+                        <td><input type="text" name="title"required="required" ></td>
                     </tr>
                     <tr>
                             <th scope="row">지역</th>
-                            <td><select name="region1">
+                            <td><select name="region1" required="required">
                                     <option value="서울 특별시">서울 특별시</option>
                                     <option value="인천 광역시">인천 광역시</option>
                                     <option value="대구 광역시">대구 광역시</option>
@@ -67,23 +67,23 @@
                                     <option value="전라남도">전라남도</option>
                                     <option value="제주특별자치도">제주특별자치도</option>
                                 </select>
-                                <input type="text" name="region2" value=""></td>
+                                <input type="text" name="region2" value="" required="required"></td>
                         </tr>
                     <tr>
                         <th scope="row">모집인원</th>
-                        <td><input type="text" name="joined_people" value="" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" />명</td>
+                        <td><input type="text" name="joined_people" value="" required="required" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" />명</td>
                     </tr>
                     <tr>
                         <th scope="row">활동기간</th>
-                        <td><input type="text" name="active_period" value=""></td>
+                       <td><input type="date" name="active_period1" value="" required="required"> ~ <input type="date" name="active_period2" value="" required="required"></td>
                     </tr>
                     <tr>
                         <th scope="row">목적</th>
-                        <td><input type="text" name="purpose" value=""></td>
+                        <td><input type="text" name="purpose" value="" required="required"></td>
                     </tr>
                     <tr>
                         <th scope="row">내용</th>
-                        <td><textarea name="body" cols="30" rows="10">
+                        <td><textarea name="body" cols="30" rows="10" required="required">
                             </textarea></td>
                     </tr>
                 </table>

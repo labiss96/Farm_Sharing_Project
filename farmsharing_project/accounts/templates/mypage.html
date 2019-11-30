@@ -89,10 +89,15 @@ td,tr{
                     {%endfor%}
                     <hr style=" border-style:solid; border-color: #D0F5A9; border-width: 1px;">
                     <p>내가 신청한 땅들</p>
+                    <hr>
                     {% for land in applied_lands %}
-                    <a href="{% url 'sb_detail' land.land.id %}">-{{land.land.title}}</a>
-                    <br>
-                    {% endfor %}
+                    {% if land.is_completed == False %}
+                    <a href="{% url 'sb_detail' land.land.id %}">{{land.land.title}}</a> 상태 : 수락 대기중
+                    {% else %}
+                    <a href="{% url 'sb_detail' land.land.id %}">{{land.land.title}}</a> 상태 : 신청 확정
+                    {% endif %}
+                    {% endfor %}         
+                  <br>
                     <hr style=" border-style:solid; border-color: #D0F5A9; border-width: 1px;">
                     <a href="{% url 'Profile_scrap' %}">스크랩한 모집 글들</a>
                     <hr style=" border-style:solid; border-color: #D0F5A9; border-width: 1px;">
