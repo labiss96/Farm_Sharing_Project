@@ -13,7 +13,9 @@
         {% csrf_token %}
         <hr>
         공유할 땅을 선택해주세요 <br>
+        <span style="color: green; font-size: small;">땅이 없다면 먼저 본인의 땅을 등록해주세요</span>
         <div class="row">
+            
             {%for land in user_lands%}
                 <div class="col-md-4 col-lg-4 col-sm-4">
                     <label>

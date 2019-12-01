@@ -47,16 +47,6 @@
   
 
         <hr>
-        {%for comment in comments.all%}
-        <div class ='container'>
-            <p>작성자:{{comment.comment_writer}}</p>
-            <p>땅정보:{{comment.land_writer.region}}</p>
-            <p>땅 크기 : {{comment.land_writer.land_area}}</p>
-            <p>내용:{{comment.comment_content}}</p>
-        </div>
-        <hr>
-        {% endfor %}
-
         {% if user.username == join.writer.username%}
         <!-- 게시물 작성자가 아니면 수정 삭제 못함!-->
         <a href="{% url 'rb_edit' rb.id%}"> 수정하기 </a>
@@ -67,29 +57,63 @@
         <a href="{% url 'requestboard' %}"> 목록 </a>
         <hr>
       
+        <h5>Comment</h5>
+        <br>
+        {%for comment in comments.all%}   
+        <table>
+           <tr>
+              <th rowspan="3" style="padding: 10px;">
+                 <img src="{{ comment.comment_writer.profile_img.url }}" alt="" style="width: 35px; height: 35px; border-radius: 40%;"> <span style="padding: 8px; ">{{comment.comment_writer}}</span>
+              </th>               
+              <tr>
+                 <th>땅 정보</th>
+                 <td>
+                    {{comment.land_writer.land_area}}m<sup>2</sup> / 
+                    {{comment.land_writer.roadAddress}} /
+                    {{comment.land_writer.land_condition}}
+                 </td>
+                 
+              </tr>
+              <tr>
+                 <th>내용</th>
+                 <td>
+                    {{comment.comment_content}}
+                 </td>
+              </tr>
+           </tr>
+        </table>
+        
+     {% endfor %}
 
+   {% if user.is_authenticated %}   <!-- 로그인 상태가 아니면 댓글작성 불가-->
+      <form action="{% url 'RequestBoardCommentNew' rb.id%}" method = "POST">
+         {% csrf_token %}
+         <div>
+            <table class="type_comment">
+               <tr>
+                  <th scope="row">
+                     <img src="{{ request.user.profile_img.url }}" alt="" style="width: 35px; height: 35px; border-radius: 40%;"> 
+                     <span style="padding: 5%;">{{request.user.username}}</span>
+                  </th>
+                  <td>
+                     땅 정보 
+                     <select name="l" required="required">
+                           <option value='' selected>-- 땅선택 --</option>
+                           {% for i in land %}
+                                 <option value="{{i.id}}">{{i.region}} , {{i.land_area}} , {{i.land_condition}}</option>
+                           {%endfor%}
+                     </select>
+                     <textarea name="content" class="form-control" id="" cols="25" rows="1"></textarea>
+                  </td>
+                  <td><button type="submit">작성</button></td>
+               </tr>
+            </table>
+            
+            
+         </div>
+      </form>
+   {% endif %}
 
-
-<!-- 이어서 -->
-        {% if user.is_authenticated %}   <!-- 로그인 상태가 아니면 댓글 못씀-->
-        <form action="{% url 'RequestBoardCommentNew' rb.id%}" method = "POST">
-            {% csrf_token %}
-            <div >
-                <h2>댓글</h2>
-                작성자:{{user.username}}
-                <br>
-                땅정보: <select name="l">
-                    <option value='' selected>-- 땅선택 --</option>
-                    {% for i in land %}
-                            <option value="{{i.id}}">{{i.region}} , {{i.land_area}} , {{i.land_condition}}</option>
-                    {%endfor%}
-                </select>
-                내용:<textarea name="content" class="form-control" id="" cols="30" rows="5"></textarea>
-                <br>
-                <button type="submit">작성</button>
-            </div>
-    </form>
-    {% endif %}
 </div>
 {% endblock %}
         

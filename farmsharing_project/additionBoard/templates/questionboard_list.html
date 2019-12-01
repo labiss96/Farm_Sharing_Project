@@ -8,18 +8,7 @@
       <p><a class="btn btn-primary btn-lg" href="{% url 'qb_new' %}" role="button">질문 등록하기 &raquo;</a></p>
       {% endif %}
   </div>
-  <div class="card" style="width: 18rem;">
-    <img src="" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">박상혁 교수</h5>
-      <p class="card-text">
-        약력: 개쩔어<br>
-        대학교: 개쩔어<br>
-        활동: 여태까지 개쩔게 했어<br>
-      </p>
-    </div>
-  </div>
-  <br><br>
+  <br>
   <div class="boardlist" style="border-top-style:solid; border-top-color:rgb(179, 230, 124); padding-top: 15px;">
   {%for qb in questionboards%}
       <ul class="list_wrap" style="border-bottom-style: solid; border-bottom-color: rgb(229, 248, 205);">

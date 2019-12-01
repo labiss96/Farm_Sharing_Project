@@ -76,6 +76,7 @@ def SharingBoardNew(request):
     regionM = Region.objects.all()
     user = request.user
     user_lands = user.user_land.all()
+
     return render(request, 'sharingboard_new.html', {'regionM': regionM, 'user_lands':user_lands})
 
 def SharingBoardCreate(request):
